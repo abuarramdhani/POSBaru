@@ -25,9 +25,6 @@ class Auth extends CI_Controller
         // Call the Model constructor
         parent::__construct();
         $this->load->model('Auth_model');
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('url');
     }
 
     public function index()
@@ -52,10 +49,10 @@ class Auth extends CI_Controller
 
             if (empty($em)) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please enter your username!'));
-                redirect(base_url());
+                redirect(base_url().'index.php');
             } elseif (empty($ps)) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please enter your password!'));
-                redirect(base_url());
+                redirect(base_url().'index.php');
             } else {
                 $result = $this->Auth_model->verifyLogIn($data);
                 $user_id = $result[0]['id'];
@@ -71,7 +68,7 @@ class Auth extends CI_Controller
                 $this->input->set_cookie('out_id',$out_id,'3600'); 
                 $this->session->set_userdata($newdata);
                 if ($role_id == 3) {
-                   redirect('index.php/POS');
+                   redirect('index.php/pos');
                 }else{
                    redirect('index.php/dashboard');
                 }
@@ -88,7 +85,7 @@ class Auth extends CI_Controller
        delete_cookie('user_email'); 
        delete_cookie('role_id'); 
        delete_cookie('out_id');
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     // Function to get the client IP address

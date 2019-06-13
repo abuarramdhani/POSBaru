@@ -119,7 +119,7 @@ class Setting extends CI_Controller
         $pagination_limit = $paginationData[0]->pagination;
 
         $config = array();
-        $config['base_url'] = base_url().'setting/outlets/';
+        $config['base_url'] = base_url().'index.php/setting/outlets/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
@@ -350,7 +350,7 @@ class Setting extends CI_Controller
         $pagination_limit = $paginationData[0]->pagination;
 
         $config = array();
-        $config['base_url'] = base_url().'setting/users/';
+        $config['base_url'] = base_url().'index.php/setting/users/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
@@ -642,7 +642,7 @@ class Setting extends CI_Controller
         $pagination_limit = $paginationData[0]->pagination;
 
         $config = array();
-        $config['base_url'] = base_url().'setting/payment_methods/';
+        $config['base_url'] = base_url().'index.php/setting/payment_methods/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
@@ -865,7 +865,7 @@ class Setting extends CI_Controller
         $pagination_limit = $paginationData[0]->pagination;
 
         $config = array();
-        $config['base_url'] = base_url().'setting/suppliers/';
+        $config['base_url'] = base_url().'index.php/setting/suppliers/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';

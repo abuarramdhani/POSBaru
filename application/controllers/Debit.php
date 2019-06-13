@@ -196,7 +196,7 @@ class Debit extends CI_Controller
         }
 
         $config = array();
-        $config['base_url'] = base_url().'debit/view/';
+        $config['base_url'] = base_url().'index.php/debit/view/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';

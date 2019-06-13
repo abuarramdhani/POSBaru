@@ -92,10 +92,13 @@
             $grandTotal = $data->grandtotal;
             $created_datetime = date("$setting_dateformat H:i A", strtotime($data->created_datetime));
             $total_items = $data->total_items;
-
-            $outlet_name = '';
             $outletNameData = $this->Constant_model->getDataOneColumn('outlets', 'id', $outlet_id);
-            $outlet_name = $outletNameData[0]->name;
+            if (count($outletNameData) < 0) {
+            	$outlet_name = '';
+            }
+            else{
+             	$outlet_name = $outletNameData[0]->name;
+             }
 
             $customer_name = '';
             $customerData = $this->Constant_model->getDataOneColumn('customers', 'id', $cust_id);
@@ -103,7 +106,7 @@
 			<tr>
 				<td><?php echo $created_datetime; ?></td>
 				<td><?php echo $customer_name; ?></td>
-				<td><?php echo $outlet_name; ?></td>
+				<td><?php echo $outlet_name; ?> </td>
 				<td><?php echo $ref_number; ?></td>
 				<td><?php echo $total_items; ?></td>
 				<td><?php echo $subTotal; ?></td>

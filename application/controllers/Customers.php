@@ -428,7 +428,7 @@ class Customers extends CI_Controller
 
         if ($this->Constant_model->deleteData('customers', $cust_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Customer', "Successfully Deleted Customer : $cust_fn."));
-            redirect(base_url().'customers/view');
+            redirect(base_url().'index.php/customers/view');
         }
     }
 
@@ -444,14 +444,14 @@ class Customers extends CI_Controller
 
         if (empty($fullname)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add Customer', 'Please enter Customer Full Name!'));
-            redirect(base_url().'customers/addCustomer');
+            redirect(base_url().'index.php/customers/addCustomer');
         } else {
             if (!empty($email)) {
                 $ckEmailData = $this->Constant_model->getDataOneColumn('customers', 'email', $email);
 
                 if (count($ckEmailData) > 0) {
                     $this->session->set_flashdata('alert_msg', array('failure', 'Add Customer', "Email Address : $email is already existing in the system! Please try another email address!"));
-                    redirect(base_url().'customers/addCustomer');
+                    redirect(base_url().'index.php/customers/addCustomer');
                     die();
                 }
             }
@@ -465,7 +465,7 @@ class Customers extends CI_Controller
             );
             if ($this->Constant_model->insertData('customers', $ins_cust_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Add Customer', "Successfully Added Customer : $fullname"));
-                redirect(base_url().'customers/addCustomer');
+                redirect(base_url().'index.php/customers/addCustomer');
             }
         }
     }
@@ -488,7 +488,7 @@ class Customers extends CI_Controller
         $this->Constant_model->updateData('customers', $upd_data, $cust_id);
 
         $this->session->set_flashdata('alert_msg', array('success', 'Update Customer', 'Successfully Updated Customer Detail!'));
-        redirect(base_url().'customers/edit_customer?cust_id='.$cust_id);
+        redirect(base_url().'index.php/customers/edit_customer?cust_id='.$cust_id);
     }
 
     // ****************************** Action To Database -- END ****************************** //

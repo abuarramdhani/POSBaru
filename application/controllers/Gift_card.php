@@ -265,11 +265,11 @@ class Gift_card extends CI_Controller
 
             if ($this->Constant_model->deleteData('gift_card', $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Delete Gift Card', "Successfully Deleted Gift Card Number : $gift_numb"));
-                redirect(base_url().'gift_card/list_gift_card');
+                redirect(base_url().'index.php/gift_card/list_gift_card');
             }
         } else {
             $this->session->set_flashdata('alert_msg', array('failure', 'Delete Gift Card', 'Error on deleting Gift Card!'));
-            redirect(base_url().'gift_card/list_gift_card');
+            redirect(base_url().'index.php/gift_card/list_gift_card');
         }
     }
 
@@ -288,13 +288,13 @@ class Gift_card extends CI_Controller
 
         if (empty($card_numb)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add Gift Card', 'Please enter Gift Card!'));
-            redirect(base_url().'gift_card/add_gift_card');
+            redirect(base_url().'index.php/gift_card/add_gift_card');
         } elseif (empty($value)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add Gift Card', 'Please enter Gift Card Value!'));
-            redirect(base_url().'gift_card/add_gift_card');
+            redirect(base_url().'index.php/gift_card/add_gift_card');
         } elseif (empty($expiry_date)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add Gift Card', 'Please enter Gift Card Expiry!'));
-            redirect(base_url().'gift_card/add_gift_card');
+            redirect(base_url().'index.php/gift_card/add_gift_card');
         } else {
             $url_start = '';
 
@@ -395,11 +395,11 @@ class Gift_card extends CI_Controller
                  );
                 if ($this->Constant_model->insertData('gift_card', $ins_data)) {
                     $this->session->set_flashdata('alert_msg', array('success', 'Add Gift Card', "Successfully Added Gift Card Number : $card_numb"));
-                    redirect(base_url().'gift_card/list_gift_card');
+                    redirect(base_url().'index.php/gift_card/list_gift_card');
                 }
             } else {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Add Gift Card', "Gift Card Number $card_numb is already existing! Please try another Card Number!"));
-                redirect(base_url().'gift_card/add_gift_card');
+                redirect(base_url().'index.php/gift_card/add_gift_card');
             }
         }
     }

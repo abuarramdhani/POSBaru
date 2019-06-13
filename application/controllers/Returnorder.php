@@ -670,7 +670,7 @@ class Returnorder extends CI_Controller
             // Return Items -- END;
 
              $this->session->set_flashdata('alert_msg', array('success', 'Return Order', 'Successfully Created Return Order.'));
-            redirect(base_url().'returnorder/confirmation?return_id='.$order_id);
+            redirect(base_url().'index.php/returnorder/confirmation?return_id='.$order_id);
         }
     }
 

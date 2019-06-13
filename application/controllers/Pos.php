@@ -308,7 +308,7 @@ class Pos extends CI_Controller
                 ?>
 				<script type="text/javascript">
 					alert("Product Code : <?php echo $pop_pcode; ?>is already existing in the system! Please try another one");
-					window.location.href = "<?=base_url()?>pos";
+					window.location.href = "<?=base_url()?>index.php/pos";
 				</script>
 		<?php
 

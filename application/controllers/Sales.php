@@ -353,7 +353,7 @@ class Sales extends CI_Controller
         } elseif ($order_type == '2') {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Return', 'Successfully Deleted Return Order.'));
         }
-        redirect(base_url().'sales/list_sales');
+        redirect(base_url().'index.php/sales/list_sales');
     }
 
     // Delete Suspend;
@@ -368,11 +368,11 @@ class Sales extends CI_Controller
                 $this->Constant_model->deleteByColumn('suspend_items', 'suspend_id', $id);
 
                 $this->session->set_flashdata('alert_msg', array('success', 'Delete Opened bill', 'Successfully Deleted Opened Bill.'));
-                redirect(base_url().'sales/opened_bill');
+                redirect(base_url().'index.php/sales/opened_bill');
             }
         } else {
             $this->session->set_flashdata('alert_msg', array('failure', 'Delete Opened bill', 'Error on Deleting Opened Bill! Please try again!'));
-            redirect(base_url().'sales/opened_bill');
+            redirect(base_url().'index.php/sales/opened_bill');
         }
     }
 

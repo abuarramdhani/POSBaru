@@ -24,12 +24,8 @@ class Dashboard extends CI_Controller
     {
         // Call the Model constructor
         parent::__construct();
-        $this->load->library('session');
         $this->load->model('Dashboard_model');
         $this->load->model('Constant_model');
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('url');
 
         //$this->lang->load("message", "english");
 

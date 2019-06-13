@@ -857,7 +857,7 @@ class Products extends CI_Controller
         $category = strip_tags($this->input->post('category'));
         $purchase = strip_tags($this->input->post('purchase'));
         $retail = strip_tags($this->input->post('retail'));
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($code)) {
@@ -995,7 +995,7 @@ class Products extends CI_Controller
         $category = strip_tags($this->input->post('category'));
         $status = strip_tags($this->input->post('status'));
 
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($category)) {
@@ -1020,7 +1020,7 @@ class Products extends CI_Controller
     {
         $category = strip_tags($this->input->post('category'));
 
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($category)) {

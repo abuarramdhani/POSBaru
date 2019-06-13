@@ -24,13 +24,8 @@ class Debit extends CI_Controller
     {
         // Call the Model constructor
         parent::__construct();
-        $this->load->library('session');
         $this->load->model('Debit_model');
         $this->load->model('Constant_model');
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('url');
-        $this->load->library('pagination');
 
         $settingResult = $this->db->get_where('site_setting');
         $settingData = $settingResult->row();
@@ -123,7 +118,7 @@ class Debit extends CI_Controller
         }
 
         $config = array();
-        $config['base_url'] = base_url().'debit/view/';
+        $config['base_url'] = base_url().'index.php/debit/view/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';

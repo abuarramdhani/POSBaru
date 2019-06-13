@@ -89,7 +89,7 @@ class Expenses extends CI_Controller
         //$siteSetting_currency 		= $paginationData[0]->currency;
 
         $config = array();
-        $config['base_url'] = base_url().'expenses/view/';
+        $config['base_url'] = base_url().'index.php/expenses/view/';
 
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
@@ -853,7 +853,7 @@ class Expenses extends CI_Controller
 
         if (empty($name)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expense Category', 'Please enter Expense Category Name!'));
-            redirect(base_url().'expenses/expense_category_edit?id='.$id);
+            redirect(base_url().'index.php/expenses/expense_category_edit?id='.$id);
         } else {
             $upd_data = array(
                       'name' => $name,
@@ -863,7 +863,7 @@ class Expenses extends CI_Controller
             );
             if ($this->Constant_model->updateData('expense_categories', $upd_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Expense Category', "Successfully Updated Expense Category Name : $name!"));
-                redirect(base_url().'expenses/expense_category_edit?id='.$id);
+                redirect(base_url().'index.php/expenses/expense_category_edit?id='.$id);
             }
         }
     }
@@ -874,12 +874,12 @@ class Expenses extends CI_Controller
         $name = strip_tags($this->input->post('name'));
         $status = strip_tags($this->input->post('status'));
 
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($name)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add Expense Category', 'Please enter Expense Category Name!'));
-            redirect(base_url().'expenses/expense_category_add');
+            redirect(base_url().'index.php/expenses/expense_category_add');
         } else {
             $ins_data = array(
                     'name' => $name,
@@ -889,7 +889,7 @@ class Expenses extends CI_Controller
             );
             if ($this->Constant_model->insertData('expense_categories', $ins_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Add Expense Category', "Successfully Added New Expense Category Name : $name!"));
-                redirect(base_url().'expenses/expense_category');
+                redirect(base_url().'index.php/expenses/expense_category');
             }
         }
     }
@@ -902,11 +902,11 @@ class Expenses extends CI_Controller
         $expDtaData = $this->Constant_model->getDataOneColumn('expenses', 'id', $id);
         if (count($expDtaData) == 0) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Delete Expenses', 'Error on deleting Expenses!'));
-            redirect(base_url().'expenses/view');
+            redirect(base_url().'index.php/expenses/view');
         } else {
             if ($this->Constant_model->deleteData('expenses', $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Delete Expenses', 'Successfully Deleted Expenses!'));
-                redirect(base_url().'expenses/view');
+                redirect(base_url().'index.php/expenses/view');
             }
         }
     }
@@ -922,7 +922,7 @@ class Expenses extends CI_Controller
         $reason = strip_tags($this->input->post('reason'));
         $exp_category = strip_tags($this->input->post('category'));
 
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         $temp_fn = $_FILES['uploadFile']['name'];
@@ -931,7 +931,7 @@ class Expenses extends CI_Controller
 
             if ($_FILES['uploadFile']['size'] > 2097152) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Upload file size must be less than 2MB!'));
-                redirect(base_url().'expenses/addNewExpenses');
+                redirect(base_url().'index.php/expenses/addNewExpenses');
 
                 die();
             }
@@ -939,19 +939,19 @@ class Expenses extends CI_Controller
 
         if (empty($number)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expenses', 'Please enter Expenses Number!'));
-            redirect(base_url().'expenses/editExpenses?id='.$id);
+            redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
         } elseif (empty($outlet)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expenses', 'Please Choose Expenses for Outlet!'));
-            redirect(base_url().'expenses/editExpenses?id='.$id);
+            redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
         } elseif (empty($date)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expenses', 'Please enter Expenses Date!'));
-            redirect(base_url().'expenses/editExpenses?id='.$id);
+            redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
         } elseif (empty($amount)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expenses', 'Please enter Expenses Amount!'));
-            redirect(base_url().'expenses/editExpenses?id='.$id);
+            redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
         } elseif (empty($exp_category)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Update Expenses', 'Please select Expenses Category!'));
-            redirect(base_url().'expenses/editExpenses?id='.$id);
+            redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
         } else {
             $upd_data = array(
                     'expenses_number' => $number,
@@ -990,7 +990,7 @@ class Expenses extends CI_Controller
                 }
 
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Expenses', 'Successfully Updated Expenses!'));
-                redirect(base_url().'expenses/editExpenses?id='.$id);
+                redirect(base_url().'index.php/expenses/editExpenses?id='.$id);
             }
         }
     }
@@ -1005,7 +1005,7 @@ class Expenses extends CI_Controller
         $reason = strip_tags($this->input->post('reason'));
         $exp_category = strip_tags($this->input->post('category'));
 
-        $us_id = $this->session->userdata('user_id');
+        $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         $temp_fn = $_FILES['uploadFile']['name'];
@@ -1014,7 +1014,7 @@ class Expenses extends CI_Controller
 
             if ($_FILES['uploadFile']['size'] > 2097152) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Upload file size must be less than 2MB!'));
-                redirect(base_url().'expenses/addNewExpenses');
+                redirect(base_url().'index.php/expenses/addNewExpenses');
 
                 die();
             }
@@ -1022,19 +1022,19 @@ class Expenses extends CI_Controller
 
         if (empty($number)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Please enter Expenses Number!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         } elseif (empty($outlet)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Please Choose Expenses for Outlet!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         } elseif (empty($date)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Please enter Expenses Date!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         } elseif (empty($amount)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Please enter Expenses Amount!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         } elseif (empty($exp_category)) {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New Expenses', 'Please select Expenses Category!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         } else {
             $ins_data = array(
                     'expenses_number' => $number,
@@ -1075,7 +1075,7 @@ class Expenses extends CI_Controller
             }
 
             $this->session->set_flashdata('alert_msg', array('success', 'Add New Expenses', 'Successfully Added New Expenses!'));
-            redirect(base_url().'expenses/addNewExpenses');
+            redirect(base_url().'index.php/expenses/addNewExpenses');
         }
     }
 
