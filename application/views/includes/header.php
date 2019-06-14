@@ -237,8 +237,6 @@
 
                 } ?>
 			
-			
-			
 			<li <?php if ($tk_c == 'expenses') {
                     ?> class="parent active" <?php 
                 } else {

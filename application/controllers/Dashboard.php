@@ -79,6 +79,6 @@ class Dashboard extends CI_Controller
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
 
-        $this->load->view('dashboard', $data);
+        $this->load->view('dashboard2', $data);
     }
 }
