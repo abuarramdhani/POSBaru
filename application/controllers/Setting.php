@@ -26,6 +26,8 @@ class Setting extends CI_Controller
         parent::__construct();
         $this->load->model('Setting_model');
         $this->load->model('Constant_model');
+        $this->load->model('ParentMenu_model');
+        $this->load->model('Menu_model');
         $settingResult = $this->db->get_where('site_setting');
         $settingData = $settingResult->row();
 
@@ -110,6 +112,212 @@ class Setting extends CI_Controller
         $data['lang_name'] = $this->lang->line('name');
 
         $this->load->view('system_setting', $data);
+    }
+    public function addMenu(){
+        // Data
+        $data['parent_menu'] = $this->ParentMenu_model->get_all_parent_menu();
+
+        // Lang Static
+
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_no_match_found'] = $this->lang->line('no_match_found');
+        $data['lang_create_return_order'] = $this->lang->line('create_return_order');
+
+        // Lang Menu 
+        $data['lang_back'] = $this->lang->line('back');
+        $data['lang_add_menu']  = $this->lang->line('add_menu');
+        $data['lang_parent_menu']  = $this->lang->line('parent_menu');
+        $data['lang_menu_name']  = $this->lang->line('menu_name');
+        $data['lang_save']  = $this->lang->line('save');
+        $data['lang_url']  = $this->lang->line('url');
+        $this->load->view('add_menu', $data);
+    }
+    function editMenu(){
+        // Data
+        $code_menu = $this->input->get('code_menu');
+
+        $data['code_menu'] = $code_menu;
+        
+        // Lang Static
+
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_no_match_found'] = $this->lang->line('no_match_found');
+        $data['lang_create_return_order'] = $this->lang->line('create_return_order');
+
+        // Lang Menu 
+        $data['lang_back'] = $this->lang->line('back');
+        $data['lang_edit_menu']  = $this->lang->line('add_menu');
+        $data['lang_parent_menu']  = $this->lang->line('parent_menu');
+        $data['lang_menu_name']  = $this->lang->line('menu_name');
+        $data['lang_save']  = $this->lang->line('save');
+        $data['lang_url']  = $this->lang->line('url');
+        $this->load->view('edit_menu', $data);
+    }
+    public function menu(){
+        // Data
+        $data['menu'] = $this->Menu_model->get_all_menu();
+        // Paging
+
+        $paginationData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $pagination_limit = $paginationData[0]->pagination;
+
+        $config = array();
+        $config['base_url'] = base_url().'index.php/setting/menu/';
+
+        $config['display_pages'] = true;
+        $config['first_link'] = 'First';
+
+        $config['total_rows'] = $this->Menu_model->record_menu_count();
+        $config['per_page'] = $pagination_limit;
+        $config['uri_segment'] = 3;
+
+        $config['full_tag_open'] = "<ul class='pagination pagination-right margin-none'>";
+        $config['full_tag_close'] = '</ul>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+        $config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+        $config['next_tag_open'] = '<li>';
+        $config['next_tagl_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tagl_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tagl_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tagl_close'] = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $data['results'] = $this->Menu_model->fetch_menu_data($config['per_page'], $page);
+
+        $data['links'] = $this->pagination->create_links();
+
+        if ($page == 0) {
+            $have_count = $this->Menu_model->record_menu_count();
+            $sh_text = 'Showing 1 to '.count($data['results']).' of '.$this->Menu_model->record_menu_count().' entries';
+        } else {
+            $start_sh = $page + 1;
+            $end_sh = $page + count($data['results']);
+            $sh_text = "Showing $start_sh to $end_sh of ".$this->Menu_model->record_menu_count().' entries';
+        }
+
+        $data['displayshowingentries'] = $sh_text;
+
+//      Lang Static
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_no_match_found'] = $this->lang->line('no_match_found');
+        $data['lang_create_return_order'] = $this->lang->line('create_return_order');
+//      Lang Menu
+        $data['lang_add_menu'] = $this->lang->line('add_menu');
+        $data['lang_export'] = $this->lang->line('export');
+        $data['lang_search'] =$this->lang->line('search');
+
+        $data['lang_parent_menu']  = $this->lang->line('parent_menu');
+        $data['lang_menu_name']  = $this->lang->line('menu_name');
+        $data['lang_menu']  = $this->lang->line('menu');
+        $data['lang_action'] =$this->lang->line('action');
+        $this->load->view('menu',$data);
     }
 
     // View Outlet;

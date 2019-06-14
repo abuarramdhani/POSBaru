@@ -302,3 +302,16 @@
     $lang['print'] = 'Cetak';
     $lang['card_number'] = 'No Kartu';
     $lang['cheque_number'] = 'No Cek';
+
+
+    // Menu
+    $lang['menu'] = 'Menu';
+    $lang['add_menu'] = 'Tambah Menu';
+    $lang['edit_menu'] = 'Edit Menu';
+    $lang['edit_menu'] = 'Ubah Menu';
+    $lang['parent_menu'] = 'Induk Menu';
+    $lang['choose_parent_menu'] = 'Pilih Induk Menu';
+    $lang['menu_name'] = 'Nama Menu';
+    $lang['url'] = 'URL';
+    $lang['save'] = 'Simpan';
+
