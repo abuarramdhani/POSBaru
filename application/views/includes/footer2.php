@@ -1,5 +1,6 @@
+	
 
-	<script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
+	<script src="<?=base_url()?>assets/js2/app.v2.js"></script>
 	<script src="<?=base_url()?>assets/js/chart.min.js"></script>
 
 	<script src="<?=base_url()?>assets/js/easypiechart.js"></script>
