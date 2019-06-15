@@ -315,3 +315,15 @@
     $lang['url'] = 'URL';
     $lang['save'] = 'Simpan';
 
+    // Trasfer Stock
+    $lang['transfer_stock'] = "Pindah Stock";
+    $lang['add_transfer_stock'] = "Tambah Pindah Stock";
+    $lang['choose_first_outlet'] = "Pilih Outlet";
+    $lang['first_outlet'] = "Outlet Awal";
+    $lang['second_outlet'] = "Outlet Tujuan";
+    $lang['choose_second_outlet'] = "Pilih Outlet Tujuan";
+    $lang['qty_transfer_stock'] = "Stok yang ditransfer";
+    $lang['date'] = "Tanggal transfer";
+    $lang['note'] = "Catatan";
+
+
