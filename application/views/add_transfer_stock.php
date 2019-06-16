@@ -71,10 +71,21 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<label><?php echo $lang_choose_product; ?> <span style="color: #F00">*</span></label>
+								<select class="form-control" name="product">
+									<?php foreach ($product as $product): ?>
+										<option value="<?php echo $product->id ?>"><?php echo $product->name ?></option>
+									<?php endforeach ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
 								<label><?php echo $lang_qty_transfer_stock; ?> </label>
 								<input type="number" name="qty_transfer_stock" class="form-control" maxlength="254" />
 							</div>
 						</div>
+
 						<div class="col-md-6">
 							<div class="form-group">
 								<label><?php echo $lang_note; ?> </label>
