@@ -73,7 +73,7 @@
 					</li>
 					<li class="dropdown pull-right">
 						<?php if ($this->input->cookie('role_id') < 3){ ?>
-							<a href="<?=base_url()?>dashboard" style="text-decoration: none; color: #005b8a;">
+							<a href="<?=base_url()?>index.php/dashboard" style="text-decoration: none; color: #005b8a;">
 							<span style="">
 								<img src="<?=base_url()?>assets/img/home_icon.png" style="height: 28px; margin-top: -5px;" />
 							</span>
