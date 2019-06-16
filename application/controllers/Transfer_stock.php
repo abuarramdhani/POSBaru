@@ -126,9 +126,9 @@ class Transfer_stock extends CI_Controller
 		$this->load->view('transfer_stock',$data);
 	}
 	function add_transfer_stock(){
-		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','DESC');
-		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','DESC');
-        $data['second_outlet'] = $this->Constant_model->getDataAll('products','id','DESC');
+		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
+		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
+        $data['product'] = $this->Constant_model->manualQery('SELECT products.name, inventory.* FROM products JOIN inventory ON products.code = inventory.product_code');
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -189,42 +189,51 @@ class Transfer_stock extends CI_Controller
 		$first_outlet = $this->input->post('first_outlet');
 		$second_outlet = $this->input->post('second_outlet');
 		$product_code = $this->input->post('product_code');
-		$qty = $this->input->post('qty');
+		$qty = $this->input->post('qty_transfer_stock');
 		$note = $this->input->post('note');
 		$date = date('d-M-y H:i:s');
 		$idUser = $this->input->cookie('user_id',TRUE);
-
 		$array = array(
 			'outlet_id' => $first_outlet,
 			'product_code' => $product_code
 		);
-		$data = $this->TransferStock_Model->check_stock($array);
-		$stock = $data[0]['qty'];
+		$data['stock'] = $this->TransferStock_Model->check_stock($array);
+		$stock = $data['stock'][0]['qty'];
 		// Cek, transfer ke toko sendiri atau buka
 		if ($first_outlet == $second_outlet) {
+            echo 'Tidak bisa transfer ke toko sendiri';
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Tidak bisa transfer ke toko sendiri'));
+            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty > $stock) {
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock barang kurang'));
+            echo 'Stock barang kurang';
+            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty <= 0) {
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock kurang'));
+            echo 'Stock kurang';
+            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else{
-			$this->Transfer_stock->update_stock(
+            echo "Berhasil";
+			$this->TransferStock_Model->update_stock(
                 array(
-                    'qty' => 'qty+'.$qty,
+                    'qty+' => $qty,
                     'product_code'=> $product_code,
                     'second_outlet' => $second_outlet
             ));
-            $this->Transfer_stock->update_stock(
+            $this->TransferStock_Model->update_stock(
                 array(
-                    'qty' => 'qty-'.$qty,
+                    'qty-' => $qty,
                     'product_code'=> $product_code,
                     'first_outlet' => $first_outlet
             ));
             $data_input = array(
                 'first_outlet' => $first_outlet,
                 'second_outlet' => $second_outlet,
+                'product_code' => $product_code,
                 'qty' => $qty,
+                'note'=> $note,
                 'date' => date('d-M-y H:i:s'),
+                'idUser' => $idUser
             );
             $this->Constant_model->insertData('transfer_stock');
             $this->session->set_flashdata('alert_msg', array('success', 'Berhasil!', "Transfer berhasil"));
