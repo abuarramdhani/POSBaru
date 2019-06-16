@@ -1,12 +1,12 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 
 <?php
     $prodData = $this->Constant_model->getDataOneColumn('products', 'id', $id);
 
     if (count($prodData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $code = $prodData[0]->code;
@@ -282,5 +282,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

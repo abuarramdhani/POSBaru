@@ -1,7 +1,7 @@
 <?php
     $returnData = $this->Constant_model->getDataTwoColumn('orders', 'id', $return_id, 'status', '2');
     if (count($returnData) == 0) {
-        redirect(base_url().'dashboard');
+        redirect(base_url().'index.php/dashboard');
     }
 
     $ret_cust_name = $returnData[0]->customer_name;
@@ -251,7 +251,7 @@
     </div>
    
     <div id="bkpos_wrp">
-    	<a href="<?=base_url()?>returnorder/confirmation?return_id=<?php echo $return_id; ?>" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#FFF; background-color:#005b8a; border:0px solid #007FFF; padding: 10px 1px; margin: 5px auto 10px auto; font-weight:bold;"><?php echo $lang_back; ?></a>
+    	<a href="<?=base_url()?>index.php/returnorder/confirmation?return_id=<?php echo $return_id; ?>" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#FFF; background-color:#005b8a; border:0px solid #007FFF; padding: 10px 1px; margin: 5px auto 10px auto; font-weight:bold;"><?php echo $lang_back; ?></a>
     </div>
     
     

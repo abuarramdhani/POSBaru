@@ -1,10 +1,10 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $expData = $this->Constant_model->getDataOneColumn('expense_categories', 'id', $id);
 
     if (count($expData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $exp_name = $expData[0]->name;
@@ -120,5 +120,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

@@ -65,7 +65,7 @@
 	<div class="row" id="bkpos_wrp" style="padding-bottom: 10px; padding-top: 10px;">
 		<div class="col-md-12">
 			<center>
-				<a href="<?=base_url()?>dashboard" style="text-decoration: none;">
+				<a href="<?=base_url()?>index.php/dashboard" style="text-decoration: none;">
 					<button class="btn btn-primary" style="padding: 6px 12px; border-radius: 2px;">Dashboard</button>
 				</a>
 				<h1 style="color: #00598c; margin-top: 10px;"><?php echo $setting_site_name; ?></h1>

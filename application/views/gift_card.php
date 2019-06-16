@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <script type="text/javascript" src="<?=base_url()?>assets/js/datatables/jquery-1.12.3.js"></script>
 <script type="text/javascript" src="<?=base_url()?>assets/js/datatables/jquery.dataTables.min.js"></script>
@@ -65,7 +65,7 @@
 					<!--
 					<div class="row">
 						<div class="col-md-12" style="text-align: right;">
-							<a href="<?=base_url()?>sales/exportSales" style="text-decoration: none">
+							<a href="<?=base_url()?>index.php/sales/exportSales" style="text-decoration: none">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									Export to Excel
 								</button>
@@ -117,7 +117,7 @@
                     if ($gift_status == '0') {
                         if ($user_role == '1') {
                             ?>
-<a href="<?=base_url()?>gift_card/deletegiftcard?id=<?php echo $gift_id; ?>" style="text-decoration: none; margin-left: 5px;" title="Delete" onclick="return confirm('Are you confirm to delete this Gift Card : <?php echo $gift_numb; ?>?')">
+<a href="<?=base_url()?>index.php/gift_card/deletegiftcard?id=<?php echo $gift_id; ?>" style="text-decoration: none; margin-left: 5px;" title="Delete" onclick="return confirm('Are you confirm to delete this Gift Card : <?php echo $gift_numb; ?>?')">
 	<i class="icono-crossCircle" style="color: #F00"></i>
 </a>
 				<?php
@@ -162,5 +162,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

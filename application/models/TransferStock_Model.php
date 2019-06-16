@@ -35,5 +35,9 @@ class TransferStock_Model extends CI_Model
     	$query = $this->db->get('inventory');
     	return $query->result_array();	
     }
+    function update_stock(){
+        $this->db->where($data);
+        $this->db->update('inventory');
+    }
 }
  ?>

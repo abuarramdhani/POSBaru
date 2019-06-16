@@ -1,9 +1,9 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $returnData = $this->Constant_model->getDataTwoColumn('orders', 'id', $return_id, 'status', '2');
     if (count($returnData) == 0) {
-        redirect(base_url().'dashboard');
+        redirect(base_url().'index.php/dashboard');
     }
 
     $ret_cust_name = $returnData[0]->customer_name;
@@ -288,6 +288,6 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>
 

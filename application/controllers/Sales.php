@@ -385,8 +385,8 @@ class Sales extends CI_Controller
         $paginationData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $setting_dateformat = $paginationData[0]->datetime_format;
 
-        $user_role = $this->session->userdata('user_role');
-        $user_outlet = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+        $user_outlet = $this->input->cookie('out_id', TRUE);
 
         // START Export Excel;
         $this->load->library('excel');

@@ -1,12 +1,12 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 
 <?php
     $supplierData = $this->Constant_model->getDataOneColumn('suppliers', 'id', $id);
 
     if (count($supplierData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $supplier_name = $supplierData[0]->name;
@@ -187,5 +187,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

@@ -9,7 +9,7 @@
 
     if (count($orderData) == 0) {
         $this->session->set_flashdata('alert_msg', array('success', 'Error', 'Something Wrong!'));
-        redirect(base_url().'pos');
+        redirect(base_url().'index.php/pos');
 
         die();
     }
@@ -339,7 +339,7 @@
 -->
    
     <div id="bkpos_wrp">
-    	<a href="<?=base_url()?>pos" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#FFF; background-color:#005b8a; border:0px solid #007FFF; padding: 10px 1px; margin: 5px auto 10px auto; font-weight:bold;"><?php echo $lang_back_to_pos; ?></a>
+    	<a href="<?=base_url()?>index.php/pos" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#FFF; background-color:#005b8a; border:0px solid #007FFF; padding: 10px 1px; margin: 5px auto 10px auto; font-weight:bold;"><?php echo $lang_back_to_pos; ?></a>
     </div>
     
     <div id="bkpos_wrp">
@@ -352,7 +352,7 @@
     
     <div id="bkpos_wrp">
     	<span class="left">
-    		<a href="<?=base_url()?>pos/view_invoice_a4?id=<?php echo $order_id; ?>" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#000; background-color:#4FA950; border:2px solid #4FA950; padding: 10px 0px; font-weight:bold; margin-top: 6px;">
+    		<a href="<?=base_url()?>index.php/pos/view_invoice_a4?id=<?php echo $order_id; ?>" style="width:100%; display:block; font-size:12px; text-decoration: none; text-align:center; color:#000; background-color:#4FA950; border:2px solid #4FA950; padding: 10px 0px; font-weight:bold; margin-top: 6px;">
 	    		<?php echo $lang_print_a4; ?>
 	    	</a>
 	    </span>

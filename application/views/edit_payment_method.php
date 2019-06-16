@@ -1,10 +1,10 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $payDtaData = $this->Constant_model->getDataOneColumn('payment_method', 'id', $id);
 
     if (count($payDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
     $payment_name = $payDtaData[0]->name;
     $payment_status = $payDtaData[0]->status;
@@ -139,5 +139,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

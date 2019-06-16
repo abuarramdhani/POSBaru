@@ -49,8 +49,8 @@ class Pos extends CI_Controller
         $data['pos_dateformat'] = $settingData->datetime_format;
 
         // Check Outlet & Role;
-        $user_role = $this->session->userdata('user_role');
-        $user_outlet = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+        $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $data['lang_add_customer'] = $this->lang->line('add_customer');
         $data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
@@ -580,8 +580,8 @@ class Pos extends CI_Controller
 
         $pos_dateformat = $settingData->datetime_format;
 
-        $role_id = $this->session->userdata('user_role');
-        $outlet_id = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+        $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $search = $this->input->get('q');
 

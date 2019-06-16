@@ -1,12 +1,12 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 
 <?php
     $categoryData = $this->Constant_model->getDataOneColumn('category', 'id', $id);
 
     if (count($categoryData) == 0) {
-        redirect(base_url(), 'refresh');
+        redirect(base_url().'index.php', 'refresh');
     }
 
     $category_name = $categoryData[0]->name;
@@ -144,5 +144,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

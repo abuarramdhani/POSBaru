@@ -1,10 +1,10 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$id");
 
     if (count($outletData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $outlet_name = $outletData[0]->name;
@@ -162,5 +162,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

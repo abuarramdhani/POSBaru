@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -66,7 +66,7 @@
 					
 					<div class="row">
 						<div class="col-md-6">
-							<a href="<?=base_url()?>expenses/addNewExpenses" style="text-decoration: none">
+							<a href="<?=base_url()?>index.php/expenses/addNewExpenses" style="text-decoration: none">
 								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i>
 									<?php echo $lang_add_new_expenses; ?>
 								</button>
@@ -76,7 +76,7 @@
 							<?php
                                 if ($user_role < 3) {
                                     ?>
-							<a href="<?=base_url()?>expenses/exportSearchExpenses?expenses_numb=<?php echo $search_expenses_numb; ?>&outlet=<?php echo $search_outlet; ?>&start_date=<?php echo $search_start_date; ?>&end_date=<?php echo $search_end_date; ?>" style="text-decoration: none;">
+							<a href="<?=base_url()?>index.php/expenses/exportSearchExpenses?expenses_numb=<?php echo $search_expenses_numb; ?>&outlet=<?php echo $search_outlet; ?>&start_date=<?php echo $search_start_date; ?>&end_date=<?php echo $search_end_date; ?>" style="text-decoration: none;">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									<?php echo $lang_export_to_excel; ?>
 								</button>
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					
-					<form action="<?=base_url()?>expenses/searchExpenses" method="get" style="margin-top: 7px;">
+					<form action="<?=base_url()?>index.php/expenses/searchExpenses" method="get" style="margin-top: 7px;">
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group">
@@ -406,13 +406,13 @@
 				<td><?php echo $date; ?></td>
 				<td>$<?php echo number_format($amount, 2); ?></td>
 				<td>
-					<a href="<?=base_url()?>expenses/editExpenses?id=<?php echo $id; ?>" style="text-decoration: none">
+					<a href="<?=base_url()?>index.php/expenses/editExpenses?id=<?php echo $id; ?>" style="text-decoration: none">
 						<button class="btn btn-primary">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
 					</a>
 <?php
     if ($user_outlet < 3) {
         ?>								
-		<a href="<?=base_url()?>expenses/deleteExpenses?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Delete" onclick="return confirm('<?php echo $lang_expenses_delete_confirm; ?>')">
+		<a href="<?=base_url()?>index.php/expenses/deleteExpenses?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Delete" onclick="return confirm('<?php echo $lang_expenses_delete_confirm; ?>')">
 			<i class="icono-crossCircle" style="color: #F00"></i>
 		</a>
 <?php
@@ -477,5 +477,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

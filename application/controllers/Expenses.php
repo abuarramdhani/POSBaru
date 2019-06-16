@@ -1085,8 +1085,8 @@ class Expenses extends CI_Controller
     // Export Expenses;
     public function exportExpenses()
     {
-        $user_role = $this->session->userdata('user_role');
-        $user_outlet = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+    $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $siteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $site_dateformat = $siteSettingData[0]->datetime_format;
@@ -1324,8 +1324,8 @@ class Expenses extends CI_Controller
 
     public function exportSearchExpenses()
     {
-        $user_role = $this->session->userdata('user_role');
-        $user_outlet = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+    $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $search_expenses_numb = $this->input->get('expenses_numb');
         $search_outlet = $this->input->get('outlet');

@@ -24,7 +24,7 @@
     $lang['print_product_label'] = 'Print Label Barang';
     $lang['product_category'] = 'Kategori Barang';
     $lang['purchase_order'] = 'Purchase Order';
-    $lang['setting'] = 'Simpan Pengaturan';
+    $lang['setting'] = 'Pengaturan';
     $lang['outlets'] = 'Outlet';
     $lang['users'] = 'Users';
     $lang['suppliers'] = 'Suppliers';
@@ -325,5 +325,4 @@
     $lang['qty_transfer_stock'] = "Stok yang ditransfer";
     $lang['date'] = "Tanggal transfer";
     $lang['note'] = "Catatan";
-
 

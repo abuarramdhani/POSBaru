@@ -1,11 +1,11 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <?php
     $poDtaData = $this->Constant_model->getDataOneColumn('purchase_order', 'id', $id);
 
     if (count($poDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $po_numb = $poDtaData[0]->po_number;
@@ -529,7 +529,7 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

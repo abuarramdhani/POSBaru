@@ -11,7 +11,7 @@
 		</div>
 	</div><!--/.row-->
 	
-<form action="<?=base_url()?>pos/insertSale" method="post">	
+<form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default" style="background-color: transparent; -webkit-box-shadow: none; box-shadow: none;">
@@ -30,7 +30,7 @@
                                     $outlet_name = $outletData[$i]->name;
                                     $outlet_address = $outletData[$i]->address;
                                     $outlet_contact = $outletData[$i]->contact_number; ?>
-								<a href="<?=base_url()?>pos/updateOwnerOutlet?outlet_id=<?php echo $outlet_id; ?>" style="text-decoration: none">
+								<a href="<?=base_url()?>index.php/pos/updateOwnerOutlet?outlet_id=<?php echo $outlet_id; ?>" style="text-decoration: none">
 									<div class="row" <?php if ($i > 0) {
                                         ?> style="margin-top: 15px;" <?php 
                                     } ?>>

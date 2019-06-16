@@ -1,10 +1,10 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $custDtaData = $this->Constant_model->getDataOneColumn('customers', 'id', $cust_id);
 
     if (count($custDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $fullname = $custDtaData[0]->fullname;
@@ -142,5 +142,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>
