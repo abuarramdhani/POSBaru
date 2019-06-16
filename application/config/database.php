@@ -40,7 +40,7 @@
 // The following values will probably need to be changed.
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
-$db['default']['database'] = 'pos_v2';
+$db['default']['database'] = 'posv1';
 
 // The following values can probably stay the same.
 $db['default']['hostname'] = 'localhost';
