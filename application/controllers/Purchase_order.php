@@ -664,7 +664,7 @@ class Purchase_order extends CI_Controller
 
         $row_count = $this->input->post('row_count');
 
-        $us_id = $this->session->userdata('user_id');
+        $user_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($po_numb)) {

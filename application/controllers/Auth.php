@@ -29,7 +29,7 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('user_email')) {
+        if ($this->input->cookie('user_id',TRUE)) {
             redirect('index.php/dashboard', 'refresh');
         } else {
             $this->load->view('login', 'refresh');

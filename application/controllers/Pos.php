@@ -580,8 +580,8 @@ class Pos extends CI_Controller
 
         $pos_dateformat = $settingData->datetime_format;
 
-        $role_id = $this->session->userdata('user_role');
-        $outlet_id = $this->session->userdata('user_outlet');
+        $user_role = $this->input->cookie('role_id', TRUE);
+        $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $search = $this->input->get('q');
 
