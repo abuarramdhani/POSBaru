@@ -326,4 +326,3 @@
     $lang['date'] = "Tanggal transfer";
     $lang['note'] = "Catatan";
 
-
