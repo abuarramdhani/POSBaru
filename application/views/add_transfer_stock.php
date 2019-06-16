@@ -9,7 +9,7 @@
 		</div>
 	</div><!--/.row-->
 	
-	<form action="<?=base_url()?>index.php/transfer_stock/insertTransfe" method="post">
+	<form action="<?=base_url()?>index.php/transfer_stock/insertTransferStock" method="post">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -72,9 +72,10 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label><?php echo $lang_choose_product; ?> <span style="color: #F00">*</span></label>
-								<select class="form-control" name="product">
+
+								<select class="form-control" name="product_code">
 									<?php foreach ($product as $product): ?>
-										<option value="<?php echo $product->id ?>"><?php echo $product->name ?></option>
+										<option value="<?php echo $product->product_code ?>"><?php echo $product->name ?></option>
 									<?php endforeach ?>
 								</select>
 							</div>
