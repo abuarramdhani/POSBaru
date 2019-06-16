@@ -128,6 +128,7 @@ class Transfer_stock extends CI_Controller
 	function add_transfer_stock(){
 		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','DESC');
 		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','DESC');
+        $data['second_outlet'] = $this->Constant_model->getDataAll('products','id','DESC');
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -174,7 +175,7 @@ class Transfer_stock extends CI_Controller
         $data['lang_sales_history'] = $this->lang->line('sales_history');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
+        $data['lang_choose_product'] = $this->lang->line('product_name');
         $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_choose_first_outlet'] = $this->lang->line('choose_first_outlet');
         $data['lang_choose_second_outlet'] = $this->lang->line('choose_second_outlet');
@@ -207,11 +208,27 @@ class Transfer_stock extends CI_Controller
 		}else if ($qty <= 0) {
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock kurang'));
 		}else{
-			$this->Constant_model->updateData()
+			$this->Transfer_stock->update_stock(
+                array(
+                    'qty' => 'qty+'.$qty,
+                    'product_code'=> $product_code,
+                    'second_outlet' => $second_outlet
+            ));
+            $this->Transfer_stock->update_stock(
+                array(
+                    'qty' => 'qty-'.$qty,
+                    'product_code'=> $product_code,
+                    'first_outlet' => $first_outlet
+            ));
+            $data_input = array(
+                'first_outlet' => $first_outlet,
+                'second_outlet' => $second_outlet,
+                'qty' => $qty,
+                'date' => date('d-M-y H:i:s'),
+            );
+            $this->Constant_model->insertData('transfer_stock');
+            $this->session->set_flashdata('alert_msg', array('success', 'Berhasil!', "Transfer berhasil"));
 		}
-		// Cek Stok yang akan dikirim
-		// Cek sok lebih dari 0 tidak ?
-		// Apabila berhasil, masukan lalu update stok di toko dan update bertambah di toko
 
   
 
