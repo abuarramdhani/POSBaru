@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <script type="text/javascript">
 	function getValue(ele){
@@ -199,5 +199,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

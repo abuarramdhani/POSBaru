@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <!-- Add jQuery library -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -263,5 +263,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

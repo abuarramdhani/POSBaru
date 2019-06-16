@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $orderRows = 0;
 ?>
@@ -480,5 +480,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

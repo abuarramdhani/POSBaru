@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $menuData = $this->Constant_model->getDataOneColumn('menu', 'kode_menu', $code_menu);
 
@@ -118,5 +118,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

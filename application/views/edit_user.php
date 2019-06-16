@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $userDtaData = $this->Constant_model->getDataOneColumn('users', 'id', $id);
 
@@ -232,5 +232,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

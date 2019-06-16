@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $orderDtaData = $this->Constant_model->getDataOneColumn('orders', 'id', "$id");
     if (count($orderDtaData) == 0) {
@@ -368,5 +368,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

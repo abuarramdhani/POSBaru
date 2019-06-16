@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 ?>
 <?php
     $poDtaData = $this->Constant_model->getDataOneColumn('purchase_order', 'id', $id);
@@ -433,6 +433,6 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>
 

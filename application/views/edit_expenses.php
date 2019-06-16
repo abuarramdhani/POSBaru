@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $expDtaData = $this->Constant_model->getDataOneColumn('expenses', 'id', $id);
     if (count($expDtaData) == 0) {
@@ -249,5 +249,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

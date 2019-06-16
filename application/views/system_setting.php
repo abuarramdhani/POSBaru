@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $siteDtaData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
 
@@ -305,5 +305,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

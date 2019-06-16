@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header.php';
+    require_once 'includes/header2.php';
 
     $payDtaData = $this->Constant_model->getDataOneColumn('payment_method', 'id', $id);
 
@@ -139,5 +139,5 @@
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>

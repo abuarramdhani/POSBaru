@@ -1,5 +1,5 @@
 <?php
-$this->load->view('includes/header.php');
+$this->load->view('includes/header2.php');
 ?>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -200,5 +200,5 @@ $this->load->view('includes/header.php');
 	
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer2.php';
 ?>
