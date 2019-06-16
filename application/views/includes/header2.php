@@ -171,6 +171,13 @@
 							<i class="fa fa-user"></i>
 							<?php echo $lang_customers; ?></a>
 					</li>
+					<!-- <li <?php if ($tk_c == 'transfer_stock') {
+		                ?> class="active" <?php 
+		            } ?>>
+						<a href="<?=base_url()?>index.php/transfer_stock/view">
+							<i class="fa fa-user"></i>
+							<?php echo $lang_transfer_stock; ?></a>
+					</li> -->
 					
 					<li <?php if ($tk_c == 'gift_card') {
 		                ?> class="dropdown-submenu active" <?php 
@@ -386,7 +393,7 @@
 		                            ?>
 							<li>
 							<li>
-								<a href="<?=base_url()?>index.php/inventory/view"><?php echo $lang_inventory; ?></a>
+								<a href="<?=base_url()?>index.php/products/product_category"><?php echo $lang_product_category; ?></a>
 							</li>
 								<a <?php if (($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {
 		                                ?> style="background-color: #e9ecf2;" <?php 
