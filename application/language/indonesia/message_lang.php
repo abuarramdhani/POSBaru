@@ -302,3 +302,28 @@
     $lang['print'] = 'Cetak';
     $lang['card_number'] = 'No Kartu';
     $lang['cheque_number'] = 'No Cek';
+
+
+    // Menu
+    $lang['menu'] = 'Menu';
+    $lang['add_menu'] = 'Tambah Menu';
+    $lang['edit_menu'] = 'Edit Menu';
+    $lang['edit_menu'] = 'Ubah Menu';
+    $lang['parent_menu'] = 'Induk Menu';
+    $lang['choose_parent_menu'] = 'Pilih Induk Menu';
+    $lang['menu_name'] = 'Nama Menu';
+    $lang['url'] = 'URL';
+    $lang['save'] = 'Simpan';
+
+    // Trasfer Stock
+    $lang['transfer_stock'] = "Pindah Stock";
+    $lang['add_transfer_stock'] = "Tambah Pindah Stock";
+    $lang['choose_first_outlet'] = "Pilih Outlet";
+    $lang['first_outlet'] = "Outlet Awal";
+    $lang['second_outlet'] = "Outlet Tujuan";
+    $lang['choose_second_outlet'] = "Pilih Outlet Tujuan";
+    $lang['qty_transfer_stock'] = "Stok yang ditransfer";
+    $lang['date'] = "Tanggal transfer";
+    $lang['note'] = "Catatan";
+
+
