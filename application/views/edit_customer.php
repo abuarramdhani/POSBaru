@@ -4,7 +4,7 @@
     $custDtaData = $this->Constant_model->getDataOneColumn('customers', 'id', $cust_id);
 
     if (count($custDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $fullname = $custDtaData[0]->fullname;

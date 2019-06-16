@@ -141,7 +141,7 @@
 <?php
     if ($order_type == '1') {
         ?>
-<a onclick="openReceipt('<?=base_url()?>pos/view_invoice?id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
+<a onclick="openReceipt('<?=base_url()?>index.php/pos/view_invoice?id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
 	<i class="icono-list" style="color: #005b8a;"></i>
 </a>
 <?php
@@ -149,7 +149,7 @@
     }
             if ($order_type == '2') {
                 ?>
-<a onclick="openReceipt('<?=base_url()?>returnorder/printReturn?return_id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
+<a onclick="openReceipt('<?=base_url()?>index.php/returnorder/printReturn?return_id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
 	<i class="icono-list" style="color: #005b8a;"></i>
 </a>
 <?php

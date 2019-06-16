@@ -6,7 +6,7 @@
     $categoryData = $this->Constant_model->getDataOneColumn('category', 'id', $id);
 
     if (count($categoryData) == 0) {
-        redirect(base_url(), 'refresh');
+        redirect(base_url().'index.php', 'refresh');
     }
 
     $category_name = $categoryData[0]->name;

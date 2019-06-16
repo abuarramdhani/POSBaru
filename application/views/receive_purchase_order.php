@@ -5,7 +5,7 @@
     $poDtaData = $this->Constant_model->getDataOneColumn('purchase_order', 'id', $id);
 
     if (count($poDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $po_numb = $poDtaData[0]->po_number;

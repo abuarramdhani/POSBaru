@@ -6,7 +6,7 @@
     $supplierData = $this->Constant_model->getDataOneColumn('suppliers', 'id', $id);
 
     if (count($supplierData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $supplier_name = $supplierData[0]->name;

@@ -4,7 +4,7 @@
     $payDtaData = $this->Constant_model->getDataOneColumn('payment_method', 'id', $id);
 
     if (count($payDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
     $payment_name = $payDtaData[0]->name;
     $payment_status = $payDtaData[0]->status;

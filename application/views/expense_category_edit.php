@@ -4,7 +4,7 @@
     $expData = $this->Constant_model->getDataOneColumn('expense_categories', 'id', $id);
 
     if (count($expData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $exp_name = $expData[0]->name;

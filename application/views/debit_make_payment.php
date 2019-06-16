@@ -3,7 +3,7 @@
 
     $orderDtaData = $this->Constant_model->getDataOneColumn('orders', 'id', "$id");
     if (count($orderDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $order_cust_name = $orderDtaData[0]->customer_name;
@@ -83,7 +83,7 @@
 					<div class="row">
 						<div class="col-md-6"></div>
 						<div class="col-md-6" style="text-align: right;">
-							<a href="<?=base_url()?>pos/view_invoice?id=<?php echo $id; ?>" style="text-decoration: none;" target="_blank">
+							<a href="<?=base_url()?>index.php/pos/view_invoice?id=<?php echo $id; ?>" style="text-decoration: none;" target="_blank">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_print; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</button>

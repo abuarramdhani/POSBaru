@@ -4,7 +4,7 @@
     $userDtaData = $this->Constant_model->getDataOneColumn('users', 'id', $id);
 
     if (count($userDtaData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $fullname = $userDtaData[0]->fullname;

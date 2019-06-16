@@ -63,7 +63,7 @@
 		</div>
 	</div><!--/.row-->
 	
-	<form action="<?=base_url()?>expenses/updateExpenses" method="post" enctype="multipart/form-data">
+	<form action="<?=base_url()?>index.php/expenses/updateExpenses" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -232,7 +232,7 @@
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 			
-			<a href="<?=base_url()?>expenses/view" style="text-decoration: none;">
+			<a href="<?=base_url()?>index.php/expenses/view" style="text-decoration: none;">
 				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
 					<i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
 				</div>

@@ -4,7 +4,7 @@
     $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$id");
 
     if (count($outletData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $outlet_name = $outletData[0]->name;

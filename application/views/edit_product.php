@@ -6,7 +6,7 @@
     $prodData = $this->Constant_model->getDataOneColumn('products', 'id', $id);
 
     if (count($prodData) == 0) {
-        redirect(base_url());
+        redirect(base_url().'index.php');
     }
 
     $code = $prodData[0]->code;
