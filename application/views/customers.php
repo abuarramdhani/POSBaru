@@ -1,16 +1,22 @@
 <?php
 $this->load->view('includes/header2.php');
 ?>
+<section id="content">
+	<section class="vbox">
+		<header class="header bg-white b-b">
+			<p>Welcome to <?php echo $lang_dashboard; ?></p>
+			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
+				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
+			</a>
+		</header>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-	<div class="row">
-		<div class="col-lg-12">
+	<section class="scrollable wrapper">
 
+
+		<div class="col-md-12">
 			<h1 class="page-header"><?php echo $lang_customers; ?></h1>
-		</div>
-	</div><!--/.row-->
+		</div><!--/.row-->
 
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
@@ -191,11 +197,17 @@ $this->load->view('includes/header2.php');
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
-	</div><!-- Row // END -->
+
+	</section>
+
+	</section>
+
+		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+</section>
+
+
 	
-	<br /><br /><br />
 	
-</div><!-- Right Colmn // END -->
 	
 	
 	

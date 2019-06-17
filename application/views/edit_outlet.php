@@ -16,7 +16,17 @@
 <script type="text/javascript" src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
 <!-- <script type="text/javascript" src="<?=base_url()?>assets/ckfinder/ckfinder.js"></script> -->
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<section id="content">
+	<section class="vbox">
+		<header class="header bg-white b-b">
+			<p>Welcome to <?php echo $lang_dashboard; ?></p>
+			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
+				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
+			</a>
+		</header>
+
+		<section class="scrollable wrapper">
+
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"><?php echo $lang_edit_outlet; ?> : <?php echo $outlet_name; ?></h1>
@@ -153,11 +163,11 @@
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	
-	
-	
-	<br /><br /><br /><br /><br />
-	
-</div><!-- Right Colmn // END -->
+		
+		</section>
+	</section>
+</section>
+
 	
 	
 	

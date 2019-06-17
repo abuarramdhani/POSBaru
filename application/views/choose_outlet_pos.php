@@ -2,7 +2,19 @@
     require_once 'includes/pos_header.php';
 ?>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<div class="col-sm-12 col-lg-12 main">
+
+<section id="content">
+	<section class="vbox">
+		<header class="header bg-white b-b">
+			<p>Welcome to <?php echo $lang_dashboard; ?></p>
+			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
+				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
+			</a>
+		</header>
+
+		<section class="scrollable wrapper">
+		
+
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header" style="text-align: center; padding-bottom: 0px; margin-bottom: 10px;">
@@ -62,11 +74,10 @@
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	
-	<br /><br /><br />
-	
-	
-		
-</div><!-- Right Colmn // END -->
+		</section>
+	</section>
+</section>
+
 
 
 
