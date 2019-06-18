@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header.php';
 ?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
@@ -221,5 +221,5 @@
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer.php';
 ?>

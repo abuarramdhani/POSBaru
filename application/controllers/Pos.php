@@ -52,6 +52,7 @@ class Pos extends CI_Controller
         $user_role = $this->input->cookie('role_id', TRUE);
         $user_outlet = $this->input->cookie('out_id', TRUE);
 
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_add_customer'] = $this->lang->line('add_customer');
         $data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
         $data['lang_hold'] = $this->lang->line('hold');

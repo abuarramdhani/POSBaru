@@ -33,8 +33,18 @@
         $unpaid_amt = $order_paid_amt - $order_grandTotal;
     }
 ?>
+<section id="content">
+	<section class="vbox">
+		<header class="header bg-white b-b">
+			<p>Welcome to <?php echo $lang_dashboard; ?></p>
+			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
+				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
+			</a>
+		</header>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<section class="scrollable wrapper">
+		
+
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"><?php echo $lang_make_payment_for_sale; ?> : <?php echo $id; ?></h1>
@@ -401,9 +411,10 @@
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	
-	<br /><br /><br /><br /><br />
-	
-</div><!-- Right Colmn // END -->
+		</section>
+	</section>
+</section>
+
 	
 	
 	
