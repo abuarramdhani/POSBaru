@@ -12,8 +12,8 @@ class Setting_model extends CI_Model
 
     public function record_outlet_count()
     {
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id', TRUE);
 
         if ($temp_role > 1) {
             $this->db->where('id', $temp_outlet);
@@ -28,8 +28,8 @@ class Setting_model extends CI_Model
 
     public function fetch_outlet_data($limit, $start)
     {
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id', TRUE);
 
         if ($temp_role > 1) {
             $this->db->where('id', $temp_outlet);
@@ -48,9 +48,9 @@ class Setting_model extends CI_Model
 
     public function record_user_count()
     {
-        $temp_user_id = $user_id = $this->session->userdata('user_id');
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_user_id = $user_id = $this->input->cookie('user_id', TRUE);
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id', TRUE);
 
         if ($temp_role == 2) {
             $this->db->where('outlet_id', $temp_outlet);
@@ -68,9 +68,9 @@ class Setting_model extends CI_Model
 
     public function fetch_user_data($limit, $start)
     {
-        $temp_user_id = $user_id = $this->session->userdata('user_id');
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_user_id = $user_id = $this->input->cookie('user_id', TRUE);
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id', TRUE);
 
         if ($temp_role > 1) {
             $this->db->where('outlet_id', $temp_outlet);

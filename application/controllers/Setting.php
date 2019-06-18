@@ -585,7 +585,7 @@ class Setting extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
+        
         $data['results'] = $this->Setting_model->fetch_user_data($config['per_page'], $page);
 
         $data['links'] = $this->pagination->create_links();

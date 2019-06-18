@@ -12,8 +12,8 @@ class Purchaseorder_model extends CI_Model
 
     public function record_po_count()
     {
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id',TRUE);
 
         if ($temp_role > 1) {
             $this->db->where('outlet_id', $temp_outlet);
@@ -27,8 +27,8 @@ class Purchaseorder_model extends CI_Model
     }
     public function fetch_po_data($limit, $start)
     {
-        $temp_outlet = $this->session->userdata('user_outlet');
-        $temp_role = $this->session->userdata('user_role');
+        $temp_outlet = $this->input->cookie('out_id', TRUE);
+        $temp_role = $this->input->cookie('role_id',TRUE);
 
         if ($temp_role > 1) {
             $this->db->where('outlet_id', $temp_outlet);

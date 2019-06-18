@@ -99,10 +99,11 @@ class Pos extends CI_Controller
         $data['lang_please_update_inven'] = $this->lang->line('please_update_inven');
 
         if ($user_role == '1') {
-            if (isset($_COOKIE['outlet'])) {
-                $data['outlet'] = $_COOKIE['outlet'];
+            if ($user_outlet != 0) {
+                $data['outlet'] = $user_outlet;
                 $this->load->view('pos', $data);
             } else {
+                $data['lang_pos'] = $this->lang->line('pos');
                 $data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
                 $data['lang_address'] = $this->lang->line('address');
                 $data['lang_telephone'] = $this->lang->line('telephone');
@@ -199,7 +200,7 @@ class Pos extends CI_Controller
     {
         $outlet_id = $this->input->get('outlet_id');
 
-        $this->input->set_cookie('outlet', $outlet_id, 10800);
+        $this->input->set_cookie('out_id', $outlet_id, 10800);
         redirect(base_url().'index.php/pos', 'refresh');
     }
 
