@@ -21,8 +21,8 @@ class Constant_model extends CI_Model
         return $result;
     }
     public function manualQery($query){
-        $a =  $this->db->query($query);
-        return $a->result();
+        $this->db->query($query);
+        
     }
 
     // Query Data from Table by One Columns;
@@ -93,7 +93,7 @@ class Constant_model extends CI_Model
     // Insert Data to Any Table;
     public function insertData($table, $data)
     {
-        return $this->db->insert("$table", $data);
+        return $this->db->insert($table, $data);
     }
 
     // Insert Data to Any Table and get the last id;
