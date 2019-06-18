@@ -1589,7 +1589,7 @@ $(document).on('ready', function() {
 		
 	<input type="hidden" name="suspend_id" value="<?php echo $suspend_id; ?>" />
 	
-	<input type="hidden" name="outlet" id="outlet" value="<?php echo $this->input->cookie('out_id'); ?>" />
+	<input type="hidden" name="outlet" id="outlet" value="<?php echo $this->input->cookie('out_id', TRUE); ?>" />
 	
 </div><!-- Right Colmn // END -->
 
