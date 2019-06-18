@@ -68,10 +68,10 @@
 							<table class="table">
 							    <thead>
 							    	<tr>
-								    	<th width="30%"><?php echo $lang_first_outlet; ?></th>
-									    <th width="30%"><?php echo $lang_second_outlet; ?></th>
-									    <th width="20%"><?php echo $lang_qty_transfer_stock; ?></th>
-									    <th width="10%"><?php echo $lang_date; ?></th>
+								    	<th width="25%"><?php echo $lang_first_outlet; ?></th>
+									    <th width="25%"><?php echo $lang_second_outlet; ?></th>
+									    <th width="10%"><?php echo $lang_qty_transfer_stock; ?></th>
+									    <th width="20%"><?php echo $lang_date; ?></th>
 									    <th width="10%"><?php echo $lang_action; ?></th>
 									</tr>
 							    </thead>
@@ -79,13 +79,14 @@
 								<?php
                                     if (count($results) > 0) {
                                         foreach ($results as $data) {
-                                            $first_outlet = $data->first_outlet;
-                                            $second_outlet = $data->second_outlet;
+                                            $first_outlet = $data->outlet_asal;
+                                            $second_outlet = $data->outlet_tujuan;
                                             $qty = $data->qty; ?>
 											<tr>
 												<td><?php echo $first_outlet; ?></td>
 												<td><?php echo $second_outlet; ?></td>
 												<td><?php echo $qty; ?></td>
+												<td><?php echo $data->date; ?></td>
 											</tr>
 								<?php
                                             unset($first_outlet);
