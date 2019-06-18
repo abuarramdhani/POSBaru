@@ -26,7 +26,7 @@ class Transfer_stock extends CI_Controller
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
 
-        $config['total_rows'] = $this->TransferStock_Model->record_customers_count();
+        $config['total_rows'] = $this->TransferStock_Model->record_transferstock_count();
         $config['per_page'] = $pagination_limit;
         $config['uri_segment'] = 3;
 
@@ -48,10 +48,10 @@ class Transfer_stock extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['results'] = $this->TransferStock_Model->fetch_customers_data($config['per_page'], $page);
+        $data['results'] = $this->TransferStock_Model->fetch_transferstock_data($config['per_page'], $page);
         $data['links'] = $this->pagination->create_links();
         if ($page == 0) {
-            $have_count = $this->TransferStock_Model->record_customers_count();
+            $have_count = $this->TransferStock_Model->record_transferstock_count();
 
             $start_pg_point = 0;
             if ($have_count == 0) {
@@ -60,11 +60,11 @@ class Transfer_stock extends CI_Controller
                 $start_pg_point = 1;
             }
 
-            $sh_text = "Showing $start_pg_point to ".count($data['results']).' of '.$this->TransferStock_Model->record_customers_count().' entries';
+            $sh_text = "Showing $start_pg_point to ".count($data['results']).' of '.$this->TransferStock_Model->record_transferstock_count().' entries';
         } else {
             $start_sh = $page + 1;
             $end_sh = $page + count($data['results']);
-            $sh_text = "Showing $start_sh to $end_sh of ".$this->TransferStock_Model->record_customers_count().' entries';
+            $sh_text = "Showing $start_sh to $end_sh of ".$this->TransferStock_Model->record_transferstock_count().' entries';
         }
 
         $data['displayshowingentries'] = $sh_text;
@@ -128,7 +128,7 @@ class Transfer_stock extends CI_Controller
 	function add_transfer_stock(){
 		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
 		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
-        $data['product'] = $this->Constant_model->manualQery('SELECT products.name, inventory.* FROM products JOIN inventory ON products.code = inventory.product_code');
+        $data['product'] = $this->TransferStock_Model->get_barang();
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -191,7 +191,7 @@ class Transfer_stock extends CI_Controller
 		$product_code = $this->input->post('product_code');
 		$qty = $this->input->post('qty_transfer_stock');
 		$note = $this->input->post('note');
-		$date = date('d-M-y H:i:s');
+		$date = date('Y-m-d H:i:s', time());
 		$idUser = $this->input->cookie('user_id',TRUE);
 		$array = array(
 			'outlet_id' => $first_outlet,
@@ -201,42 +201,49 @@ class Transfer_stock extends CI_Controller
 		$stock = $data['stock'][0]['qty'];
 		// Cek, transfer ke toko sendiri atau buka
 		if ($first_outlet == $second_outlet) {
-            echo 'Tidak bisa transfer ke toko sendiri';
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Tidak bisa transfer ke toko sendiri'));
-            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty > $stock) {
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock barang kurang'));
-            echo 'Stock barang kurang';
-            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty <= 0) {
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock kurang'));
-            echo 'Stock kurang';
-            // redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            
+            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else{
             echo "Berhasil";
-			$this->TransferStock_Model->update_stock(
-                array(
-                    'qty+' => $qty,
-                    'product_code'=> $product_code,
-                    'second_outlet' => $second_outlet
-            ));
-            $this->TransferStock_Model->update_stock(
-                array(
-                    'qty-' => $qty,
-                    'product_code'=> $product_code,
-                    'first_outlet' => $first_outlet
-            ));
+			$this->Constant_model->manualQery("UPDATE inventory SET qty=qty-$qty WHERE outlet_id=$first_outlet AND product_code='$product_code'");
+            // Cek dulu di outlet tujuan, ada barangnya atau engga
+            $a = array(
+                'outlet_id' => $second_outlet,
+                'product_code' => $product_code
+            );
+            $data['cek_barang'] = $this->TransferStock_Model->check_stock($a);
+            if (count($data['cek_barang']) == 0) {
+                $data_input_inv = array(
+                    'product_code' =>$product_code,
+                    'outlet_id' => $second_outlet,
+                    'qty' => $qty
+                );
+                $this->Constant_model->insertData('inventory',$data_input_inv);
+            }else{
+                $this->Constant_model->manualQery("UPDATE inventory SET qty=qty+$qty WHERE outlet_id=$second_outlet AND product_code='$product_code'");
+            }
+            
             $data_input = array(
                 'first_outlet' => $first_outlet,
                 'second_outlet' => $second_outlet,
                 'product_code' => $product_code,
                 'qty' => $qty,
                 'note'=> $note,
-                'date' => date('d-M-y H:i:s'),
+                'date' => $date,
                 'idUser' => $idUser
             );
-            $this->Constant_model->insertData('transfer_stock');
+            $this->Constant_model->insertData('transfer_stock',$data_input);
             $this->session->set_flashdata('alert_msg', array('success', 'Berhasil!', "Transfer berhasil"));
+
+            
+            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}
 
   
