@@ -101,7 +101,7 @@ class Pos extends CI_Controller
         if ($user_role == '1') {
             if ($user_outlet != 0) {
                 $data['outlet'] = $user_outlet;
-                $this->load->view('pos', $data);
+                $this->load->view('pos2', $data);
             } else {
                 $data['lang_pos'] = $this->lang->line('pos');
                 $data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
@@ -111,7 +111,7 @@ class Pos extends CI_Controller
             }
         } else {
             $data['outlet'] = $user_outlet;
-            $this->load->view('pos', $data);
+            $this->load->view('pos2', $data);
         }
     }
 

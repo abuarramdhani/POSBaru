@@ -1,15 +1,29 @@
 <?php
-    require_once 'includes/pos_header.php';
+    require_once 'includes/pos_header2.php';
 ?>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		 
-<div class="col-sm-12 col-lg-12 main">
-	<div class="row">
-		<div class="col-lg-12">
-			&nbsp;
-		</div>
-	</div><!--/.row-->
+<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/carousel/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/carousel/slick/slick-theme.css">
+<style type="text/css">
+	.slider {
+	    width: 50%;
+	}
 	
+	.slick-slide {
+	  margin: 0px 3px;
+	}
+	
+	.slick-slide img {
+	  width: 100%;
+	}
+	
+	.slick-prev:before,
+	.slick-next:before {
+	    color: black;
+	}
+</style>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 		<?php
             if (!empty($alert_msg)) {
                 ?>
@@ -41,18 +55,15 @@
                 }
             }
         ?>	
-		
-	
-<form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					
-					<div class="row" style="margin-top: 0px;">
-						<div class="col-md-4" style="padding-right: 0px;">
 
-<script type="text/javascript">
+<section id="content">
+
+<form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
+<section class="hbox stretch">
+	<!-- .aside -->
+	<aside class="aside aside-xxl bg-dark">
+
+		<script type="text/javascript">
 	$(document).on('ready', function() {
 		
 		//$('body').on('click','button',function(){});
@@ -265,106 +276,119 @@
 				
 	});
 </script>
-
-<div class="row" style="margin-bottom: 5px;">
-	<div class="col-md-12">
-		<a class="btn btn-primary" href="#addCustomerPopUp" data-toggle="modal" style="border: 0px; width: 100%; padding: 0px 12px;">
-			<i class="icono-plus"></i> <?php echo $lang_add_customer; ?>
-		</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12">
-		<input type="text" class="form-control" id="pcodeBarcode" style="border: 1px solid #373942;" placeholder="<?php echo $lang_scan_barcode; ?>" />
-	</div>
-</div>
-<div class="row" style="background-color: #373942; color: #FFF; font-weight: bold; padding-top: 10px; padding-bottom: 10px; margin: 0px; margin-top: 7px;">
-	<div class="col-md-4"><?php echo $lang_products; ?></div>
-	<div class="col-md-4"><?php echo $lang_qty; ?></div>
-	<div class="col-md-3"><?php echo $lang_per_item; ?></div>
-	<div class="col-md-1" style="font-weight: bold;">X</div>
-</div>
-					
-<div style="overflow: scroll; height: 330px; width: 100%;">
-	<?php
-        $suspend_id = 0;
-
-        $subTotal = 0;
-        $dis_amt = 0;
-        $tax_amt = 0;
-        $grandTotal = 0;
-        $total_items = 0;
-
-        $sus_row_count = 1;
-
-        if (isset($_GET['suspend_id'])) {
-            $sus_id = $_GET['suspend_id'];
-
-            $suspend_id = $_GET['suspend_id'];
-
-            $susData = $this->Constant_model->getDataTwoColumn('suspend', 'id', "$sus_id", 'status', '0');
-            if (count($susData) == 1) {
-                $subTotal = $susData[0]->subtotal;
-                $dis_amt = $susData[0]->discount_total;
-                $tax_amt = $susData[0]->tax;
-                $grandTotal = $susData[0]->grandtotal;
-                $total_items = $susData[0]->total_items;
-
-                $susItemData = $this->Constant_model->getDataOneColumn('suspend_items', 'suspend_id', $sus_id);
-                if (count($susItemData) > 0) {
-                    //$sus_row_count 	= 1;
-                }
-
-                for ($si = 0; $si < count($susItemData); ++$si) {
-                    $sus_pcode = $susItemData[$si]->product_code;
-                    $sus_price = $susItemData[$si]->product_price;
-                    $sus_qty = $susItemData[$si]->qty;
-                    $pcode_name = $susItemData[$si]->product_name; ?>
-					<div class="row" id="item_row_<?php echo $sus_row_count; ?>" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;">
-						<div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;"><?php echo $pcode_name; ?><br />[<?php echo $sus_pcode; ?>]</div>
-						<div class="col-md-4">
-							<div class="row">
-								<div class="col-md-3" style="padding-top:7px">
-									<span onclick="minusDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">
-										<img src="<?=base_url()?>assets/img/minus_icon.png" />
-									</span>
-								</div>
-								<div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
-									<input type="text" id="display_qty_<?php echo $sus_row_count; ?>" class="form-control" value="<?php echo $sus_qty; ?>" onchange="manualQty(this.value, '<?php echo $sus_row_count; ?>')" style="text-align:center;" />
-								</div>
-								<div class="col-md-3" style="padding-left:5px; padding-top:7px;">
-									<span onclick="plusDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">
-										<img src="<?=base_url()?>assets/img/plus_icon.png" />
-									</span>
-								</div>
+		<section class="vbox">
+		<header class="dk header">
+			<a class="btn btn-icon btn-default btn-sm pull-right" href="#addCustomerPopUp" data-toggle="modal"><i class="fa fa-plus"></i></a>
+			<p class="h4"><?php echo $lang_add_customer; ?></p>
+		</header>
+		<section>
+			<section>
+				<section id="mail-nav" class="hidden-xs">
+					<ul class="nav nav-pills nav-stacked no-radius">
+						<li>
+							<div class="col-sm-12">
 							</div>
-						</div>
-						<div class="col-md-3"><?php echo $sus_price; ?></div>
-						<div class="col-md-1" style="font-weight: bold;">
-							<span onclick="deleteDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">x</span>
-						</div>
-						
-					</div>
-	<input type="hidden" name="pcode_<?php echo $sus_row_count; ?>" id="pcode_<?php echo $sus_row_count; ?>" value="<?php echo $sus_pcode; ?>" />
-	<input type="hidden" name="price_<?php echo $sus_row_count; ?>" id="price_<?php echo $sus_row_count; ?>" value="<?php echo $sus_price; ?>" />	
-	<input type="hidden" name="qty_<?php echo $sus_row_count; ?>" id="qty_<?php echo $sus_row_count; ?>" value="<?php echo $sus_qty; ?>" />				
-	<?php	
-                    ++$sus_row_count;
-                }
+						</li>
+					</ul>
+					<ul class="nav nav-pills nav-stacked no-radius">
+						<li>
+							<a href="#">
+							<span class="badge pull-right">15</span>
+							<i class="fa fa-fw fa-inbox"></i> Inbox </a>
+						</li>
+					</ul>
+					<ul class="nav nav-pills nav-stacked no-radius m-t-sm">
+						<li class="padder dk text-sm l-h-2x">
+							<div class="row" >
+								<div class="col-md-4"><?php echo $lang_products; ?></div>
+								<div class="col-md-4"><?php echo $lang_qty; ?></div>
+								<div class="col-md-3"><?php echo $lang_per_item; ?></div>
+								<div class="col-md-1" style="font-weight: bold;">X</div>
+							</div>
 
-                if (count($susItemData) > 0) {
-                    //$sus_row_count 	= $sus_row_count - 1;
-                }
-            }
-        }
-    ?>
-	
-	<div id="log"></div>
-</div>
+							<div style="overflow: scroll; height: 330px; width: 100%;">
+								<?php
+							        $suspend_id = 0;
 
-							<!-- <div style="width: 100%; height: 110px; background-color: #373942;"> -->
-							<div class="row">
+							        $subTotal = 0;
+							        $dis_amt = 0;
+							        $tax_amt = 0;
+							        $grandTotal = 0;
+							        $total_items = 0;
+
+							        $sus_row_count = 1;
+
+							        if (isset($_GET['suspend_id'])) {
+							            $sus_id = $_GET['suspend_id'];
+
+							            $suspend_id = $_GET['suspend_id'];
+
+							            $susData = $this->Constant_model->getDataTwoColumn('suspend', 'id', "$sus_id", 'status', '0');
+							            if (count($susData) == 1) {
+							                $subTotal = $susData[0]->subtotal;
+							                $dis_amt = $susData[0]->discount_total;
+							                $tax_amt = $susData[0]->tax;
+							                $grandTotal = $susData[0]->grandtotal;
+							                $total_items = $susData[0]->total_items;
+
+							                $susItemData = $this->Constant_model->getDataOneColumn('suspend_items', 'suspend_id', $sus_id);
+							                if (count($susItemData) > 0) {
+							                    //$sus_row_count 	= 1;
+							                }
+
+							                for ($si = 0; $si < count($susItemData); ++$si) {
+							                    $sus_pcode = $susItemData[$si]->product_code;
+							                    $sus_price = $susItemData[$si]->product_price;
+							                    $sus_qty = $susItemData[$si]->qty;
+							                    $pcode_name = $susItemData[$si]->product_name; ?>
+												<div class="row" id="item_row_<?php echo $sus_row_count; ?>" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;">
+													<div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;"><?php echo $pcode_name; ?><br />[<?php echo $sus_pcode; ?>]</div>
+													<div class="col-md-4">
+														<div class="row">
+															<div class="col-md-3" style="padding-top:7px">
+																<span onclick="minusDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">
+																	<img src="<?=base_url()?>assets/img/minus_icon.png" />
+																</span>
+															</div>
+															<div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+																<input type="text" id="display_qty_<?php echo $sus_row_count; ?>" class="form-control" value="<?php echo $sus_qty; ?>" onchange="manualQty(this.value, '<?php echo $sus_row_count; ?>')" style="text-align:center;" />
+															</div>
+															<div class="col-md-3" style="padding-left:5px; padding-top:7px;">
+																<span onclick="plusDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">
+																	<img src="<?=base_url()?>assets/img/plus_icon.png" />
+																</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3"><?php echo $sus_price; ?></div>
+													<div class="col-md-1" style="font-weight: bold;">
+														<span onclick="deleteDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">x</span>
+													</div>
+													
+												</div>
+								<input type="hidden" name="pcode_<?php echo $sus_row_count; ?>" id="pcode_<?php echo $sus_row_count; ?>" value="<?php echo $sus_pcode; ?>" />
+								<input type="hidden" name="price_<?php echo $sus_row_count; ?>" id="price_<?php echo $sus_row_count; ?>" value="<?php echo $sus_price; ?>" />	
+								<input type="hidden" name="qty_<?php echo $sus_row_count; ?>" id="qty_<?php echo $sus_row_count; ?>" value="<?php echo $sus_qty; ?>" />				
+								<?php	
+							                    ++$sus_row_count;
+							                }
+
+							                if (count($susItemData) > 0) {
+							                    //$sus_row_count 	= $sus_row_count - 1;
+							                }
+							            }
+							        }
+							    ?>
+								
+								<div id="log"></div>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</section>
+		<footer class="dk footer text-center">
+			<div class="row">
 								<div class="col-md-12" style="background-color: #373942;">
 								
 									<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; padding-top: 5px; font-size: 13px;">
@@ -448,158 +472,227 @@
 								
 								</div>
 							</div>
-							
-							
-							<div class="row">
-								<div class="col-md-12">
-								
-								<div class="row">
-									<div class="col-md-4" style="margin-top: 8px;">
-										<div style="background-color: #c72a25; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; cursor: pointer; padding-top: 10px; padding-bottom: 10px; width: 100%;" onclick="cancelSelected()">
-											<?php echo $lang_cancel; ?>
-										</div>
-									</div>
-									<div class="col-md-4" style="margin-top: 8px;">
-										<a href="#holdmodel" data-toggle="modal" style="text-decoration: none;">
-											<div style="background-color: #834f50; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
-												<?php echo $lang_hold; ?>
-											</div>
-										</a>
-									</div>
-									<div class="col-md-4" style="margin-top: 8px;">
-										<a class="btn btn-primary" href="#timepicker4Modal" data-toggle="modal" style="background-color: #3fb618; float: right; font-weight: bold; color: #FFF; border: 0px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
-											<?php echo $lang_payment; ?>
-										</a>
-									</div>
-								</div>
-								
-								</div>
-							</div>
+			<div class="row">
+				<div class="col-md-4" style="margin-top: 8px;">
+					<div style="background-color: #c72a25; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; cursor: pointer; padding-top: 10px; padding-bottom: 10px; width: 100%;" onclick="cancelSelected()">
+						<?php echo $lang_cancel; ?>
+					</div>
+				</div>
+				<div class="col-md-4" style="margin-top: 8px;">
+					<a href="#holdmodel" data-toggle="modal" style="text-decoration: none;">
+						<div style="background-color: #834f50; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
+							<?php echo $lang_hold; ?>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4" style="margin-top: 8px;">
+					<a class="btn btn-primary" href="#timepicker4Modal" data-toggle="modal" style="background-color: #3fb618; float: right; font-weight: bold; color: #FFF; border: 0px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
+						<?php echo $lang_payment; ?>
+					</a>
+				</div>
+			</div>
+		</footer>
+		</section>
+	</aside>
+<!-- /.aside -->
 
-							
-						</div><!-- Items to pay List // END -->
+<aside class="bg-light lter">
+	<section class="vbox">
+	<header class="bg-light dker header clearfix">
+	<div class="btn-group pull-right">
+	<button type="button" class="btn btn-sm btn-white"><i class="fa fa-chevron-left"></i></button>
+<button type="button" class="btn btn-sm btn-white"><i class="fa fa-chevron-right"></i></button>
+</div>
+<div class="btn-toolbar">
+	<div class="btn-group select">
+		<button class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
+		<span class="dropdown-label" style="width: 65px;">Filter</span>
+		<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu text-left text-sm">
+			<li><a href="#">Read</a></li>
+		<li><a href="#">Unread</a></li>
+		<li><a href="#">Starred</a></li>
+		<li><a href="#">Unstarred</a></li>
+		</ul>
+	</div>
+	<div class="btn-group ">
+		<form class="">
+			<div class="input-group">
+				<input type="text" class="input-sm form-control input-s-sm"  placeholder="<?php echo $lang_search_product_by_namecode; ?>" id="searchProd"  />
+				<div class="input-group-btn">
+					<button class="btn btn-sm btn-white"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</header>
+<section class="scrollable">
+	<div class="regular slider" style="width: 100%">
+												
+		<!--
+		<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer;">
+			<img src="http://placehold.it/120x60/373942/FFFFFF?text=All" />
+		</div>
+		-->
+		<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
+			All
+		</div>
+		
+		<?php
+            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
+
+            for ($ct = 0; $ct < count($catData); ++$ct) {
+                $cat_id = $catData[$ct]->id;
+                $cat_name = $catData[$ct]->name; ?>
+				<!--
+				<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
+					<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
+				</div>
+				-->
+				
+				<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
+			      	<?php echo $cat_name; ?>
+			    </div>
+			    
+		<?php
+
+            }
+        ?>
+	    
+	</div>
+
+									<div class="row tab-content" style="overflow: scroll; height: 436px;" id="allProd">
+									
+									<?php
+                                        $pp = 0;
+                                    ?>	
+										<div class="tab-pane fade in active" id="pilltabAll">
+										<?php
+                                            $allProdData = $this->Constant_model->getDataOneColumn('products', 'status', '1');
+                                            for ($ap = 0; $ap < count($allProdData); ++$ap) {
+                                                $pcode = $allProdData[$ap]->code;
+                                                $name = $allProdData[$ap]->name;
+                                                $image = $allProdData[$ap]->thumbnail; ?>
+												<button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; background-color: #005b8a; border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+												<?php
+                                                    if (($display_prod == '3') || ($display_prod == '2')) {
+                                                        ?>	
+													<?php
+                                                        if ($image == 'no_image.jpg') {
+                                                            ?>
+															<img src="<?=base_url()?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+													<?php
+
+                                                        } else {
+                                                            ?>
+															<img src="<?=base_url()?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+													<?php	
+                                                        }
+                                                    } ?>
+													<?php
+                                                        if (($display_prod == '1') || ($display_prod == '3')) {
+                                                            ?>
+													<span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+													<?php
+
+                                                        } ?>
+												</button>
+										<?php
+                                                ++$pp;
+                                            }
+                                        ?>
+										</div>
+										
+									<?php
+                                        // $pp = 0;
+
+                                        $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
+                                        for ($ca = 0; $ca < count($catData); ++$ca) {
+                                            $category_id = $catData[$ca]->id; ?>
+											<div class="tab-pane fade in <?php if ($ca == 0) {
+                                                ?><?php 
+                                            } ?>" id="pilltab<?php echo $category_id; ?>">
+											<?php
+                                                $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
+                                            for ($d = 0; $d < count($prodData); ++$d) {
+                                                $pcode = $prodData[$d]->code;
+                                                $name = $prodData[$d]->name;
+                                                $image = $prodData[$d]->thumbnail; ?>
+													<button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; background-color: #005b8a; border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+													<?php
+                                                        if (($display_prod == '3') || ($display_prod == '2')) {
+                                                            ?>	
+														<?php
+                                                            if ($image == 'no_image.jpg') {
+                                                                ?>
+																<img src="<?=base_url()?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+														<?php
+
+                                                            } else {
+                                                                ?>
+																<img src="<?=base_url()?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+														<?php	
+                                                            }
+                                                        } ?>
+														<?php
+                                                            if (($display_prod == '1') || ($display_prod == '3')) {
+                                                                ?>
+														<span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+														<?php
+
+                                                            } ?>
+													</button>
+											<?php
+                                                    ++$pp;
+                                            } ?>
+											</div>
+									<?php
+                                            unset($category_id);
+                                        }
+                                        unset($catData);
+
+                                        //$pp += 100;
+                                    ?>
+									</div>
+</section>
+<footer class="footer b-t bg-white-only">
+	<form class="m-t-sm">
+		<div class="input-group">
+		<input type="text" class="input-sm form-control input-s-sm" placeholder="Search">
+			<div class="input-group-btn">
+				<button class="btn btn-sm btn-white"><i class="fa fa-search"></i></button>
+			</div>
+		</div>
+	</form>
+</footer>
+</section>
+</aside>
+
+<div class="col-sm-12 col-lg-12 main">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					
+					<div class="row" style="margin-top: 0px;">
 						<div class="col-md-8">
 
-<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/carousel/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/carousel/slick/slick-theme.css">
-<style type="text/css">
-	.slider {
-	    width: 50%;
-	}
-	
-	.slick-slide {
-	  margin: 0px 3px;
-	}
-	
-	.slick-slide img {
-	  width: 100%;
-	}
-	
-	.slick-prev:before,
-	.slick-next:before {
-	    color: black;
-	}
-</style>
 
 
   
 							<div class="panel panel-default" style="border: 1px solid #ddd;">
 								<div class="panel-body tabs">
 									
-<div class="row" style="margin-left: 0px; margin-right: 0px;">
-	<div class="col-md-12" style="padding-left: 15px; padding-right: 15px; padding-top: 10px;">
-		<input type="text" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" placeholder="<?php echo $lang_search_product_by_namecode; ?>" id="searchProd"  />
-	</div>
-<!--
-	<div class="col-md-3" style="padding-top: 10px;">
-		<a class="btn btn-primary" href="#addProductPopUp" data-toggle="modal" style="border: 0px; width: 100%; padding: 3px 12px; background-color: #b205c2;">
-			<i class="icono-plus"></i> Add Product
-		</a>
-	</div>
--->
-</div>
 
   
 									
 									<div class="row" style="margin-left: 0px; margin-right: 0px;">
 										<div class="col-md-12" style="border-bottom: 1px solid #ddd; padding-top: 11px;">
-											<div class="regular slider" style="width: 100%">
-												
-												<!--
-												<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer;">
-													<img src="http://placehold.it/120x60/373942/FFFFFF?text=All" />
-												</div>
-												-->
-												<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
-													All
-												</div>
-												
-												<?php
-                                                    $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
-
-                                                    for ($ct = 0; $ct < count($catData); ++$ct) {
-                                                        $cat_id = $catData[$ct]->id;
-                                                        $cat_name = $catData[$ct]->name; ?>
-														<!--
-														<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
-															<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
-														</div>
-														-->
-														
-														<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
-													      	<?php echo $cat_name; ?>
-													    </div>
-													    
-												<?php
-
-                                                    }
-                                                ?>
-											    
-											</div>
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="<?=base_url()?>assets/carousel/slick/slick.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).on('ready', function() {
-  $(".regular").slick({
-    dots: true,
-    infinite: true,
-    slidesToShow: 7,
-    slidesToScroll: 3
-  });
-  $(".center").slick({
-    dots: true,
-    infinite: true,
-    centerMode: true,
-    slidesToShow: 3,
-    slidesToScroll: 3
-  });
-  $(".variable").slick({
-    dots: true,
-    infinite: true,
-    variableWidth: true
-  });
-});
-</script>								
-											<!--
-											<ul class="nav nav-pills" style="margin-top: 0px;">
-											<?php
-                                                $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
-
-                                                for ($ct = 0; $ct < count($catData); ++$ct) {
-                                                    $cat_id = $catData[$ct]->id;
-                                                    $cat_name = $catData[$ct]->name; ?>
-													<li <?php if ($ct == 0) {
-                                                        ?> class="active" <?php 
-                                                    } ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
-														<?php echo $cat_name; ?></a>
-													</li>	
-											<?php
-                                                    unset($cat_id);
-                                                    unset($cat_name);
-                                                }
-                                            ?>
-											</ul>
-											-->
+											
+							
+											
 										</div>
 									</div>
 
@@ -2510,8 +2603,37 @@ $(document).on('ready', function() {
 
     }
 ?>
-			 
-</form>
+		</section>
+		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+		</section>	
+	</section> 
+
+</form><!-- ENDDDDD -->
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/carousel/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).on('ready', function() {
+  $(".regular").slick({
+    dots: true,
+    infinite: true,
+    slidesToShow: 7,
+    slidesToScroll: 3
+  });
+  $(".center").slick({
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  });
+  $(".variable").slick({
+    dots: true,
+    infinite: true,
+    variableWidth: true
+  });
+});
+</script>	
 <?php
     require_once 'includes/footer.php';
 ?>
