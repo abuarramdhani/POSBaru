@@ -434,15 +434,13 @@
 				</div>
 			</a>
 			
-		</div><!-- Col md 12 // END -->
-	</div><!-- Row // END -->
+			</div><!-- Col md 12 // END -->
+		</div><!-- Row // END -->
 	</form>
 	
 		</section>
 	</section>
 </section>
-
-	
 	
 <?php
     require_once 'includes/footer2.php';

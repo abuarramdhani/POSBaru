@@ -12,7 +12,7 @@ class Transfer_stock extends CI_Controller
 		$this->load->model('Constant_model');
 	}
 	function index(){
-
+        redirect('index.php/dashboard');
 	}
 	function view(){
 		
@@ -129,7 +129,7 @@ class Transfer_stock extends CI_Controller
 		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
 		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
         $data['product'] = $this->TransferStock_Model->get_barang();
-		$data['lang_dashboard'] = $this->lang->line('dashboard');
+		$data['lang_dashboard'] = $this->lang->line('dashboard');        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');

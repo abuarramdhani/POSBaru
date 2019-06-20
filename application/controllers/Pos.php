@@ -53,6 +53,7 @@ class Pos extends CI_Controller
         $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_add_customer'] = $this->lang->line('add_customer');
         $data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
         $data['lang_hold'] = $this->lang->line('hold');
@@ -101,7 +102,7 @@ class Pos extends CI_Controller
         if ($user_role == '1') {
             if ($user_outlet != 0) {
                 $data['outlet'] = $user_outlet;
-                $this->load->view('pos', $data);
+                $this->load->view('pos2', $data);
             } else {
                 $data['lang_pos'] = $this->lang->line('pos');
                 $data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
@@ -111,7 +112,7 @@ class Pos extends CI_Controller
             }
         } else {
             $data['outlet'] = $user_outlet;
-            $this->load->view('pos', $data);
+            $this->load->view('pos2', $data);
         }
     }
 

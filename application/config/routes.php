@@ -64,6 +64,7 @@ $route['setting/payment_methods/(:num)'] = 'setting/payment_methods/$1';
 $route['expenses/view/(:num)'] = 'expenses/view/$1';
 $route['products/print_label/(:num)'] = 'products/print_label/$1';
 $route['customers/view/(:num)'] = 'customers/view/$1';
+$route['transfer_stock/view/(:num)'] = 'transfer_stock/view/$1';
 $route['setting/suppliers/(:num)'] = 'setting/suppliers/$1';
 $route['purchase_order/po_view/(:num)'] = 'purchase_order/po_view/$1';
 $route['inventory/view/(:num)'] = 'inventory/view/$1';

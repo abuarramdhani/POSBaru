@@ -24,13 +24,8 @@ class Returnorder extends CI_Controller
     {
         // Call the Model constructor
         parent::__construct();
-        $this->load->library('session');
         $this->load->model('Returnorder_model');
         $this->load->model('Constant_model');
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('url');
-        $this->load->library('pagination');
 
         $settingResult = $this->db->get_where('site_setting');
         $settingData = $settingResult->row();
@@ -42,7 +37,7 @@ class Returnorder extends CI_Controller
 
     public function index()
     {
-        $this->load->view('dashboard', 'refresh');
+        redirect('index.php/dashboard');
     }
 
     // ****************************** View Page -- START ****************************** //
@@ -77,6 +72,7 @@ class Returnorder extends CI_Controller
         }
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -190,6 +186,7 @@ class Returnorder extends CI_Controller
         $data['site_currency'] = $site_currency;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -412,6 +409,7 @@ class Returnorder extends CI_Controller
         $data['dateformat'] = $dateformat;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');

@@ -39,11 +39,14 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
+        $data['total_outlet'] = $this->Constant_model->count_data('outlets');
+        $data['total_users'] = $this->Constant_model->count_data_condition('users',array('created_user_id' => $this->input->cookie('user_id')));
         $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $dash_currency = $dashSiteSettingData[0]->currency;
         $data['currency'] = $dash_currency;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');

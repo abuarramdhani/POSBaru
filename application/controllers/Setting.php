@@ -26,8 +26,6 @@ class Setting extends CI_Controller
         parent::__construct();
         $this->load->model('Setting_model');
         $this->load->model('Constant_model');
-        $this->load->model('ParentMenu_model');
-        $this->load->model('Menu_model');
         $settingResult = $this->db->get_where('site_setting');
         $settingData = $settingResult->row();
 
@@ -38,7 +36,7 @@ class Setting extends CI_Controller
 
     public function index()
     {
-        $this->load->view('dashboard', 'refresh');
+        redirect('index.php/dashboard');
     }
 
     // ****************************** View Page -- START ****************************** //
@@ -47,6 +45,7 @@ class Setting extends CI_Controller
     public function system_setting()
     {
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -120,6 +119,7 @@ class Setting extends CI_Controller
         // Lang Static
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -174,6 +174,7 @@ class Setting extends CI_Controller
         // Lang Static
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -273,6 +274,7 @@ class Setting extends CI_Controller
 
 //      Lang Static
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -371,6 +373,7 @@ class Setting extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -431,6 +434,7 @@ class Setting extends CI_Controller
         $this->form_validation->set_rules('description', 'Page Description', 'trim|required|xss_clean');
         if ($this->form_validation->run() == false) {
             $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
             $data['lang_customers'] = $this->lang->line('customers');
             $data['lang_gift_card'] = $this->lang->line('gift_card');
             $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -497,6 +501,7 @@ class Setting extends CI_Controller
         $this->form_validation->set_rules('description', 'Page Description', 'trim|required|xss_clean');
         if ($this->form_validation->run() == false) {
             $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
             $data['lang_customers'] = $this->lang->line('customers');
             $data['lang_gift_card'] = $this->lang->line('gift_card');
             $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -602,6 +607,7 @@ class Setting extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -658,6 +664,7 @@ class Setting extends CI_Controller
     public function adduser()
     {
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -724,6 +731,7 @@ class Setting extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -793,6 +801,7 @@ class Setting extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -894,6 +903,7 @@ class Setting extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -951,6 +961,7 @@ class Setting extends CI_Controller
     public function addpaymentmethod()
     {
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -1012,6 +1023,7 @@ class Setting extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -1117,6 +1129,7 @@ class Setting extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -1179,6 +1192,7 @@ class Setting extends CI_Controller
     public function addsupplier()
     {
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -1247,6 +1261,7 @@ class Setting extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');

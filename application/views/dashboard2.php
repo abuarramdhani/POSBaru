@@ -14,7 +14,9 @@
 				<div class="row">
 
 					<div class="wrapper font-bold">
-						<a href="<?=base_url()?>index.php/sales/list_sales" class="m-r"><span class="badge up m-r-n bg-danger">4</span><i class="fa fa-dollar fa-2x icon-muted v-middle"></i> <?php echo $lang_sales; ?></a>
+						<a href="<?=base_url()?>index.php/sales/list_sales" class="m-r">
+							<span class="badge up m-r-n bg-danger">4</span>
+							<i class="fa fa-dollar fa-2x icon-muted v-middle"></i> <?php echo $lang_sales; ?></a>
 
 						<?php
 					    if ($user_role < 3) {
@@ -24,9 +26,22 @@
 
 					        }
 					    ?>
-						<a href="<?=base_url()?>index.php/setting/outlets" class="m-r"><i class="fa fa-home fa-2x icon-muted v-middle"></i> <?php echo $lang_outlets; ?></a>
+						<a href="<?=base_url()?>index.php/setting/outlets" class="m-r">
+							<?php 
+							if ($total_outlet>0) {
+								echo '<span class="badge up m-r-n bg-danger">'.$total_outlet.'</span>';
+							}
+							 ?>
+							<i class="fa fa-home fa-2x icon-muted v-middle">
+							</i> <?php echo $lang_outlets; ?></a>
 
-						<a href="<?=base_url()?>index.php/setting/users"  class="m-r"><i class="fa fa-user fa-2x icon-muted v-middle"></i> <?php echo $lang_users; ?></a>
+						<a href="<?=base_url()?>index.php/setting/users"  class="m-r">
+							<?php 
+							if ($total_users>0) {
+								echo '<span class="badge up m-r-n bg-danger">'.$total_users.'</span>';
+							}
+							 ?>
+							<i class="fa fa-user fa-2x icon-muted v-middle"></i> <?php echo $lang_users; ?></a>
 						<?php
 					            if ($user_role == '1') {
 					                ?>

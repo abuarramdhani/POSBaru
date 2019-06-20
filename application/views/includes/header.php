@@ -141,6 +141,11 @@
             } ?>>
 				<a href="<?=base_url()?>index.php/customers/view"><?php echo $lang_customers; ?></a>
 			</li>
+			<li <?php if ($tk_c == 'transfer_stock') {
+                ?> class="active" <?php 
+            } ?>>
+				<a href="<?=base_url()?>index.php/transfer_stock/view"><?php echo $lang_transfer_stock; ?></a>
+			</li>
 			
 			<li <?php if ($tk_c == 'gift_card') {
                 ?> class="parent active" <?php 

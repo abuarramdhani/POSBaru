@@ -55,7 +55,7 @@
 		<script src="<?=base_url()?>assets/js/respond.min.js"></script>
 		<![endif]-->
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="<?=base_url()?>assets/js/jquery.min.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -171,13 +171,11 @@
 							<i class="fa fa-user"></i>
 							<?php echo $lang_customers; ?></a>
 					</li>
-					<!-- <li <?php if ($tk_c == 'transfer_stock') {
+					<li <?php if ($tk_c == 'transfer_stock') {
 		                ?> class="active" <?php 
 		            } ?>>
-						<a href="<?=base_url()?>index.php/transfer_stock/view">
-							<i class="fa fa-user"></i>
-							<?php echo $lang_transfer_stock; ?></a>
-					</li> -->
+						<a href="<?=base_url()?>index.php/transfer_stock/view"> <i class="fa fa-exchange"></i> <?php echo $lang_transfer_stock; ?></a>
+					</li>
 					
 					<li <?php if ($tk_c == 'gift_card') {
 		                ?> class="dropdown-submenu active" <?php 
