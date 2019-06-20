@@ -149,7 +149,7 @@
 										if(add_row_count == 1){
 									
 											if(qty >= 1){
-												var msgs 		= '<div class="row" id="item_row_'+add_row_count+'" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;"><div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;">'+name+' <br />['+pcode+']</div><div class="col-md-4" style="text-align: center; font-size: 15px; color: #000;"><div class="row"><div class="col-md-3" style="padding-top:7px"><span onclick="minusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/minus_icon.png" /></span></div><div class="col-md-6" style="padding-left: 0px; padding-right: 0px;"><input type="text" id="display_qty_'+add_row_count+'" class="form-control" value="1" onchange="manualQty(this.value, '+add_row_count+')" style="text-align:center;" /></div><div class="col-md-3" style="padding-left:0px; padding-top:7px;"><span onclick="plusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/plus_icon.png" /></span></div></div></div><div class="col-md-3">'+price+'</div><div class="col-md-1" style="font-weight: bold;"><span onclick="deleteDiv('+add_row_count+')" style="cursor:pointer;">x</span></div></div><input type="hidden" name="pcode_'+add_row_count+'" id="pcode_'+add_row_count+'" value="'+pcode+'" /><input type="hidden" name="price_'+add_row_count+'" id="price_'+add_row_count+'" value="'+price+'" /><input type="hidden" name="qty_'+add_row_count+'" id="qty_'+add_row_count+'" value="1" />';
+												var msgs 		= '<div class="row" id="item_row_'+add_row_count+'" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;"><div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;">'+name+' <br />['+pcode+']</div><div class="col-md-4" style="text-align: center; font-size: 15px; color: #000;"><div class="row"><div class="col-md-3" style="padding-top:7px"><span onclick="minusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/minus_icon.png" /></span></div><div class="col-md-6" style="padding-left: 0px; padding-right: 0px;"><input type="text" id="display_qty_'+add_row_count+'" class="form-control" value="1" onchange="manualQty(this.value, '+add_row_count+')" style="text-align:center;" /></div><div class="col-md-3" style="padding-left:0px; padding-top:7px;"><span onclick="plusDiv('+add_row_count+')" style="cursor:pointer;"><i="fa fa-plus"></span></div></div></div><div class="col-md-3">'+price+'</div><div class="col-md-1" style="font-weight: bold;"><span onclick="deleteDiv('+add_row_count+')" style="cursor:pointer;">x</span></div></div><input type="hidden" name="pcode_'+add_row_count+'" id="pcode_'+add_row_count+'" value="'+pcode+'" /><input type="hidden" name="price_'+add_row_count+'" id="price_'+add_row_count+'" value="'+price+'" /><input type="hidden" name="qty_'+add_row_count+'" id="qty_'+add_row_count+'" value="1" />';
 												logDiv.append( msgs + "" );
 												
 												add_row_count++;
@@ -173,7 +173,7 @@
 											if(check_existing_pcode == 0){
 												
 												if(qty >= 1){
-													var msgs 		= '<div class="row" id="item_row_'+add_row_count+'" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;"><div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;">'+name+' <br />['+pcode+']</div><div class="col-md-4" style="text-align: center; font-size: 15px; color: #000;"><div class="row"><div class="col-md-3" style="padding-top:7px"><span onclick="minusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/minus_icon.png" /></span></div><div class="col-md-6" style="padding-left: 0px; padding-right: 0px;"><input type="text" id="display_qty_'+add_row_count+'" class="form-control" value="1" onchange="manualQty(this.value, '+add_row_count+')" style="text-align:center;" /></div><div class="col-md-3" style="padding-left:0px; padding-top:7px;"><span onclick="plusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/plus_icon.png" /></span></div></div></div><div class="col-md-3">'+price+'</div><div class="col-md-1" style="font-weight: bold;"><span onclick="deleteDiv('+add_row_count+')" style="cursor:pointer;">x</span></div></div><input type="hidden" name="pcode_'+add_row_count+'" id="pcode_'+add_row_count+'" value="'+pcode+'" /><input type="hidden" name="price_'+add_row_count+'" id="price_'+add_row_count+'" value="'+price+'" /><input type="hidden" name="qty_'+add_row_count+'" id="qty_'+add_row_count+'" value="1" />';
+													var msgs 		= '<div class="row" id="item_row_'+add_row_count+'" style="margin: 0px; border-bottom: 1px solid #dddddd; padding-top: 5px; padding-bottom: 5px;"><div class="col-md-4" style="background-color: #4d9fe4; color: #FFF;">'+name+' <br />['+pcode+']</div><div class="col-md-4" style="text-align: center; font-size: 15px; color: #000;"><div class="row"><div class="col-md-3" style="padding-top:7px"><span onclick="minusDiv('+add_row_count+')" style="cursor:pointer;"><img src="<?=base_url()?>assets/img/minus_icon.png" /></span></div><div class="col-md-6" style="padding-left: 0px; padding-right: 0px;"><input type="text" id="display_qty_'+add_row_count+'" class="form-control" value="1" onchange="manualQty(this.value, '+add_row_count+')" style="text-align:center;" /></div><div class="col-md-3" style="padding-left:0px; padding-top:7px;"><span onclick="plusDiv('+add_row_count+')" style="cursor:pointer;"><i class="fa fa-plus"></span></div></div></div><div class="col-md-3">'+price+'</div><div class="col-md-1" style="font-weight: bold;"><span onclick="deleteDiv('+add_row_count+')" style="cursor:pointer;">x</span></div></div><input type="hidden" name="pcode_'+add_row_count+'" id="pcode_'+add_row_count+'" value="'+pcode+'" /><input type="hidden" name="price_'+add_row_count+'" id="price_'+add_row_count+'" value="'+price+'" /><input type="hidden" name="qty_'+add_row_count+'" id="qty_'+add_row_count+'" value="1" />';
 													logDiv.append( msgs + "" );
 												
 													add_row_count++;
@@ -333,7 +333,7 @@
 															</div>
 															<div class="col-md-3" style="padding-left:5px; padding-top:7px;">
 																<span onclick="plusDiv('<?php echo $sus_row_count; ?>')" style="cursor:pointer;">
-																	<img src="<?=base_url()?>assets/img/plus_icon.png" />
+																	<i class="fa fa-plus"></i>
 																</span>
 															</div>
 														</div>
@@ -500,10 +500,12 @@
 					</div>
 				</div>
 			</header>
-			<div class="row" style="background: red;margin-left: 10px;margin-right: 10px; ">
-				<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
-						All
-				</div>
+			<header class="header clearfix">
+				<div class="btn-toolbar">
+					<div class="regular slider" style="width: 100%">
+						<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942;  color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
+							All
+					</div>
 				<?php
 			            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
 
@@ -516,7 +518,7 @@
 							</div>
 							-->
 							
-							<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; background-color: #373942; color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
+							<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
 						      	<?php echo $cat_name; ?>
 						    </div>
 						    
@@ -524,7 +526,12 @@
 
 			            }
 			        ?>
-			        <div class="row tab-content" style="overflow: scroll; height: 819px;" id="allProd">
+			    </div>
+			    </div>
+			</header>
+			<br>
+			<div class="row" style="background: red;margin-left: 10px;margin-right: 10px; ">
+				    <div class="row tab-content" style="overflow: scroll; height: 100%px;" id="allProd">
 				
 				<?php
                     $pp = 0;
