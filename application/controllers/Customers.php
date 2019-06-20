@@ -37,7 +37,8 @@ class Customers extends CI_Controller
 
     public function index()
     {
-        $this->load->view('dashboard', 'refresh');
+        redirect('index.php/dashboard');
+        // $this->load->view('dashboard', 'refresh');
     }
 
     // ****************************** View Page -- START ****************************** //

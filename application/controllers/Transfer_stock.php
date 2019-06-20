@@ -12,7 +12,7 @@ class Transfer_stock extends CI_Controller
 		$this->load->model('Constant_model');
 	}
 	function index(){
-
+        redirect('index.php/dashboard');
 	}
 	function view(){
 		

@@ -129,4 +129,13 @@ class Constant_model extends CI_Model
 
         return true;
     }
+    public function count_data($table){
+        $query = $this->db->get($table);
+        return $query->num_rows();
+    }
+    public function count_data_condition($table,$where){
+        $this->db->where($where);
+        $query = $this->db->get($table);
+        return $query->num_rows();
+    }
 }

@@ -37,7 +37,7 @@ class Inventory extends CI_Controller
 
     public function index()
     {
-        $this->load->view('dashboard', 'refresh');
+        redirect('index.php/dashboard');
     }
 
     // ****************************** View Page -- START ****************************** //
