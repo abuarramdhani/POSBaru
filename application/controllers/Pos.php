@@ -53,6 +53,7 @@ class Pos extends CI_Controller
         $user_outlet = $this->input->cookie('out_id', TRUE);
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_add_customer'] = $this->lang->line('add_customer');
         $data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
         $data['lang_hold'] = $this->lang->line('hold');

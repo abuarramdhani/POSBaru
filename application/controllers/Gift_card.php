@@ -58,6 +58,7 @@ class Gift_card extends CI_Controller
         $data['currency'] = $siteSetting_currency;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -175,6 +176,8 @@ class Gift_card extends CI_Controller
         $data['dateformat'] = $dateformat;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');

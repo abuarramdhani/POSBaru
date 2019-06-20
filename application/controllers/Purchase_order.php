@@ -95,6 +95,7 @@ class Purchase_order extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -170,6 +171,7 @@ class Purchase_order extends CI_Controller
         $data['dateformat'] = $setting_dateformat;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -249,6 +251,7 @@ class Purchase_order extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -347,6 +350,7 @@ class Purchase_order extends CI_Controller
         $data['tax'] = $supplier_tax;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
@@ -446,6 +450,7 @@ class Purchase_order extends CI_Controller
         $data['id'] = $id;
 
         $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
         $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
