@@ -71,12 +71,15 @@ class Setting_model extends CI_Model
         $temp_user_id = $user_id = $this->input->cookie('user_id', TRUE);
         $temp_outlet = $this->input->cookie('out_id', TRUE);
         $temp_role = $this->input->cookie('role_id', TRUE);
-
+        
         if ($temp_role > 1) {
+            $this->db->where('role_id !=', 0);            
             $this->db->where('outlet_id', $temp_outlet);
         }
         if ($temp_role == 3) {
             $this->db->where('id', $temp_user_id);
+        }else{
+
         }
 
         $this->db->order_by('id', 'DESC');
