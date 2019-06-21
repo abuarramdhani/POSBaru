@@ -157,9 +157,12 @@
 			</li>
 			<li>
 				<a href="timeline.html">
-				<i class="fa fa-clock-o"></i>
-			<span>Timeline</span>
-			</a>
+					<i class="fa fa-clock-o"></i>
+					<span>Timeline</span>
+				</a>
+			</li>
+			<li>
+				<?php echo anchor('index.php/pos/changeOutlet','<i class="fa fa-exchange"></i><span></span>') ?>
 			</li>
 			</ul>
 			</nav>
