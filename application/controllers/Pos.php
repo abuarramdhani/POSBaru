@@ -1225,4 +1225,8 @@ class Pos extends CI_Controller
         );
         echo json_encode($response);
     }
+    function changeOutlet(){
+        $this->input->set_cookie('out_id',0,'3600');
+        redirect('index.php/pos');
+    }
 }
