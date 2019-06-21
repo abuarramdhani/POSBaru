@@ -12,6 +12,10 @@ class LangSwitch extends CI_Controller
     {
         $language = ($language != '') ? $language : 'english';
         $this->input->set_cookie('site_lang',$language,'3600'); 
-        redirect(base_url('index.php/Dashboard'));
+        if ($this->input->cookie('role_id') == 3) {
+            redirect(base_url('index.php/Dashboard'));
+        }else{
+            redirect(base_url('index.php/Pos'));
+        }
     }
 }
