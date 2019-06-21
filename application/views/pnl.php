@@ -1,8 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
-?>
-
-<?php
+require_once 'includes/header2.php';
     for ($i = 0; $i < 12; ++$i) {
         $months[] = date('Y-m', strtotime(date('Y-m-01')." -$i months"));
     }
@@ -18,12 +15,53 @@
         array_push($year_name_array, $year);
     }
 ?>
+<section id="content">
+	<section class="vbox">
+		<header class="header bg-white b-b">
+			<p>Welcome to <?php echo $lang_dashboard; ?></p>
+			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
+				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
+			</a>
+		</header>
+
+		<section class="scrollable wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"><?php echo $lang_pnl; ?></h1>
+				</div>
+			</div><!--/.row-->
 	
-	
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							
+							<div class="row" style="margin-top: 10px;">
+								<div class="col-md-12">
+									
+									<div id="pnlcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+									
+								</div>
+							</div>
+							
+							<div class="row" style="margin-top: 10px;">
+								<div class="col-md-12" style="font-size:15px;">
+								<b>Profit &amp; Loss</b> = Selling Price - Cost - tax
+								</div>
+							</div>
+							
+							
+						</div><!-- Panel Body // END -->
+					</div><!-- Panel Default // END -->
+				</div><!-- Col md 12 // END -->
+			</div><!-- Row // END -->
+		</section>
+	</section>
+</section>
 <script src="<?=base_url()?>assets/js/highcharts.js"></script>
 <script src="<?=base_url()?>assets/js/exporting.js"></script>	
 <script type="text/javascript">
-	$(function () {
+	
 	    $('#pnlcontainer').highcharts({
 	        title: {
 	            text: '<?php echo $lang_monthly_pnl_by_outlets; ?>',
@@ -144,56 +182,7 @@
             ?>
 	        ]
 	    });
-	});
 </script>
-
-
-<section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_pnl; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					
-					<div class="row" style="margin-top: 10px;">
-						<div class="col-md-12">
-							
-							<div id="pnlcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-							
-						</div>
-					</div>
-					
-<div class="row" style="margin-top: 10px;">
-<div class="col-md-12" style="font-size:15px;">
-<b>Profit &amp; Loss</b> = Selling Price - Cost - tax
-</div>
-</div>
-					
-					
-				</div><!-- Panel Body // END -->
-			</div><!-- Panel Default // END -->
-		</div><!-- Col md 12 // END -->
-	</div><!-- Row // END -->
-	
-		</section>
-	</section>
-</section>
 
 	
 	
