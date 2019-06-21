@@ -501,35 +501,34 @@
 				</div>
 			</header>
 			<header class="header clearfix">
-				<div class="btn-toolbar">
-					<div class="regular slider" style="width: 100%">
+				<div class="btn-group">
+					<div class="regular slider">
 						<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942;  color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
 							All
-					</div>
-				<?php
-			            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
+						</div>
+						<?php
+				            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
 
-			            for ($ct = 0; $ct < count($catData); ++$ct) {
-			                $cat_id = $catData[$ct]->id;
-			                $cat_name = $catData[$ct]->name; ?>
-							<!--
-							<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
-								<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
-							</div>
-							-->
-							
-							<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
-						      	<?php echo $cat_name; ?>
-						    </div>
-						    
-					<?php
+				            for ($ct = 0; $ct < count($catData); ++$ct) {
+				                $cat_id = $catData[$ct]->id;
+				                $cat_name = $catData[$ct]->name; ?>
+								<!--
+								<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
+									<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
+								</div>
+								-->
+								
+								<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
+							      	<?php echo $cat_name; ?>
+							    </div>
+							    
+						<?php
 
-			            }
-			        ?>
-			    </div>
+				            }
+				        ?>
+			    	</div>
 			    </div>
 			</header>
-			<br>
 			<div class="row" style="background: red;margin-left: 10px;margin-right: 10px; ">
 				    <div class="row tab-content" style="overflow: scroll; height: 100%px;" id="allProd">
 				
