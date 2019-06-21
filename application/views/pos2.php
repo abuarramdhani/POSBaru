@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/carousel/slick/slick-theme.css">
 <style type="text/css">
 	.slider {
-	    width: 50%;
+	    width: 880px;
 	}
 	
 	.slick-slide {
@@ -21,6 +21,7 @@
 	    color: black;
 	}
 </style>
+
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <?php
     if (!empty($alert_msg)) {
@@ -284,7 +285,8 @@
 								<div class="col-md-1" style="font-weight: bold;">X</div>
 							</div>
 
-							<div style="overflow: scroll; height: 330px; width: 100%;">
+							<div class="row">
+								<div style="overflow: scroll; height: 392px; width: 100%;">
 								<?php
 							        $suspend_id = 0;
 
@@ -360,272 +362,253 @@
 								
 								<div id="log"></div>
 							</div>
+							
+							</div>
+							<div class="row"">
+								<div style="background-color: #373942;padding: 10px">
+												
+									<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; padding-top: 5px; font-size: 13px;">
+												<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
+													<tr>
+														<td width="25%" height="25px" style="font-size: 12px;"><?php echo $lang_total_items; ?> :</td>
+														<td width="25%" height="25px" align="right">
+															<div id="total_item_qty"><?php echo $total_items; ?></div>
+														</td>
+														<td width="25%" height="25px" align="right">
+															<?php echo $lang_total; ?> :
+														</td>
+														<td width="25%" height="25px" align="right">
+															<div id="total_price"><?php echo $subTotal; ?></div>
+														</td>
+													</tr>
+												</table>
+											<!--
+											<div class="col-md-4">Total Items : </div>
+											<div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
+												<div id="total_item_qty"><?php echo $total_items; ?></div>
+											</div>
+											<div class="col-md-3" style="text-align: right;">Total : </div>
+											<div class="col-md-3" style="text-align: right;">
+												<div id="total_price"><?php echo $subTotal; ?></div>
+											</div>
+											-->
+									</div>
+									
+									<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; font-size: 13px;">
+											<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+												<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
+													<tr>
+														<td width="30%" height="25px">
+															<?php echo $lang_dis_amt; ?>/% : 
+														</td>
+														<td width="20%" height="25px">
+															<input type="text" name="dis_amt" id="dis_amt" value="<?php echo $dis_amt; ?>" style="width: 100%; color: #000; font-size: 13px; font-weight: normal; border: 0px; padding-left: 5px; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; padding-bottom: 5px;" onkeyup="calculateDiscount(this.value)" />
+														</td>
+														<td width="30%" height="25px" align="right">
+															<?php echo $lang_tax; ?> (<?php echo $tax; ?>%) :
+														</td>
+														<td width="20%" height="25px" align="right">
+															<div id="display_tax_amt"><?php echo $tax_amt; ?></div>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<!--
+											<div class="col-md-4">Disc. Amt. / % : </div>
+											<div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
+												<input type="text" name="dis_amt" id="dis_amt" value="<?php echo $dis_amt; ?>" style="width: 100%; color: #000; font-size: 13px; font-weight: normal; border: 0px; padding-left: 5px; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; padding-bottom: 5px;" onkeyup="calculateDiscount(this.value)" />
+											</div>
+											<div class="col-md-3" style="text-align: right;">Tax (<?php echo $tax; ?>%) : </div>
+											<div class="col-md-3" style="text-align: right;">
+												<div id="display_tax_amt"><?php echo $tax_amt; ?></div>
+											</div>
+											-->
+									</div>
+									
+									<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; padding-top: 7px; padding-bottom: 7px; font-size: 13px; border-top: 1px solid #dddddd;">
+											<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+												<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
+													<tr>
+														<td width="50%" height="30px"><?php echo $lang_total_payable; ?> :</td>
+														<td width="50%" height="30px" align="right">
+															<div id="total_payable"><?php echo $grandTotal; ?></div>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<!--
+											<div class="col-md-6">Total Payable : </div>
+											<div class="col-md-6" style="text-align: right;">
+												<div id="total_payable"><?php echo $grandTotal; ?></div>
+											</div>
+											-->
+									</div>
+									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4" style="margin-top: 8px;">
+									<div style="background-color: #c72a25; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; cursor: pointer; padding-top: 10px; padding-bottom: 10px; width: 100%;" onclick="cancelSelected()">
+										<?php echo $lang_cancel; ?>
+									</div>
+								</div>
+								<div class="col-md-4" style="margin-top: 8px;">
+									<a href="#holdmodel" data-toggle="modal" style="text-decoration: none;">
+										<div style="background-color: #834f50; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
+											<?php echo $lang_hold; ?>
+										</div>
+									</a>
+								</div>
+								<div class="col-md-4" style="margin-top: 8px;">
+									<a class="btn btn-primary" href="#timepicker4Modal" data-toggle="modal" style="background-color: #3fb618; float: right; font-weight: bold; color: #FFF; border: 0px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
+										<?php echo $lang_payment; ?>
+									</a>
+								</div>
+							</div>
 						</li>
 					</ul>
 				</section>
-				<footer class="dk footer text-center">
-					<div class="row">
-						<div class="col-md-12" style="background-color: #373942;">
-										
-							<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; padding-top: 5px; font-size: 13px;">
-									<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
-										<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
-											<tr>
-												<td width="25%" height="25px" style="font-size: 12px;"><?php echo $lang_total_items; ?> :</td>
-												<td width="25%" height="25px" align="right">
-													<div id="total_item_qty"><?php echo $total_items; ?></div>
-												</td>
-												<td width="25%" height="25px" align="right">
-													<?php echo $lang_total; ?> :
-												</td>
-												<td width="25%" height="25px" align="right">
-													<div id="total_price"><?php echo $subTotal; ?></div>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<!--
-									<div class="col-md-4">Total Items : </div>
-									<div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-										<div id="total_item_qty"><?php echo $total_items; ?></div>
-									</div>
-									<div class="col-md-3" style="text-align: right;">Total : </div>
-									<div class="col-md-3" style="text-align: right;">
-										<div id="total_price"><?php echo $subTotal; ?></div>
-									</div>
-									-->
-							</div>
-							
-							<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; font-size: 13px;">
-									<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
-										<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
-											<tr>
-												<td width="30%" height="25px">
-													<?php echo $lang_dis_amt; ?>/% : 
-												</td>
-												<td width="20%" height="25px">
-													<input type="text" name="dis_amt" id="dis_amt" value="<?php echo $dis_amt; ?>" style="width: 100%; color: #000; font-size: 13px; font-weight: normal; border: 0px; padding-left: 5px; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; padding-bottom: 5px;" onkeyup="calculateDiscount(this.value)" />
-												</td>
-												<td width="30%" height="25px" align="right">
-													<?php echo $lang_tax; ?> (<?php echo $tax; ?>%) :
-												</td>
-												<td width="20%" height="25px" align="right">
-													<div id="display_tax_amt"><?php echo $tax_amt; ?></div>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<!--
-									<div class="col-md-4">Disc. Amt. / % : </div>
-									<div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-										<input type="text" name="dis_amt" id="dis_amt" value="<?php echo $dis_amt; ?>" style="width: 100%; color: #000; font-size: 13px; font-weight: normal; border: 0px; padding-left: 5px; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; padding-bottom: 5px;" onkeyup="calculateDiscount(this.value)" />
-									</div>
-									<div class="col-md-3" style="text-align: right;">Tax (<?php echo $tax; ?>%) : </div>
-									<div class="col-md-3" style="text-align: right;">
-										<div id="display_tax_amt"><?php echo $tax_amt; ?></div>
-									</div>
-									-->
-							</div>
-							
-							<div class="row" style="margin: 0px; font-weight: bold; color: #FFF; padding-top: 7px; padding-bottom: 7px; font-size: 13px; border-top: 1px solid #dddddd;">
-									<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
-										<table border="0" style="border-collapse: collapse;" width="100%" height="auto">
-											<tr>
-												<td width="50%" height="30px"><?php echo $lang_total_payable; ?> :</td>
-												<td width="50%" height="30px" align="right">
-													<div id="total_payable"><?php echo $grandTotal; ?></div>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<!--
-									<div class="col-md-6">Total Payable : </div>
-									<div class="col-md-6" style="text-align: right;">
-										<div id="total_payable"><?php echo $grandTotal; ?></div>
-									</div>
-									-->
-							</div>
-							
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4" style="margin-top: 8px;">
-							<div style="background-color: #c72a25; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; cursor: pointer; padding-top: 10px; padding-bottom: 10px; width: 100%;" onclick="cancelSelected()">
-								<?php echo $lang_cancel; ?>
-							</div>
-						</div>
-						<div class="col-md-4" style="margin-top: 8px;">
-							<a href="#holdmodel" data-toggle="modal" style="text-decoration: none;">
-								<div style="background-color: #834f50; color: #FFF; text-align: center; font-weight: bold; border-radius: 4px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
-									<?php echo $lang_hold; ?>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-4" style="margin-top: 8px;">
-							<a class="btn btn-primary" href="#timepicker4Modal" data-toggle="modal" style="background-color: #3fb618; float: right; font-weight: bold; color: #FFF; border: 0px; padding-top: 10px; padding-bottom: 10px; width: 100%;">
-								<?php echo $lang_payment; ?>
-							</a>
-						</div>
-					</div>
-				</footer>
 			</section>
 		</aside>
-<!-- /.aside -->
 
-	<aside class="bg-light lter">
-		<section class="vbox">
-			<header class="bg-light dker header clearfix">
-				<div class="btn-toolbar">
-					<div class="btn-group select">
-						<button class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
-						<span class="dropdown-label" style="width: 65px;">Filter</span>
-						<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu text-left text-sm">
-							<li><a href="#">Read</a></li>
-						<li><a href="#">Unread</a></li>
-						<li><a href="#">Starred</a></li>
-						<li><a href="#">Unstarred</a></li>
-						</ul>
-					</div>
-					<div class="btn-group col-md-11">
-						<form class="">
-							<div class="input-group">
-								<input type="text" class="input-sm form-control input-s-sm"  placeholder="<?php echo $lang_search_product_by_namecode; ?>" id="searchProd"  />
-								<div class="input-group-btn">
-									<button class="btn btn-sm btn-white"><i class="fa fa-search"></i></button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</header>
-			<header class="header clearfix">
-				<div class="btn-group">
-					<div class="regular slider">
-						<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942;  color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
-							All
-						</div>
-						<?php
-				            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
-
-				            for ($ct = 0; $ct < count($catData); ++$ct) {
-				                $cat_id = $catData[$ct]->id;
-				                $cat_name = $catData[$ct]->name; ?>
-								<!--
-								<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
-									<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
-								</div>
-								-->
+		<aside class="bg-light lter">
+			<section class="vbox">
+				<header class="bg-light dker header clearfix">
+					<div class="btn-toolbar">
+						<input type="text" class="input-sm form-control"  placeholder="<?php echo $lang_search_product_by_namecode; ?>" id="searchProd" />
 								
-								<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
-							      	<?php echo $cat_name; ?>
-							    </div>
-							    
-						<?php
-
-				            }
-				        ?>
-			    	</div>
-			    </div>
-			</header>
-			<div class="row" style="background: red;margin-left: 10px;margin-right: 10px; ">
-				    <div class="row tab-content" style="overflow: scroll; height: 100%px;" id="allProd">
-				
-				<?php
-                    $pp = 0;
-                ?>	
-					<div class="tab-pane fade in active" id="pilltabAll">
-					<?php
-                        $allProdData = $this->Constant_model->getDataOneColumn('products', 'status', '1');
-                        for ($ap = 0; $ap < count($allProdData); ++$ap) {
-                            $pcode = $allProdData[$ap]->code;
-                            $name = $allProdData[$ap]->name;
-                            $image = $allProdData[$ap]->thumbnail; ?>
-							<button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; background-color: #005b8a; border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
-							<?php
-                                if (($display_prod == '3') || ($display_prod == '2')) {
-                                    ?>	
-								<?php
-                                    if ($image == 'no_image.jpg') {
-                                        ?>
-										<img src="<?=base_url()?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
-								<?php
-
-                                    } else {
-                                        ?>
-										<img src="<?=base_url()?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
-								<?php	
-                                    }
-                                } ?>
-								<?php
-                                    if (($display_prod == '1') || ($display_prod == '3')) {
-                                        ?>
-								<span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
-								<?php
-
-                                    } ?>
-							</button>
-					<?php
-                            ++$pp;
-                        }
-                    ?>
 					</div>
+				</header>
+				<br>
+				<div class="row">
 					
-				<?php
-                    // $pp = 0;
+					<header class="col-md-12" style="margin-left: 25px;"> 
+						<div class="regular slider" >
+							<div data-toggle="tab" href="#pilltabAll" style="cursor: pointer; text-align: center; background-color: #373942;  color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
+								All
+							</div>
+							<?php
+					            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
 
-                    $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
-                    for ($ca = 0; $ca < count($catData); ++$ca) {
-                        $category_id = $catData[$ca]->id; ?>
-						<div class="tab-pane fade in <?php if ($ca == 0) {
-                            ?><?php 
-                        } ?>" id="pilltab<?php echo $category_id; ?>">
+					            for ($ct = 0; $ct < count($catData); ++$ct) {
+					                $cat_id = $catData[$ct]->id;
+					                $cat_name = $catData[$ct]->name; ?>
+									<!--
+									<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer;">
+										<img src="http://placehold.it/120x60/373942/FFFFFF?text=<?php echo $cat_name; ?>" />
+									</div>
+									-->
+									
+									<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
+								      	<?php echo $cat_name; ?>
+								    </div>
+								    
+							<?php
+
+					            }
+					        ?>
+						</div>
+					</header>
+				</div>
+				<div class="row" style="margin-left: 10px;margin-right: 10px; ">
+					<div class="col-md-12">
+						<div class="row tab-content" style="overflow: scroll; height: 100%px;" id="allProd">
+					
+					<?php
+		                $pp = 0;
+		            ?>	
+						<div class="tab-pane fade in active" id="pilltabAll">
 						<?php
-                            $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
-                        for ($d = 0; $d < count($prodData); ++$d) {
-                            $pcode = $prodData[$d]->code;
-                            $name = $prodData[$d]->name;
-                            $image = $prodData[$d]->thumbnail; ?>
+		                    $allProdData = $this->Constant_model->getDataOneColumn('products', 'status', '1');
+		                    for ($ap = 0; $ap < count($allProdData); ++$ap) {
+		                        $pcode = $allProdData[$ap]->code;
+		                        $name = $allProdData[$ap]->name;
+		                        $image = $allProdData[$ap]->thumbnail; ?>
 								<button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; background-color: #005b8a; border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
 								<?php
-                                    if (($display_prod == '3') || ($display_prod == '2')) {
-                                        ?>	
+		                            if (($display_prod == '3') || ($display_prod == '2')) {
+		                                ?>	
 									<?php
-                                        if ($image == 'no_image.jpg') {
-                                            ?>
+		                                if ($image == 'no_image.jpg') {
+		                                    ?>
 											<img src="<?=base_url()?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
 									<?php
 
-                                        } else {
-                                            ?>
+		                                } else {
+		                                    ?>
 											<img src="<?=base_url()?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
 									<?php	
-                                        }
-                                    } ?>
+		                                }
+		                            } ?>
 									<?php
-                                        if (($display_prod == '1') || ($display_prod == '3')) {
-                                            ?>
+		                                if (($display_prod == '1') || ($display_prod == '3')) {
+		                                    ?>
 									<span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
 									<?php
 
-                                        } ?>
+		                                } ?>
 								</button>
 						<?php
-                                ++$pp;
-                        } ?>
+		                        ++$pp;
+		                    }
+		                ?>
 						</div>
-				<?php
-                        unset($category_id);
-                    }
-                    unset($catData);
+						
+					<?php
+		                // $pp = 0;
 
-                    //$pp += 100;
-                ?>
+		                $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
+		                for ($ca = 0; $ca < count($catData); ++$ca) {
+		                    $category_id = $catData[$ca]->id; ?>
+							<div class="tab-pane fade in <?php if ($ca == 0) {
+		                        ?><?php 
+		                    } ?>" id="pilltab<?php echo $category_id; ?>">
+							<?php
+		                        $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
+		                    for ($d = 0; $d < count($prodData); ++$d) {
+		                        $pcode = $prodData[$d]->code;
+		                        $name = $prodData[$d]->name;
+		                        $image = $prodData[$d]->thumbnail; ?>
+									<button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; background-color: #005b8a; border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+									<?php
+		                                if (($display_prod == '3') || ($display_prod == '2')) {
+		                                    ?>	
+										<?php
+		                                    if ($image == 'no_image.jpg') {
+		                                        ?>
+												<img src="<?=base_url()?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+										<?php
+
+		                                    } else {
+		                                        ?>
+												<img src="<?=base_url()?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+										<?php	
+		                                    }
+		                                } ?>
+										<?php
+		                                    if (($display_prod == '1') || ($display_prod == '3')) {
+		                                        ?>
+										<span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+										<?php
+
+		                                    } ?>
+									</button>
+							<?php
+		                            ++$pp;
+		                    } ?>
+							</div>
+					<?php
+		                    unset($category_id);
+		                }
+		                unset($catData);
+
+		                //$pp += 100;
+		            ?>
+					</div>
+					</div>
 				</div>
-			</div>
-		</section>
-	</aside>
+			</section>
+		</aside>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('#holdmodel').on('shown.bs.modal', function () {
@@ -1183,23 +1166,7 @@
 							</div>
 							<div class="col-md-6">
 
-							<script type="text/javascript" src="<?=base_url()?>assets/js/search/jquery.searchabledropdown.js"></script>
-							<script type="text/javascript">
-								$(document).ready(function() {
-									jQuery.browser = {};
-									(function () {
-									    jQuery.browser.msie = false;
-									    jQuery.browser.version = 0;
-									    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-									        jQuery.browser.msie = true;
-									        jQuery.browser.version = RegExp.$1;
-									    }
-									})();		
-									
-									$("#paymentLoadCust").searchable();	
-									$("#openBillLoadCust").searchable();		
-							    });
-							</script>
+							
 								<select name="customer" id="paymentLoadCust" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;">
 									
 								</select>
@@ -1221,282 +1188,103 @@
 								<span id="final_purchased_item" style="background-color: #FFFF99; padding: 5px 10px;"><?php echo $total_items; ?></span>
 							</div>
 						</div>
-					
-		<script type="text/javascript">		
-			function checkChequePayment(ele){
-				if(ele == "5"){			// Cheque;
-					document.getElementById("paid").readOnly			= false;
-					document.getElementById("paid").value 				= 0;
-					document.getElementById("return_change").innerHTML 	= 0;
-					document.getElementById("card_numb").value 			= "";
-					document.getElementById("cheque").value 			= "";
-					
-					
-					document.getElementById("addi_card_numb").value 				= "";
-					document.getElementById("addi_card_numb_wrp").style.display 	= "none";
-					document.getElementById("addi_card_numb").required 				= false;
-					
-					document.getElementById("submit_btn").style.display = "none";
-					
-					document.getElementById("card_wrp").style.display = "none";
-					document.getElementById("card_numb").required = false;
-					
-					document.getElementById("cheque_wrp").style.display = "block";
-					document.getElementById("cheque").required = true;
-					document.getElementById("cheque").focus();
-					
-				} else if ( (ele == "3") || (ele == "4") ) {		// VISA and Master;
-					
-					document.getElementById("paid").readOnly			= false;
-					document.getElementById("paid").value 				= 0;
-					document.getElementById("return_change").innerHTML 	= 0;
-					document.getElementById("card_numb").value 			= "";
-					document.getElementById("cheque").value 			= "";
-					document.getElementById("addi_card_numb").value 	= "";
-					
-					document.getElementById("addi_card_numb_wrp").style.display 	= "block";
-					document.getElementById("addi_card_numb").required 				= true;
-					document.getElementById("addi_card_numb").focus();
-					
-					document.getElementById("submit_btn").style.display = "none";
-					
-					document.getElementById("card_wrp").style.display = "none";
-					document.getElementById("card_numb").required = false;
-					
-					document.getElementById("cheque_wrp").style.display = "none";
-					document.getElementById("cheque").required = false;
-					
-					
-				} else if (ele == "7") {		// Gift Card;
-					document.getElementById("paid").value 				= 0;
-					document.getElementById("return_change").innerHTML 	= 0;
-					document.getElementById("card_numb").value 			= "";
-					document.getElementById("cheque").value 			= "";
-					document.getElementById("addi_card_numb").value 	= "";
-					
-					document.getElementById("submit_btn").style.display = "none";
-					
-					document.getElementById("cheque_wrp").style.display = "none";
-					document.getElementById("cheque").required = false;
-					
-					document.getElementById("addi_card_numb_wrp").style.display 	= "none";
-					document.getElementById("addi_card_numb").required 				= false;
-					
-					document.getElementById("card_wrp").style.display = "block";
-					document.getElementById("card_numb").required = true;
-					document.getElementById("card_numb").focus();
-					
-				} else if(ele == "6"){			// Debit;
-					document.getElementById("paid").readOnly			= false;
-					document.getElementById("paid").value 				= 0;
-					document.getElementById("return_change").innerHTML 	= 0;
-					document.getElementById("card_numb").value 			= "";
-					document.getElementById("cheque").value 			= "";
-					document.getElementById("addi_card_numb").value 	= "";
-					
-					document.getElementById("submit_btn").style.display = "block";
-					
-					document.getElementById("cheque_wrp").style.display = "none";
-					document.getElementById("cheque").required = false;
-					
-					document.getElementById("addi_card_numb_wrp").style.display 	= "none";
-					document.getElementById("addi_card_numb").required 				= false;
-					
-					document.getElementById("card_wrp").style.display = "none";
-					document.getElementById("card_numb").required = false;
-					
-				} else {
-					
-					document.getElementById("paid").readOnly			= false;
-					document.getElementById("paid").value 				= 0;
-					document.getElementById("return_change").innerHTML 	= 0;
-					document.getElementById("card_numb").value 			= "";
-					document.getElementById("cheque").value 			= "";
-					document.getElementById("addi_card_numb").value 	= "";
-					
-					document.getElementById("submit_btn").style.display = "none";
-					
-					document.getElementById("cheque_wrp").style.display = "none";
-					document.getElementById("cheque").required = false;
-					
-					document.getElementById("addi_card_numb_wrp").style.display 	= "none";
-					document.getElementById("addi_card_numb").required 				= false;
-					
-					document.getElementById("card_wrp").style.display = "none";
-					document.getElementById("card_numb").required = false;
-				}
-			}
-		</script>			
-		<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-			<div class="col-md-6"><b><?php echo $lang_paid_by; ?> :</b></div>
-			<div class="col-md-6">
-				<select name="paid_by" id="paid_by" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" onchange="checkChequePayment(this.value)">
-				<?php
-                    $payMethodData = $this->Constant_model->getDataOneColumn('payment_method', 'status', '1');
-                    for ($p = 0; $p < count($payMethodData); ++$p) {
-                        $payMethod_id = $payMethodData[$p]->id;
-                        $payMethod_name = $payMethodData[$p]->name; ?>
-						<option value="<?php echo $payMethod_id; ?>"><?php echo $payMethod_name; ?></option>
-				<?php
+				
+						<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+							<div class="col-md-6"><b><?php echo $lang_paid_by; ?> :</b></div>
+							<div class="col-md-6">
+								<select name="paid_by" id="paid_by" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" onchange="checkChequePayment(this.value)">
+								<?php
+				                    $payMethodData = $this->Constant_model->getDataOneColumn('payment_method', 'status', '1');
+				                    for ($p = 0; $p < count($payMethodData); ++$p) {
+				                        $payMethod_id = $payMethodData[$p]->id;
+				                        $payMethod_name = $payMethodData[$p]->name; ?>
+										<option value="<?php echo $payMethod_id; ?>"><?php echo $payMethod_name; ?></option>
+								<?php
 
-                    }
-                ?>
-				</select>
+				                    }
+				                ?>
+								</select>
+							</div>
+						</div>
+						
+						<div class="row" id="cheque_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
+							<div class="col-md-6"><b><?php echo $lang_cheque_number; ?> :</b></div>
+							<div class="col-md-6">
+								<input type="text" name="cheque" class="form-control" id="cheque" placeholder="<?php echo $lang_cheque_number; ?>" style="border: 1px solid #3a3a3a; color: #010101;" />
+							</div>
+						</div> 
+						<div class="row" id="card_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
+							<div class="col-md-6"><b><?php echo $lang_gift_card_number; ?> :</b></div>
+							<div class="col-md-6">
+								<input type="text" name="card_numb" class="form-control" id="card_numb" placeholder="<?php echo $lang_gift_card_number; ?>" style="border: 1px solid #3a3a3a; color: #010101;" />
+							</div>
+						</div>
+						<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+							<div class="col-md-6"><b><?php echo $lang_paid_amt; ?> :</b></div>
+							<div class="col-md-6">
+								<input type="text" name="paid" id="paid" class="form-control" placeholder="0.00" style="border: 1px solid #3a3a3a; color: #010101;" <?php if ($keyboard == '1') {
+				                    ?>onchange="calculatePaidAmt(this.value)"<?php 
+				                } ?> <?php if ($keyboard == '0') {
+				                    ?>onkeyup="calculatePaidAmt(this.value)"<?php 
+				                } ?> autocomplete="off" />
+							</div>
+						</div>
+									
+						<div class="row" id="addi_card_numb_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
+							<div class="col-md-6"><b><?php echo $lang_card_number; ?> :</b></div>
+							<div class="col-md-6">
+								<input type="text" name="addi_card_numb" id="addi_card_numb" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" />
+							</div>
+						</div>
+									
+						<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+							<div class="col-md-6"><b><?php echo $lang_return_change; ?> :</b></div>
+							<div class="col-md-6">
+								<span id="return_change" style="background-color: #FFFF99; padding: 10px 10px;"></span>
+								<input type="hidden" id="returned_change" name="returned_change" value="0" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="margin-top: 0px;">
+						<input type="submit" value="<?php echo $lang_submit; ?>" class="btn btn-primary" id="submit_btn" style="background-color: #3fb618; color: #FFF; border: 0px; padding: 5px 25px; float: right; display: none;" />
+					</div>
+				</div>
 			</div>
-		</div>
+		</div>								
 					
-		<div class="row" id="cheque_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
-			<div class="col-md-6"><b><?php echo $lang_cheque_number; ?> :</b></div>
-			<div class="col-md-6">
-				<input type="text" name="cheque" class="form-control" id="cheque" placeholder="<?php echo $lang_cheque_number; ?>" style="border: 1px solid #3a3a3a; color: #010101;" />
-			</div>
-		</div>
-
-		<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-		<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
-		<script type="text/javascript">
-		$(document).ready(function () {
-		    $('#card_numb').inputmask("9999 9999 9999 9999");
-		    
-		    $("#card_numb").on("keyup", function(event) {
-		        
-		        var card_numb 		= document.getElementById("card_numb").value;
-		        
-		        //alert(card_numb.length);
-		        
-		        if(card_numb.length == 0) {
-			        document.getElementById("submit_btn").style.display = "none";
-		        } else if(card_numb.indexOf('_') == -1){
-			        
-			        var addNewCustomer = $.ajax({
-						url		: '<?=base_url()?>index.php/pos/loadGiftCardValue?card_numb='+card_numb,
-						type	: 'GET',
-						cache	: false,
-						data	: {
-							format: 'json'
-						},
-						error	: function() {
-							//alert("Sorry! we do not have stock!");
-						},
-						dataType: 'json',
-						success	: function(data) {
-							var card_value 	= data.value;
-							var card_status	= data.errorMsg;
-							
-							if(card_status == "failure"){
-								
-								document.getElementById("paid").value 				= 0;
-								document.getElementById("return_change").innerHTML 	= 0;
-								
-								document.getElementById("submit_btn").style.display = "none";
-								alert("Card Do not Exist!");
-								document.getElementById("card_numb").value 	= "";
-								
-							} else if (card_status == "used"){
-								
-								document.getElementById("paid").value 				= 0;
-								document.getElementById("return_change").innerHTML 	= 0;
-								
-								document.getElementById("submit_btn").style.display = "none";
-								alert("Card used!");
-								document.getElementById("card_numb").value 	= "";
-								
-							} else if (card_status == "expired"){
-								
-								document.getElementById("paid").value 				= 0;
-								document.getElementById("return_change").innerHTML 	= 0;
-								
-								document.getElementById("submit_btn").style.display = "none";
-								alert("Card Expired!");
-								document.getElementById("card_numb").value 	= "";
-								
-							} else if (card_status == "success"){
-								
-								document.getElementById("paid").readOnly			= true;
-								document.getElementById("paid").value 				= card_value;
-								document.getElementById("submit_btn").style.display = "block";
-								
-								document.getElementById("paid").onclick = false;
-								
-								calculatePaidAmtGift(card_value);
-							}
-							
-						}
-					});
-			        
-					//document.getElementById("submit_btn").style.display = "block";
-				} else {
-					document.getElementById("submit_btn").style.display = "none";
-				}
-		        
-		        
-			});   
-		});
-		</script> 
-					
-		<div class="row" id="card_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
-			<div class="col-md-6"><b><?php echo $lang_gift_card_number; ?> :</b></div>
-			<div class="col-md-6">
-				<input type="text" name="card_numb" class="form-control" id="card_numb" placeholder="<?php echo $lang_gift_card_number; ?>" style="border: 1px solid #3a3a3a; color: #010101;" />
-			</div>
-		</div>
-					
-		<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-			<div class="col-md-6"><b><?php echo $lang_paid_amt; ?> :</b></div>
-			<div class="col-md-6">
-				<input type="text" name="paid" id="paid" class="form-control" placeholder="0.00" style="border: 1px solid #3a3a3a; color: #010101;" <?php if ($keyboard == '1') {
-                    ?>onchange="calculatePaidAmt(this.value)"<?php 
-                } ?> <?php if ($keyboard == '0') {
-                    ?>onkeyup="calculatePaidAmt(this.value)"<?php 
-                } ?> autocomplete="off" />
-			</div>
-		</div>
-					
-		<div class="row" id="addi_card_numb_wrp" style="padding-top: 10px; padding-bottom: 10px; display: none;">
-			<div class="col-md-6"><b><?php echo $lang_card_number; ?> :</b></div>
-			<div class="col-md-6">
-				<input type="text" name="addi_card_numb" id="addi_card_numb" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" />
-			</div>
-		</div>
-					
-		<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-			<div class="col-md-6"><b><?php echo $lang_return_change; ?> :</b></div>
-			<div class="col-md-6">
-				<span id="return_change" style="background-color: #FFFF99; padding: 10px 10px;"></span>
-				<input type="hidden" id="returned_change" name="returned_change" value="0" />
-			</div>
-		</div>
+		
 					
 
 				
-	<div class="modal-footer" style="margin-top: 0px;">
-		<input type="submit" value="<?php echo $lang_submit; ?>" class="btn btn-primary" id="submit_btn" style="background-color: #3fb618; color: #FFF; border: 0px; padding: 5px 25px; float: right; display: none;" />
-	</div>
+		
 	
 
-	<input type="hidden" name="row_count" id="row_count" value="<?php echo $sus_row_count; ?>" />
-<!-- 	<input type="hidden" name="row_count" id="row_count" value="1" /> -->
-	
-	<input type="hidden" name="final_total_payable" id="final_total_payable" value="<?php echo $grandTotal; ?>" />
-	<input type="hidden" name="final_total_qty" id="final_total_qty" value="<?php echo $total_items; ?>" />
-	
-	<input type="hidden" name="tax" id="tax" value="<?php echo $tax; ?>" />
-	<input type="hidden" name="tax_amt" id="tax_amt" value="<?php echo $tax_amt; ?>" />
-	
-	<input type="hidden" name="subTotal" id="subTotal" value="<?php echo $subTotal; ?>" />
+		<input type="hidden" name="row_count" id="row_count" value="<?php echo $sus_row_count; ?>" />
+		<!-- 	<input type="hidden" name="row_count" id="row_count" value="1" /> -->
 		
-	<input type="hidden" name="suspend_id" value="<?php echo $suspend_id; ?>" />
-	
-	<input type="hidden" name="outlet" id="outlet" value="<?php echo $this->input->cookie('out_id', TRUE); ?>" />
+		<input type="hidden" name="final_total_payable" id="final_total_payable" value="<?php echo $grandTotal; ?>" />
+		<input type="hidden" name="final_total_qty" id="final_total_qty" value="<?php echo $total_items; ?>" />
+		
+		<input type="hidden" name="tax" id="tax" value="<?php echo $tax; ?>" />
+		<input type="hidden" name="tax_amt" id="tax_amt" value="<?php echo $tax_amt; ?>" />
+		
+		<input type="hidden" name="subTotal" id="subTotal" value="<?php echo $subTotal; ?>" />
+			
+		<input type="hidden" name="suspend_id" value="<?php echo $suspend_id; ?>" />
+		
+		<input type="hidden" name="outlet" id="outlet" value="<?php echo $this->input->cookie('out_id', TRUE); ?>" />
 	
 </div><!-- Right Colmn // END -->
+		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+
+</form><!-- ENDDDDD -->
+	</section> 
 
 
-
-<script>
-	
-		
-	var logDiv = $( "#log" );
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/carousel/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+var logDiv = $( "#log" );
 
 	for ( var i = 0; i <= <?php echo $pp; ?>; i++ ) {
 		$( "button" ).eq( i ).on( "click", {val: $('#txtMessage_'+i).val()}, function( event ) {
@@ -2380,9 +2168,224 @@
 		}
 		
 	}
+$(document).on('ready', function() {
+  $(".regular").slick({
+    dots: true,
+    infinite: true,
+    slidesToShow: 7,
+    slidesToScroll: 3
+  });
+  $(".center").slick({
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  });
+  $(".variable").slick({
+    dots: true,
+    infinite: true,
+    variableWidth: true
+  });
+});
+function checkChequePayment(ele){
+	if(ele == "5"){			// Cheque;
+		document.getElementById("paid").readOnly			= false;
+		document.getElementById("paid").value 				= 0;
+		document.getElementById("return_change").innerHTML 	= 0;
+		document.getElementById("card_numb").value 			= "";
+		document.getElementById("cheque").value 			= "";
+		
+		
+		document.getElementById("addi_card_numb").value 				= "";
+		document.getElementById("addi_card_numb_wrp").style.display 	= "none";
+		document.getElementById("addi_card_numb").required 				= false;
+		
+		document.getElementById("submit_btn").style.display = "none";
+		
+		document.getElementById("card_wrp").style.display = "none";
+		document.getElementById("card_numb").required = false;
+		
+		document.getElementById("cheque_wrp").style.display = "block";
+		document.getElementById("cheque").required = true;
+		document.getElementById("cheque").focus();
+		
+	} else if ( (ele == "3") || (ele == "4") ) {		// VISA and Master;
+		
+		document.getElementById("paid").readOnly			= false;
+		document.getElementById("paid").value 				= 0;
+		document.getElementById("return_change").innerHTML 	= 0;
+		document.getElementById("card_numb").value 			= "";
+		document.getElementById("cheque").value 			= "";
+		document.getElementById("addi_card_numb").value 	= "";
+		
+		document.getElementById("addi_card_numb_wrp").style.display 	= "block";
+		document.getElementById("addi_card_numb").required 				= true;
+		document.getElementById("addi_card_numb").focus();
+		
+		document.getElementById("submit_btn").style.display = "none";
+		
+		document.getElementById("card_wrp").style.display = "none";
+		document.getElementById("card_numb").required = false;
+		
+		document.getElementById("cheque_wrp").style.display = "none";
+		document.getElementById("cheque").required = false;
+		
+		
+	} else if (ele == "7") {		// Gift Card;
+		document.getElementById("paid").value 				= 0;
+		document.getElementById("return_change").innerHTML 	= 0;
+		document.getElementById("card_numb").value 			= "";
+		document.getElementById("cheque").value 			= "";
+		document.getElementById("addi_card_numb").value 	= "";
+		
+		document.getElementById("submit_btn").style.display = "none";
+		
+		document.getElementById("cheque_wrp").style.display = "none";
+		document.getElementById("cheque").required = false;
+		
+		document.getElementById("addi_card_numb_wrp").style.display 	= "none";
+		document.getElementById("addi_card_numb").required 				= false;
+		
+		document.getElementById("card_wrp").style.display = "block";
+		document.getElementById("card_numb").required = true;
+		document.getElementById("card_numb").focus();
+		
+	} else if(ele == "6"){			// Debit;
+		document.getElementById("paid").readOnly			= false;
+		document.getElementById("paid").value 				= 0;
+		document.getElementById("return_change").innerHTML 	= 0;
+		document.getElementById("card_numb").value 			= "";
+		document.getElementById("cheque").value 			= "";
+		document.getElementById("addi_card_numb").value 	= "";
+		
+		document.getElementById("submit_btn").style.display = "block";
+		
+		document.getElementById("cheque_wrp").style.display = "none";
+		document.getElementById("cheque").required = false;
+		
+		document.getElementById("addi_card_numb_wrp").style.display 	= "none";
+		document.getElementById("addi_card_numb").required 				= false;
+		
+		document.getElementById("card_wrp").style.display = "none";
+		document.getElementById("card_numb").required = false;
+		
+	} else {
+		
+		document.getElementById("paid").readOnly			= false;
+		document.getElementById("paid").value 				= 0;
+		document.getElementById("return_change").innerHTML 	= 0;
+		document.getElementById("card_numb").value 			= "";
+		document.getElementById("cheque").value 			= "";
+		document.getElementById("addi_card_numb").value 	= "";
+		
+		document.getElementById("submit_btn").style.display = "none";
+		
+		document.getElementById("cheque_wrp").style.display = "none";
+		document.getElementById("cheque").required = false;
+		
+		document.getElementById("addi_card_numb_wrp").style.display 	= "none";
+		document.getElementById("addi_card_numb").required 				= false;
+		
+		document.getElementById("card_wrp").style.display = "none";
+		document.getElementById("card_numb").required = false;
+	}
+}
+$(document).ready(function() {
+	jQuery.browser = {};
+	(function () {
+	    jQuery.browser.msie = false;
+	    jQuery.browser.version = 0;
+	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	        jQuery.browser.msie = true;
+	        jQuery.browser.version = RegExp.$1;
+	    }
+	})();		
 	
+	$("#paymentLoadCust").searchable();	
+	$("#openBillLoadCust").searchable();		
+});
+$(document).ready(function () {
+		    $('#card_numb').inputmask("9999 9999 9999 9999");
+		    
+		    $("#card_numb").on("keyup", function(event) {
+		        
+		        var card_numb 		= document.getElementById("card_numb").value;
+		        
+		        //alert(card_numb.length);
+		        
+		        if(card_numb.length == 0) {
+			        document.getElementById("submit_btn").style.display = "none";
+		        } else if(card_numb.indexOf('_') == -1){
+			        
+			        var addNewCustomer = $.ajax({
+						url		: '<?=base_url()?>index.php/pos/loadGiftCardValue?card_numb='+card_numb,
+						type	: 'GET',
+						cache	: false,
+						data	: {
+							format: 'json'
+						},
+						error	: function() {
+							//alert("Sorry! we do not have stock!");
+						},
+						dataType: 'json',
+						success	: function(data) {
+							var card_value 	= data.value;
+							var card_status	= data.errorMsg;
+							
+							if(card_status == "failure"){
+								
+								document.getElementById("paid").value 				= 0;
+								document.getElementById("return_change").innerHTML 	= 0;
+								
+								document.getElementById("submit_btn").style.display = "none";
+								alert("Card Do not Exist!");
+								document.getElementById("card_numb").value 	= "";
+								
+							} else if (card_status == "used"){
+								
+								document.getElementById("paid").value 				= 0;
+								document.getElementById("return_change").innerHTML 	= 0;
+								
+								document.getElementById("submit_btn").style.display = "none";
+								alert("Card used!");
+								document.getElementById("card_numb").value 	= "";
+								
+							} else if (card_status == "expired"){
+								
+								document.getElementById("paid").value 				= 0;
+								document.getElementById("return_change").innerHTML 	= 0;
+								
+								document.getElementById("submit_btn").style.display = "none";
+								alert("Card Expired!");
+								document.getElementById("card_numb").value 	= "";
+								
+							} else if (card_status == "success"){
+								
+								document.getElementById("paid").readOnly			= true;
+								document.getElementById("paid").value 				= card_value;
+								document.getElementById("submit_btn").style.display = "block";
+								
+								document.getElementById("paid").onclick = false;
+								
+								calculatePaidAmtGift(card_value);
+							}
+							
+						}
+					});
+			        
+					//document.getElementById("submit_btn").style.display = "block";
+				} else {
+					document.getElementById("submit_btn").style.display = "none";
+				}
+		        
+		        
+			});   
+		});
 </script>
-
+<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?=base_url()?>assets/js/search/jquery.searchabledropdown.js"></script>
 <?php
     if ($keyboard == '1') {
         ?>
@@ -2404,40 +2407,8 @@
 		$('#paid').numpad();
 	});
 	</script>
-	<?php
+<?php
 
     }
-?>
-		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
-
-</form><!-- ENDDDDD -->
-	</section> 
-
-
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="<?=base_url()?>assets/carousel/slick/slick.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).on('ready', function() {
-  $(".regular").slick({
-    dots: true,
-    infinite: true,
-    slidesToShow: 7,
-    slidesToScroll: 3
-  });
-  $(".center").slick({
-    dots: true,
-    infinite: true,
-    centerMode: true,
-    slidesToShow: 3,
-    slidesToScroll: 3
-  });
-  $(".variable").slick({
-    dots: true,
-    infinite: true,
-    variableWidth: true
-  });
-});
-</script>	
-<?php
-    require_once 'includes/footer.php';
+require_once 'includes/footer.php';
 ?>
