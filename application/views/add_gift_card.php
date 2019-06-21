@@ -13,19 +13,6 @@
 	} );
 </script>
 
-<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
-<script src="<?=base_url()?>assets/js/custom.js" type="text/javascript"></script>
-<script type="text/javascript">
-	$(document).ready(function () {
-        $('#btn-input').inputmask("9999 9999 9999 9999");
-        $('#btn-todo').click(function () {
-            var numb = generateCardNo();
-            document.getElementById("btn-input").value 	= numb;
-            return false;
-        });
-    });
-</script> 
 
 <section id="content">
 	<section class="vbox">
@@ -153,6 +140,19 @@
 		</section>
 	</section>
 </section>
+<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/js/custom.js" type="text/javascript"></script>
+<script type="text/javascript">
+	
+        $('#btn-input').inputmask("9999 9999 9999 9999");
+        $('#btn-todo').click(function () {
+            var numb = generateCardNo();
+            document.getElementById("btn-input").value 	= numb;
+            return false;
+        });
+   
+</script> 
 	
 	
 <?php
