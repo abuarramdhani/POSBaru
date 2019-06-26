@@ -104,7 +104,7 @@
 			<li>
 			<?php if ($this->input->cookie('role_id') < 3){ ?>
 
-				<a href="<?=base_url()?>dashboard">
+				<a href="<?=base_url()?>index.php/dashboard">
 				<i class="fa fa-home"></i>
 			<?php }else{
 				echo "";
@@ -117,13 +117,13 @@
 			<li>
 				<a href="#openedBill" data-toggle="modal">
 					<i class="fa fa-clock-o"></i>
-					<span>Timeline</span>
+					<span>Open Bill</span>
 				</a>
 			</li>
 			<li>
 				<a href="#totalSales" data-toggle="modal">
 					<i class="fa fa-file"></i>
-					<span>Timeline</span>
+					<span>Total Sales</span>
 				</a>
 			</li>
 

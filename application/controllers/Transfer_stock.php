@@ -201,12 +201,16 @@ class Transfer_stock extends CI_Controller
 		$stock = $data['stock'][0]['qty'];
 		// Cek, transfer ke toko sendiri atau buka
 		if ($first_outlet == $second_outlet) {
+
+            echo "Tidak bisa transfer ke toko sendiri";
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Tidak bisa transfer ke toko sendiri'));
             redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty > $stock) {
+            echo "Stock barang kurang";
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock barang kurang'));
             redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
 		}else if ($qty <= 0) {
+            echo "Stock kurang";
 			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock kurang'));
             
             redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 

@@ -1,96 +1,12 @@
 <?php
     require_once 'includes/header2.php';
 ?>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
-<script src="<?=base_url()?>assets/js/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="<?=base_url()?>assets/js/typeahead.min.js"></script>
+
 
 <!-- Select2 -->
 <link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
 
-<script>
-	$(document).ready(function(){
-/*
-		document.getElementById("uploadBtn").onchange = function () {
-			document.getElementById("uploadFile").value = this.value;
-		};
-*/
-		
-		$('input#typeahead').typeahead({
-			name: 'typeahead',
-			remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
-			limit : 10
-		});
-		
-		$("#addToList").click(function(){
-			var row_count 		= document.getElementById("row_count").value;
-			var pcode 			= document.getElementById("typeahead").value;
-			
-			if(pcode.length > 0){
-				
-				var addNewCustomer = $.ajax({
-					url		: '<?=base_url()?>index.php/purchase_order/checkPcode?pcode='+pcode,
-					type	: 'GET',
-					cache	: false,
-					data	: {
-						format: 'json'
-					},
-					error	: function() {
-						//alert("Sorry! we do not have stock!");
-					},
-					dataType: 'json',
-					success	: function(data) {
-						var status 	= data.errorMsg;
-						var name 	= data.name;
-						
-						if(status == "failure"){
-							alert("Invalid Product Code! Please search Product by Product Code");
-							
-							
-						} else {
-							var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="icono-cross" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
-		        
-		         
-					        $('#addItemWrp').append(cell);
-					        
-					       
-					        row_count++;
-					        
-					        document.getElementById("typeahead").value 	= "";
-					        document.getElementById("row_count").value 	= row_count;
-						}
-						
-					}
-				});
-				
-				
-				
-			        
-		        
-		    } else {
-			    alert("Please search the product by Product Code OR Name!");
-			    //document.getElementById("typeahead").focus();
-		    }
-			
-		});
-		
-	});
-	
-	function deletediv(ele){
-		$('#row_' + ele).remove();
-	}
 
-/*
-	document.addEventListener('DOMContentLoaded', function() {
-		document.getElementById("addToList").addEventListener("click", handler);
-	});
-	
-	function handler() {
-		alert("A");	
-	}
-*/
-</script>
 	
 <style type="text/css">
 	.fileUpload {
@@ -394,8 +310,92 @@
 		</section>
 	</section>
 </section>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<script src="<?=base_url()?>assets/js/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="<?=base_url()?>assets/js/typeahead.min.js"></script>
+	<script>
+	$(document).ready(function(){
+/*
+		document.getElementById("uploadBtn").onchange = function () {
+			document.getElementById("uploadFile").value = this.value;
+		};
+*/
+		
+		// $('input #typeahead').typeahead({
+		// 	name: 'typeahead',
+		// 	remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
+		// 	limit : 10
+		// });
+		
+			$("#addToList").click(function(){
+				var row_count 		= document.getElementById("row_count").value;
+				var pcode 			= document.getElementById("typeahead").value;
+				
+				if(pcode.length > 0){
+					
+					var addNewCustomer = $.ajax({
+						url		: '<?=base_url()?>index.php/purchase_order/checkPcode?pcode='+pcode,
+						type	: 'GET',
+						cache	: false,
+						data	: {
+							format: 'json'
+						},
+						error	: function() {
+							//alert("Sorry! we do not have stock!");
+						},
+						dataType: 'json',
+						success	: function(data) {
+							var status 	= data.errorMsg;
+							var name 	= data.name;
+							
+							if(status == "failure"){
+								alert("Invalid Product Code! Please search Product by Product Code");
+								
+								
+							} else {
+								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="icono-cross" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
+			        
+			         
+						        $('#addItemWrp').append(cell);
+						        
+						       
+						        row_count++;
+						        
+						        document.getElementById("typeahead").value 	= "";
+						        document.getElementById("row_count").value 	= row_count;
+							}
+							
+						}
+					});
+					
+					
+					
+				        
+			        
+			    } else {
+				    alert("Please search the product by Product Code OR Name!");
+				    //document.getElementById("typeahead").focus();
+			    }
+				
+			});
+		
+	});
 	
+	function deletediv(ele){
+		$('#row_' + ele).remove();
+	}
+
+/*
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById("addToList").addEventListener("click", handler);
+	});
 	
+	function handler() {
+		alert("A");	
+	}
+*/
+</script>
 <?php
     require_once 'includes/footer2.php';
 ?>

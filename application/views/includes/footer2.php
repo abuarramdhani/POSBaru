@@ -1,5 +1,5 @@
 	
-
+	
 	<script src="<?=base_url()?>assets/js2/app.v2.js"></script>
 	<script src="<?=base_url()?>assets/js/chart.min.js"></script>
 

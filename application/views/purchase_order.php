@@ -36,8 +36,8 @@
 							<div class="row" id="notificationWrp">
 								<div class="col-md-12">
 									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+										<i class="fa fa-exclamationCircle" style="color: #FFF;"></i> 
+										<?php echo $flash_desc; ?> <i class="fa fa-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
 									</div>
 								</div>
 							</div>
@@ -48,8 +48,8 @@
 							<div class="row" id="notificationWrp">
 								<div class="col-md-12">
 									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+										<i class="fa fa-check" style="color: #FFF;"></i> 
+										<?php echo $flash_desc; ?> <i class="fa fa-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
 									</div>
 								</div>
 							</div>
@@ -65,7 +65,7 @@
                                 if ($user_role < 3) {
                                     ?>
 							<a href="<?=base_url()?>index.php/purchase_order/create_purchase_order" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i>
+								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="fa fa-plus"></i>
 									<?php echo $lang_create_purchase_order; ?>
 								</button>
 							</a>
@@ -136,7 +136,7 @@
                             if ($user_role == '1') {
                                 ?>
 						<a href="<?=base_url()?>index.php/purchase_order/deletePO?id=<?php echo $id; ?>&po_numb=<?php echo $po_numb; ?>" style="text-decoration: none; margin-left: 10px;" onclick="return confirm('Are you sure to delete this Purchase Order : <?php echo $po_numb; ?>?')">
-							<i class="icono-cross" style="color:#F00;"></i>
+							<i class="fa fa-cross" style="color:#F00;"></i>
 						</a>
 						<?php
 
@@ -144,15 +144,6 @@
 				<?php	
                     } else {
                         ?>
-						<?php
-                            if ($status_id == '2') {
-                                ?>
-								<a href="<?=base_url()?>index.php/purchase_order/receivepo?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 5px;">
-									<button class="btn btn-primary" style="padding: 5px 12px;">&nbsp;&nbsp;<?php echo $lang_receive; ?>&nbsp;&nbsp;</button>
-								</a>
-						<?php
-
-                            } ?>
 						<a href="<?=base_url()?>index.php/purchase_order/viewpo?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 5px;">
 							<button class="btn btn-primary" style="padding: 5px 12px;">&nbsp;&nbsp;<?php echo $lang_view; ?>&nbsp;&nbsp;</button>
 						</a>
@@ -162,7 +153,7 @@
                                 if ($user_role == '1') {
                                     ?>
 						<a href="<?=base_url()?>index.php/purchase_order/deletePO?id=<?php echo $id; ?>&po_numb=<?php echo $po_numb; ?>" style="text-decoration: none; margin-left: 10px;" onclick="return confirm('Are you sure to delete this Purchase Order : <?php echo $po_numb; ?>?')">
-							<i class="icono-cross" style="color:#F00;"></i>
+							<i class="fa fa-cross" style="color:#F00;"></i>
 						</a>
 						<?php
 

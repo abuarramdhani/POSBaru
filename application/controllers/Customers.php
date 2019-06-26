@@ -103,6 +103,8 @@ class Customers extends CI_Controller
         $data['displayshowingentries'] = $sh_text;
         $data['setting_dateformat'] = $setting_dateformat;
 
+
+
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
@@ -150,6 +152,7 @@ class Customers extends CI_Controller
         $data['lang_sales_history'] = $this->lang->line('sales_history');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
+        $data['lang_good_received'] = $this->lang->line('good_received');
 
         $this->load->view('customers', $data);
     }

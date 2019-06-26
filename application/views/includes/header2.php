@@ -54,8 +54,7 @@
 		<script src="<?=base_url()?>assets/js/html5shiv.js"></script>
 		<script src="<?=base_url()?>assets/js/respond.min.js"></script>
 		<![endif]-->
-		
-		<script src="<?=base_url()?>assets/js/jquery.min.js"></script>
+		<script src="<?=base_url()?>assets/js/jquery-1.7.2.min.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){

@@ -499,7 +499,7 @@
 									</div>
 									-->
 									
-									<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; margin-left: 10px; background-color: #373942; color: #FFF; width: 10px; height: 50px; line-height: 50px;">
+									<div data-toggle="tab" href="#pilltab<?php echo $cat_id; ?>" style="cursor: pointer; text-align: center; background-color: #373942;  color: #FFF; width: 100px; height: 50px; text-align: center; vertical-align: middle; line-height: 50px;">
 								      	<?php echo $cat_name; ?>
 								    </div>
 								    

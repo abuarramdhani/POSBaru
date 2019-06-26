@@ -33,11 +33,11 @@
 		};
 */
 		
-		$('input#typeahead').typeahead({
-			name: 'typeahead',
-			remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
-			limit : 10
-		});
+		// $('input#typeahead').typeahead({
+		// 	name: 'typeahead',
+		// 	remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
+		// 	limit : 10
+		// });
 		
 		$("#addToList").click(function(){
 			var row_count 		= document.getElementById("row_count").value;
