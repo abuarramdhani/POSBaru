@@ -101,17 +101,17 @@
 								<select id="typeahead" class="add_product_po form-control">
 									<option value="">Cari Barang</option>
 								<?php
-                                    // $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
-                                    // for ($p = 0; $p < count($prodData); ++$p) {
-                                        // $prod_code = $prodData[$p]->code;
-                                        // $prod_name = $prodData[$p]->name; ?>
-										<option value="<?php //echo $prod_code; ?>">
-											<?php //echo $prod_name.' ['.$prod_code.']'; ?>
+                                    $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
+                                    for ($p = 0; $p < count($prodData); ++$p) {
+                                        $prod_code = $prodData[$p]->code;
+                                        $prod_name = $prodData[$p]->name; ?>
+										<option value="<?php echo $prod_code; ?>">
+											<?php echo $prod_name.' ['.$prod_code.']'; ?>
 										</option>
 								<?php
-                                    //     unset($prod_code);
-                                    //     unset($prod_name);
-                                    // }
+                                        unset($prod_code);
+                                        unset($prod_name);
+                                    }
                                 ?>
 								</select>
 							</div>
@@ -214,11 +214,10 @@
 								
 								
 							} else {
-								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_'+row_count+'" value="1" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="icono-cross" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
+								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_'+row_count+'" value="1" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
 						        $('#addItemWrp').append(cell);
 						        row_count++;
-						        document.getElementById("typeahead").value 	= "";
-						        document.getElementById("row_count").value 	= row_count;
+						        $('#row_count').val(row_count);
 							}
 							
 						}

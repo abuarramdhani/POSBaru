@@ -25,6 +25,7 @@ class Purchase_order extends CI_Controller
         // Call the Model constructor
         parent::__construct();
         $this->load->model('Purchaseorder_model');
+        $this->load->model('Products_model');
         $this->load->model('Constant_model');
 
         $settingResult = $this->db->get_where('site_setting');
@@ -744,14 +745,21 @@ class Purchase_order extends CI_Controller
                 for ($i = 1; $i < $row_count; ++$i) {
                     $pcode = $this->input->post("pcode_$i");
                     $qty = $this->input->post("qty_$i");
+                    $price = $this->input->post("price_$i");
 
                     if ($qty > 0) {
                         $ins_po_item_data = array(
                                 'po_id' => $id,
                                 'product_code' => $pcode,
                                 'ordered_qty' => $qty,
+                                'cost' => $price,
                         );
                         $this->Constant_model->insertData('purchase_order_items', $ins_po_item_data);
+                        $products_data = array(
+                            'purchase_price' => $price
+                        );
+
+                    $this->Products_model->updateData($products_data, $pcode);
                     }
                 }
                 // New Item -- END;
@@ -839,44 +847,23 @@ class Purchase_order extends CI_Controller
                         'status' => '1',
                 );
                 $po_id = $this->Constant_model->insertDataReturnLastId('purchase_order', $ins_po_data);
-
-                /*
-                $mainPhoto_fn 		= $_FILES['uploadFile']['name'];
-                if(!empty($mainPhoto_fn)){
-                    $main_ext 			= pathinfo($mainPhoto_fn, PATHINFO_EXTENSION);
-                    $mainPhoto_name 	= $po_id."_".time().".$main_ext";
-
-                    // Main Photo -- START;
-                    $config['upload_path'] = './assets/upload/po/';
-                    $config['allowed_types'] = '*';
-                    $config['file_name'] = $mainPhoto_name;
-                    $this->load->library('upload', $config);
-
-                    if ( ! $this->upload->do_upload("uploadFile")) {
-                        $error = array('error' => $this->upload->display_errors());
-                    } else {
-
-                        $upd_file_name_data 	= array(
-                                "attachment_file"		=>	$mainPhoto_name
-                        );
-                        $this->Constant_model->updateData("purchase_order", $upd_file_name_data, $po_id);
-
-                    }
-                }
-                */
-
                 // PO Items;
                 for ($i = 1; $i < $row_count; ++$i) {
                     $pcode = $this->input->post("pcode_$i");
-                    $qty = $this->input->post("qty_$i");
+                    $price = $this->input->post("price_$i");
 
                     if ($qty > 0) {
                         $ins_po_item_data = array(
-                                'po_id' => $po_id,
+                                'po_id' => $id,
                                 'product_code' => $pcode,
                                 'ordered_qty' => $qty,
                         );
                         $this->Constant_model->insertData('purchase_order_items', $ins_po_item_data);
+                        // $products_data = array(
+                        //     'purchase_price' => $price
+                        // );
+
+                        // $this->Products_model->updateData($products_data, $pcode);
                     }
                 }
 

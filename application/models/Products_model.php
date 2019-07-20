@@ -18,7 +18,13 @@ class Products_model extends CI_Model
 
         return $query->num_rows();
     }
+    public function updateData($data, $code)
+        {
+            $this->db->where('code', $code);
+            $this->db->update('products', $data);
 
+            return true;
+        }
     public function fetch_category_data($limit, $start)
     {
         $this->db->order_by('id', 'DESC');

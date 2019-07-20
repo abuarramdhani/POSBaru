@@ -65,7 +65,7 @@
 							
 							
 						} else {
-							var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="icono-cross" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
+							var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 30%;" /></td><td><input type="text" class="form-control" name="price_'+row_count+'" value="10000" style="width: 50%;" /></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer">HAPUS</a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
 		        
 		         
 					        $('#addItemWrp').append(cell);
@@ -443,6 +443,7 @@
 		    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
 		    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
 		    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_order_qty; ?></th>
+		    	<th width="30%" style="background-color: #686868; color: #FFF;">Harga Beli</th>
 			    <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
 			</tr>
 		</thead>

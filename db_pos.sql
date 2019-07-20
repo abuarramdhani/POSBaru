@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jul 2019 pada 03.40
--- Versi server: 10.1.33-MariaDB
--- Versi PHP: 7.2.6
+-- Generation Time: Jul 20, 2019 at 02:40 PM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_pos`
+-- Database: `pos_v2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -39,22 +39,17 @@ CREATE TABLE `category` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
-(1, 'Drink', 1, '2016-09-11 19:15:34', 0, '0000-00-00 00:00:00', 1),
-(3, 'Alcohol', 1, '2016-09-11 19:15:52', 0, '0000-00-00 00:00:00', 1),
-(4, 'Book', 1, '2016-09-11 19:30:02', 0, '0000-00-00 00:00:00', 1),
-(5, 'Food', 1, '2016-09-11 19:31:08', 0, '0000-00-00 00:00:00', 1),
-(6, 'Electric', 1, '2016-09-11 19:31:12', 0, '0000-00-00 00:00:00', 1),
-(7, 'Clothes', 1, '2016-09-11 19:31:18', 0, '0000-00-00 00:00:00', 1),
-(8, 'Bath', 1, '2016-09-11 19:31:27', 1, '2016-09-24 12:01:24', 1);
+(1, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(2, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ci_sessions`
+-- Table structure for table `ci_sessions`
 --
 
 CREATE TABLE `ci_sessions` (
@@ -67,7 +62,7 @@ CREATE TABLE `ci_sessions` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `currency`
+-- Table structure for table `currency`
 --
 
 CREATE TABLE `currency` (
@@ -76,7 +71,7 @@ CREATE TABLE `currency` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `currency`
+-- Dumping data for table `currency`
 --
 
 INSERT INTO `currency` (`iso`, `name`) VALUES
@@ -239,7 +234,7 @@ INSERT INTO `currency` (`iso`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `customers`
+-- Table structure for table `customers`
 --
 
 CREATE TABLE `customers` (
@@ -252,16 +247,16 @@ CREATE TABLE `customers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `customers`
+-- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `fullname`, `email`, `mobile`, `created_user_id`, `created_datetime`) VALUES
-(1, 'Walk In Customer', '', '', 1, '2016-10-18 00:00:00');
+(2, 'Walk in Customer', 'rizkiahrd@gmail.com', '123123', 1, '2019-06-24 18:18:20');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `expenses`
+-- Table structure for table `expenses`
 --
 
 CREATE TABLE `expenses` (
@@ -284,7 +279,7 @@ CREATE TABLE `expenses` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `expense_categories`
+-- Table structure for table `expense_categories`
 --
 
 CREATE TABLE `expense_categories` (
@@ -300,7 +295,7 @@ CREATE TABLE `expense_categories` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `gift_card`
+-- Table structure for table `gift_card`
 --
 
 CREATE TABLE `gift_card` (
@@ -318,22 +313,7 @@ CREATE TABLE `gift_card` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `good_received`
---
-
-CREATE TABLE `good_received` (
-  `no_good_received` char(20) NOT NULL,
-  `no_po` varchar(499) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `no_reff` int(11) NOT NULL,
-  `outlet_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `inventory`
+-- Table structure for table `inventory`
 --
 
 CREATE TABLE `inventory` (
@@ -346,7 +326,7 @@ CREATE TABLE `inventory` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -387,7 +367,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -404,7 +384,7 @@ CREATE TABLE `order_items` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `outlets`
+-- Table structure for table `outlets`
 --
 
 CREATE TABLE `outlets` (
@@ -422,18 +402,20 @@ CREATE TABLE `outlets` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `outlets`
+-- Dumping data for table `outlets`
 --
 
 INSERT INTO `outlets` (`id`, `name`, `address`, `contact_number`, `receipt_header`, `receipt_footer`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
-(1, 'Uniqlo - NEX Outlet', '#02-11, B2, Nex Shopping Mall, Serangoon Central', '88837492', '', '<p>Thank you for coming!</p>', 1, '2016-09-11 19:24:33', 0, '0000-00-00 00:00:00', 1),
-(2, 'Uniqlo - Changi Outlet', '#02, B2, Changi Airport', '92828394', '', '<p>Thank you for coming!</p>', 1, '2016-09-11 19:25:13', 0, '0000-00-00 00:00:00', 1),
-(3, 'Uniqlo - Bugis Outlet', '#02-10, B2, Bugis Shopping Mall', '292948484', '', '<p>Thank you for Shopping with Us!</p>', 1, '2016-09-11 19:25:52', 1, '2016-10-02 11:04:06', 1);
+(1, 'GUDANG', 'Jl. Barisan Banteng', '0895634648446', 'Terima kasih sudah transaksi', 'Oleh Admin :)', 1, '2019-07-02 00:00:00', 1, '2019-07-02 00:00:00', 1),
+(2, 'EGIS', 'Alamat', '089', 'Terima kasih sudah transaksi', 'Oleh AGIS :)', 1, '2019-07-02 00:00:00', 1, '2019-07-02 00:00:00', 1),
+(3, 'KHANZA', 'Alamat', '089', 'Terima kasih sudah transaksi', 'Oleh KHANZA :)', 1, '2019-07-02 00:00:00', 1, '2019-07-02 00:00:00', 1),
+(4, 'BILAL', 'Alamat', '089', 'Terima kasih sudah transaksi', 'Oleh BILAL :)', 1, '2019-07-02 00:00:00', 1, '2019-07-02 00:00:00', 1),
+(5, 'DENA', 'Alamat', '089', 'Terima kasih sudah transaksi', 'Oleh DENA :)', 1, '2019-07-02 00:00:00', 1, '2019-07-02 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `payment_method`
+-- Table structure for table `payment_method`
 --
 
 CREATE TABLE `payment_method` (
@@ -447,7 +429,7 @@ CREATE TABLE `payment_method` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `payment_method`
+-- Dumping data for table `payment_method`
 --
 
 INSERT INTO `payment_method` (`id`, `name`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
@@ -457,12 +439,13 @@ INSERT INTO `payment_method` (`id`, `name`, `created_user_id`, `created_datetime
 (4, 'Master Card', 1, '2016-09-25 01:43:58', 0, '0000-00-00 00:00:00', 1),
 (5, 'Cheque', 1, '2016-09-25 01:44:02', 0, '0000-00-00 00:00:00', 1),
 (6, 'Debit', 1, '2016-09-25 01:44:05', 0, '0000-00-00 00:00:00', 1),
-(7, 'Gift Card', 1, '2016-10-16 01:23:05', 0, '0000-00-00 00:00:00', 1);
+(7, 'Gift Card', 1, '2016-10-16 01:23:05', 0, '0000-00-00 00:00:00', 1),
+(8, 'OVO', 1, '2019-06-10 19:35:40', 0, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -470,8 +453,8 @@ CREATE TABLE `products` (
   `code` varchar(499) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(499) COLLATE utf8_unicode_ci NOT NULL,
   `category` int(11) NOT NULL,
-  `purchase_price` double(11,2) NOT NULL,
-  `retail_price` double(11,2) NOT NULL,
+  `purchase_price` double NOT NULL,
+  `retail_price` double NOT NULL,
   `thumbnail` varchar(499) COLLATE utf8_unicode_ci NOT NULL,
   `created_user_id` int(11) NOT NULL,
   `created_datetime` datetime NOT NULL,
@@ -481,22 +464,38 @@ CREATE TABLE `products` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `code`, `name`, `category`, `purchase_price`, `retail_price`, `thumbnail`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
-(1, 'UD0001', 'Coke', 1, 2.10, 3.50, 'UD0001.jpg', 1, '2016-09-11 19:16:46', 1, '2016-11-19 12:34:27', 1),
-(2, 'UD0002', 'Pepsi', 1, 1.20, 2.70, 'UD0002.png', 1, '2016-09-11 19:17:21', 0, '0000-00-00 00:00:00', 1),
-(3, 'UD0003', '7UP', 1, 1.10, 3.50, 'UD0003.jpg', 1, '2016-09-11 19:17:43', 0, '0000-00-00 00:00:00', 1),
-(4, 'UD0004', 'Fanta', 1, 1.00, 3.40, 'UD0004.jpeg', 1, '2016-09-11 19:18:08', 0, '0000-00-00 00:00:00', 1),
-(5, 'UD0005', 'Sprite', 1, 1.50, 3.40, 'UD0005.jpg', 1, '2016-09-11 19:18:44', 0, '0000-00-00 00:00:00', 1),
-(6, 'UC0001', 'Strawberry Cake', 2, 1.20, 4.50, 'UC0001.jpg', 1, '2016-09-11 19:34:13', 0, '0000-00-00 00:00:00', 1),
-(7, 'UC0002', 'Chocolate Cake', 5, 2.00, 5.00, 'UC0002.jpg', 1, '2016-09-11 19:34:34', 1, '2016-10-02 01:06:21', 1);
+(1, 'B001', 'BELLASQUARE SEGI EMPAT POLYCOTTON HONEY', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(2, 'B002', 'BELLASQUARE SEGI EMPAT POLYCOTTON PEACH', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(3, 'B003', 'BELLASQUARE SEGI EMPAT POLYCOTTON MILO', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(4, 'B004', 'BELLASQUARE SEGI EMPAT POLYCOTTON CHARCOAL', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(5, 'B005', 'BELLASQUARE SEGI EMPAT POLYCOTTON MOCCA', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(6, 'B006', 'BELLASQUARE SEGI EMPAT POLYCOTTON NUDE', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(7, 'B007', 'BELLASQUARE SEGI EMPAT POLYCOTTON SOFT GREY', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(8, 'B008', 'BELLASQUARE SEGI EMPAT POLYCOTTON ARMY', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(9, 'B009', 'BELLASQUARE SEGI EMPAT POLYCOTTON GREY', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(10, 'B010', 'BELLASQUARE SEGI EMPAT POLYCOTTON MAROON', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(11, 'B011', 'BELLASQUARE SEGI EMPAT POLYCOTTON DUSTY PINK', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(12, 'B012', 'BELLASQUARE SEGI EMPAT POLYCOTTON ABU ASAP', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(13, 'B013', 'BELLASQUARE SEGI EMPAT POLYCOTTON NAVY', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(14, 'B014', 'BELLASQUARE SEGI EMPAT POLYCOTTON BLACK', 1, 11900, 15000, 'BELLA SQUARE', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(15, 'O001', 'ONGKIR', 1, 100000, 0, 'ONGKIR', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(16, 'A001', 'BIAYA ADMIN', 1, 2500, 0, 'BIAYA ADMIN', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(17, 'D001', 'DISKON', 1, 0, 0, 'DISKON', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(18, 'B015', 'PASHMINA SABYAN DIAMOND ITALIANO MOCCA', 1, 15500, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(19, 'B016', 'PASHMINA SABYAN DIAMOND ITALIANO SALEM', 1, 15500, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(20, 'B017', 'PASHMINA SABYAN DIAMOND ITALIANO WARDAH', 1, 15500, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(21, 'B018', 'PASHMINA SABYAN DIAMOND ITALIANO SOFT PINK', 1, 15500, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(22, 'B019', 'PASHMINA SABYAN DIAMOND ITALIANO ABU TUA', 1, 10000, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1),
+(23, 'B020', 'PASHMINA SABYAN DIAMOND ITALIANO COKLAT SUSU', 1, 0, 20000, 'PASHMINA', 1, '2019-07-20 00:00:00', 1, '2019-07-20 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `purchase_order`
+-- Table structure for table `purchase_order`
 --
 
 CREATE TABLE `purchase_order` (
@@ -533,7 +532,7 @@ CREATE TABLE `purchase_order` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `purchase_order_items`
+-- Table structure for table `purchase_order_items`
 --
 
 CREATE TABLE `purchase_order_items` (
@@ -542,13 +541,13 @@ CREATE TABLE `purchase_order_items` (
   `product_code` varchar(499) COLLATE utf8_unicode_ci NOT NULL,
   `ordered_qty` int(11) NOT NULL,
   `received_qty` int(11) NOT NULL,
-  `cost` double(11,2) NOT NULL
+  `cost` double NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `purchase_order_status`
+-- Table structure for table `purchase_order_status`
 --
 
 CREATE TABLE `purchase_order_status` (
@@ -562,7 +561,7 @@ CREATE TABLE `purchase_order_status` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `purchase_order_status`
+-- Dumping data for table `purchase_order_status`
 --
 
 INSERT INTO `purchase_order_status` (`id`, `name`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
@@ -573,7 +572,7 @@ INSERT INTO `purchase_order_status` (`id`, `name`, `created_user_id`, `created_d
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `return_items`
+-- Table structure for table `return_items`
 --
 
 CREATE TABLE `return_items` (
@@ -588,36 +587,52 @@ CREATE TABLE `return_items` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sales_order`
+-- Table structure for table `sales_order`
 --
 
 CREATE TABLE `sales_order` (
-  `id` int(11) NOT NULL,
   `sales_order_no` char(15) NOT NULL,
   `date` date NOT NULL,
   `note` text NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `sales_order`
+--
+
+INSERT INTO `sales_order` (`sales_order_no`, `date`, `note`, `user_id`) VALUES
+('1', '2019-07-20', '123', 1),
+('2', '2019-07-20', '2', 1);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sales_order_items`
+-- Table structure for table `sales_order_items`
 --
 
 CREATE TABLE `sales_order_items` (
   `id` int(11) NOT NULL,
   `id_sales_order` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
+  `retail_price` double NOT NULL,
   `purchase_price` double NOT NULL,
-  `retail_price` double NOT NULL
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sales_order_items`
+--
+
+INSERT INTO `sales_order_items` (`id`, `id_sales_order`, `id_product`, `retail_price`, `purchase_price`, `qty`) VALUES
+(1, 1, 23, 20000, 15500, 1),
+(2, 2, 22, 20000, 15500, 2),
+(3, 2, 20, 20000, 15500, 5);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `site_setting`
+-- Table structure for table `site_setting`
 --
 
 CREATE TABLE `site_setting` (
@@ -637,16 +652,16 @@ CREATE TABLE `site_setting` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `site_setting`
+-- Dumping data for table `site_setting`
 --
 
 INSERT INTO `site_setting` (`id`, `site_name`, `site_logo`, `timezone`, `pagination`, `tax`, `currency`, `datetime_format`, `display_product`, `display_keyboard`, `default_customer_id`, `updated_user_id`, `updated_datetime`) VALUES
-(1, 'POS - Multi Outlets', 'logo.jpg', 'Asia/Singapore', 10, 7.00, 'SGD', 'm/d/Y', 3, 1, 1, 1, '2016-10-02 11:18:31');
+(1, 'POS - Rizki', 'logo.jpg', 'Asia/Jakarta', 10, 7.00, 'IDR', 'm/d/Y', 3, 0, 2, 1, '2019-06-24 18:18:25');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `suppliers`
+-- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -665,17 +680,16 @@ CREATE TABLE `suppliers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `suppliers`
+-- Dumping data for table `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `name`, `tax`, `email`, `address`, `tel`, `fax`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
-(1, 'Drink Co., Ltd', 2.00, 'drink@gmail.com', 'Macpherson Industrial Zone, Aljunied, Singapore', '82938484', '82938483', 1, '2016-09-11 19:29:24', 1, '2016-11-19 17:39:55', 1),
-(3, 'KK Food Supplier', 0.00, '', 'saf sdaf\r\n', '92929292', '', 1, '2016-11-19 17:42:18', 0, '0000-00-00 00:00:00', 1);
+(1, 'dyr_id', 0.00, 'dyr@gmail.com', 'di shopee', '1283109', '128973', 1, '2019-07-20 19:03:46', 0, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `suspend`
+-- Table structure for table `suspend`
 --
 
 CREATE TABLE `suspend` (
@@ -701,7 +715,7 @@ CREATE TABLE `suspend` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `suspend_items`
+-- Table structure for table `suspend_items`
 --
 
 CREATE TABLE `suspend_items` (
@@ -718,344 +732,7 @@ CREATE TABLE `suspend_items` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_bank`
---
-
-CREATE TABLE `tb_bank` (
-  `id_bank` char(7) NOT NULL,
-  `id_supplier` char(7) NOT NULL,
-  `nama_bank` varchar(40) NOT NULL,
-  `no_rek` char(15) NOT NULL,
-  `atas_nama` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_barang`
---
-
-CREATE TABLE `tb_barang` (
-  `kode_barang` varchar(100) NOT NULL,
-  `kode_upc` varchar(15) NOT NULL,
-  `kode_department` int(11) NOT NULL,
-  `id_supplier` char(7) NOT NULL,
-  `nama_barang` varchar(25) NOT NULL,
-  `nama_barang_panjang` varchar(100) NOT NULL,
-  `tgl_input_barang` varchar(30) NOT NULL,
-  `harga_beli_barang` double NOT NULL,
-  `harga_jual_barang` double NOT NULL,
-  `stok_barang` int(11) NOT NULL,
-  `isi` text NOT NULL,
-  `satuan` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_barang`
---
-
-INSERT INTO `tb_barang` (`kode_barang`, `kode_upc`, `kode_department`, `id_supplier`, `nama_barang`, `nama_barang_panjang`, `tgl_input_barang`, `harga_beli_barang`, `harga_jual_barang`, `stok_barang`, `isi`, `satuan`) VALUES
-('310001', '310001', 31, '1', 'Kopi', 'Kopi Kapal Api', '', 600, 6000, 98, 'kopi', 'pcs'),
-('310002', '310002', 31, '1', 'Marina', 'marina hey marina', '', 700, 7000, 89, 'body lotion', 'pcs'),
-('4510545', '4510545', 45, '2122457', 'Spatula', 'Spatula Spongebob', '25-11-2017', 4000, 8000, 94, 'apa aja deh', 'pcs');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_cust`
---
-
-CREATE TABLE `tb_cust` (
-  `id_cust` char(7) NOT NULL,
-  `nama_cust` varchar(100) NOT NULL,
-  `alamat_cust` text NOT NULL,
-  `jk_cust` enum('L','P') NOT NULL,
-  `no_telp` char(13) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_department`
---
-
-CREATE TABLE `tb_department` (
-  `kode_department` int(11) NOT NULL,
-  `nama_department` varchar(100) NOT NULL,
-  `ket_department` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_department`
---
-
-INSERT INTO `tb_department` (`kode_department`, `nama_department`, `ket_department`) VALUES
-(45, 'Kitchen', 'untuk dapur');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_detail_po`
---
-
-CREATE TABLE `tb_detail_po` (
-  `no_purchase_order` char(9) NOT NULL,
-  `kode_barang` varchar(50) NOT NULL,
-  `qty_order` int(11) NOT NULL,
-  `qty_kirim` int(11) NOT NULL,
-  `qty_terima` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_det_penjualan`
---
-
-CREATE TABLE `tb_det_penjualan` (
-  `no_faktur` char(12) NOT NULL,
-  `kode_barang` char(8) NOT NULL,
-  `qty` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_det_retur`
---
-
-CREATE TABLE `tb_det_retur` (
-  `no_retur` int(12) NOT NULL,
-  `kode_barang` varchar(100) NOT NULL,
-  `qty_retur` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_det_retur`
---
-
-INSERT INTO `tb_det_retur` (`no_retur`, `kode_barang`, `qty_retur`) VALUES
-(1711302745, '4510545', 1),
-(1711303333, '4510545', 1);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_invoices`
---
-
-CREATE TABLE `tb_invoices` (
-  `no_invoices` char(14) NOT NULL,
-  `no_purchase_order` char(9) NOT NULL,
-  `total` double NOT NULL,
-  `status_approve` enum('0','1') NOT NULL,
-  `status_invoice` enum('lunas','belum lunas') NOT NULL,
-  `tgl_input_invoice` varchar(20) NOT NULL,
-  `tgl_exp_invoice` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_level`
---
-
-CREATE TABLE `tb_level` (
-  `id_level` int(11) NOT NULL,
-  `level` varchar(100) NOT NULL,
-  `keterangan_level` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_level`
---
-
-INSERT INTO `tb_level` (`id_level`, `level`, `keterangan_level`) VALUES
-(1, 'superadmin', 'Super Admin'),
-(2, 'admin', 'Admin'),
-(3, 'md', 'MD'),
-(4, 'supplier', 'Supplier'),
-(5, 'toko', 'Toko'),
-(6, 'finance', 'Finance'),
-(7, 'kasir', 'Kasir'),
-(8, 'supervisor', 'Supervisor');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_penjualan`
---
-
-CREATE TABLE `tb_penjualan` (
-  `no_faktur` char(12) NOT NULL,
-  `tgl_transaksi` varchar(30) NOT NULL,
-  `id_user` char(8) NOT NULL,
-  `id_cust` char(8) NOT NULL,
-  `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_profile`
---
-
-CREATE TABLE `tb_profile` (
-  `id_profile` char(7) NOT NULL,
-  `id_user` char(7) NOT NULL,
-  `nama_profile` varchar(40) NOT NULL,
-  `alamat_profile` text NOT NULL,
-  `provinsi_profile` varchar(30) NOT NULL,
-  `kota_profile` varchar(40) NOT NULL,
-  `kode_pos_profile` char(10) NOT NULL,
-  `no_telp_profile` varchar(15) NOT NULL,
-  `fax_profile` varchar(30) NOT NULL,
-  `email_profile` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_profile`
---
-
-INSERT INTO `tb_profile` (`id_profile`, `id_user`, `nama_profile`, `alamat_profile`, `provinsi_profile`, `kota_profile`, `kode_pos_profile`, `no_telp_profile`, `fax_profile`, `email_profile`) VALUES
-('2122457', '2907760', 'PT. Unilever Abadi', 'Jakarta Selatan Ha', 'Jawa Barat', 'Jakarta', '43214', '43214', '43214', 'unilever@gmail.com'),
-('2827959', '4943896', 'hape', 'hape', 'hape', 'hape', 'hape', 'hape', 'hape', 'hape'),
-('3475893', '0172381', 'Admin', 'Jalan Barisan Banteng', 'Jawa Barat', 'Cianjur', '43214', '089691954472', '12345', 'rizkihardinas@gmail.com'),
-('5226584', '5591745', 'Kuda', 'Lumping', 'Lumping', 'Kuda', '43214', '0983201', '-', '-'),
-('6617871', '4879200', 'Rizki Store', 'Jalan Barba', 'Jawa Barat', 'Cianjur', '43214', '123455', '123455', 'rizkistore@gmail.com'),
-('7662589', '4294654', 'Dina', 'Jalan Cinajur', 'Jawa Barat', 'Cianjur', '43214', '43214', '43214', 'dinda@gmail.com'),
-('7915230', '8320384', 'Md', 'Md Md', 'Md', 'Md', 'Md', 'Md', 'Md', 'Md');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_purchase_order`
---
-
-CREATE TABLE `tb_purchase_order` (
-  `no_purchase_order` char(9) NOT NULL,
-  `tgl_input` char(10) NOT NULL,
-  `tgl_exp` char(10) NOT NULL,
-  `id_toko` char(7) NOT NULL,
-  `status_approval` enum('1','0','2') NOT NULL,
-  `status_po` enum('order','kirim','terima','invoice') NOT NULL,
-  `id_supplier` char(7) NOT NULL,
-  `ppn` enum('1','0') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_retur_jual`
---
-
-CREATE TABLE `tb_retur_jual` (
-  `no_retur` char(12) NOT NULL,
-  `tgl_retur` varchar(30) NOT NULL,
-  `id_user` char(7) NOT NULL,
-  `no_faktur` char(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_retur_jual`
---
-
-INSERT INTO `tb_retur_jual` (`no_retur`, `tgl_retur`, `id_user`, `no_faktur`) VALUES
-('1711302745', '30-11-2017 10:11:44', '5226584', '1711307674'),
-('1711303333', '30-11-2017 10:11:40', '5226584', '1711307674'),
-('1712107890', '10-12-2017 02:12:43', '5226584', '1711307674'),
-('1801101223', '10-01-2018 06:01:55', '2827959', '1711307674'),
-('1801102496', '10-01-2018 06:01:11', '2827959', '1711307674');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_session`
---
-
-CREATE TABLE `tb_session` (
-  `id_user` char(7) NOT NULL,
-  `last_login` varchar(20) NOT NULL,
-  `status` enum('online','offline') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_session`
---
-
-INSERT INTO `tb_session` (`id_user`, `last_login`, `status`) VALUES
-('5226584', '10-12-2017 14:22:27', 'offline'),
-('3475893', '10-12-2017 14:22:34', 'online'),
-('2827959', '04-04-2019 20:59:27', 'online'),
-('6617871', '05-07-2018 21:18:05', 'online');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_surat_keputusan`
---
-
-CREATE TABLE `tb_surat_keputusan` (
-  `id_surat_keputusan` char(7) NOT NULL,
-  `kode_listing` varchar(100) NOT NULL,
-  `no_surat_keputusan` varchar(40) NOT NULL,
-  `lampiran` varchar(100) NOT NULL,
-  `npwp_ktp` varchar(100) NOT NULL,
-  `alasan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_temp`
---
-
-CREATE TABLE `tb_temp` (
-  `no_faktur` char(10) NOT NULL,
-  `kode_barang` char(8) NOT NULL,
-  `qty` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_temp`
---
-
-INSERT INTO `tb_temp` (`no_faktur`, `kode_barang`, `qty`) VALUES
-('1801203694', '310001', 2),
-('1801205613', '310001', 2),
-('1801208590', '310001', 5);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_user`
---
-
-CREATE TABLE `tb_user` (
-  `id_user` char(7) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `id_level` int(11) NOT NULL,
-  `nama_user` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tb_user`
---
-
-INSERT INTO `tb_user` (`id_user`, `username`, `password`, `id_level`, `nama_user`) VALUES
-('0172381', 'rizkihardinas', 'rizkihardinas', 1, ''),
-('2907760', 'unilever', 'unilever', 4, 'Huang Zan'),
-('4294654', 'dina', 'dina', 3, ''),
-('4879200', 'rizki', 'rizki', 5, 'Rizki hape'),
-('4943896', 'hape', 'hape', 8, 'Hape'),
-('5591745', 'kuda', 'kuda', 7, 'Kuda Lumping'),
-('8320384', 'Md', 'Md', 0, '');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `timezones`
+-- Table structure for table `timezones`
 --
 
 CREATE TABLE `timezones` (
@@ -1065,7 +742,7 @@ CREATE TABLE `timezones` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `timezones`
+-- Dumping data for table `timezones`
 --
 
 INSERT INTO `timezones` (`id`, `code`, `timezone`) VALUES
@@ -1494,7 +1171,15 @@ INSERT INTO `timezones` (`id`, `code`, `timezone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `transfer_stock`
+--
+-- Error reading structure for table pos_v2.transfer_stock: #1932 - Table 'pos_v2.transfer_stock' doesn't exist in engine
+-- Error reading data for table pos_v2.transfer_stock: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `pos_v2`.`transfer_stock`' at line 1
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1512,20 +1197,16 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `role_id`, `outlet_id`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`, `status`) VALUES
-(1, 'Owner', 'owner@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 0, 1, '2016-08-27 00:00:00', 1, '2016-09-03 18:15:48', 1),
-(2, 'Bugis Manager', 'bugismanager@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 2, 3, 1, '2016-08-27 12:30:07', 1, '2016-09-05 21:08:25', 1),
-(3, 'Bugis Sales Staff', 'bugissales@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 3, 3, 2, '2016-08-27 12:32:17', 1, '2016-09-05 21:08:43', 1),
-(4, 'Changi Manager', 'changimanager@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 2, 2, 1, '2016-08-27 12:35:03', 1, '2016-09-05 21:09:18', 1),
-(5, 'Changi Sales', 'changisales@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 3, 2, 1, '2016-08-27 12:35:32', 1, '2016-09-05 21:08:32', 1);
+(1, 'Owner', 'owner@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 0, 1, '2016-08-27 00:00:00', 1, '2016-09-03 18:15:48', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_roles`
+-- Table structure for table `user_roles`
 --
 
 CREATE TABLE `user_roles` (
@@ -1538,7 +1219,7 @@ CREATE TABLE `user_roles` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `user_roles`
+-- Dumping data for table `user_roles`
 --
 
 INSERT INTO `user_roles` (`id`, `name`, `created_user_id`, `created_datetime`, `updated_user_id`, `updated_datetime`) VALUES
@@ -1546,243 +1227,122 @@ INSERT INTO `user_roles` (`id`, `name`, `created_user_id`, `created_datetime`, `
 (2, 'Manager', 1, '2016-08-16 00:00:00', 0, '0000-00-00 00:00:00'),
 (3, 'Sales Person', 1, '2016-08-16 00:00:00', 0, '0000-00-00 00:00:00');
 
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `v_det_penjualan`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `v_det_penjualan` (
-`no_faktur` char(12)
-,`tgl_transaksi` varchar(30)
-,`id_user` char(8)
-,`id_cust` char(8)
-,`total` double
-,`qty` int(11)
-,`kode_barang` varchar(100)
-,`kode_upc` varchar(15)
-,`kode_department` int(11)
-,`id_supplier` char(7)
-,`nama_barang` varchar(25)
-,`nama_barang_panjang` varchar(100)
-,`tgl_input_barang` varchar(30)
-,`harga_beli_barang` double
-,`harga_jual_barang` double
-,`stok_barang` int(11)
-,`isi` text
-,`satuan` varchar(15)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `v_invoices`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `v_invoices` (
-`nama_supplier` varchar(40)
-,`alamat_supplier` text
-,`id_supplier` char(7)
-,`provinsi_supplier` varchar(30)
-,`kota_supplier` varchar(40)
-,`kode_pos_supplier` char(10)
-,`no_telp_supplier` varchar(15)
-,`profile_supplier` varchar(30)
-,`email_supplier` varchar(50)
-,`nama_toko` varchar(40)
-,`alamat_toko` text
-,`id_toko` char(7)
-,`provinsi_toko` varchar(30)
-,`kota_toko` varchar(40)
-,`kode_pos_toko` char(10)
-,`no_telp_toko` varchar(15)
-,`profile_toko` varchar(30)
-,`email_toko` varchar(50)
-,`fax_toko` varchar(30)
-,`no_invoices` char(14)
-,`total` double
-,`status_invoice` enum('lunas','belum lunas')
-,`tgl_input_invoice` varchar(20)
-,`tgl_exp_invoice` varchar(20)
-,`no_purchase_order` char(9)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `v_profile`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `v_profile` (
-`id_profile` char(7)
-,`id_user` char(7)
-,`nama_profile` varchar(40)
-,`alamat_profile` text
-,`provinsi_profile` varchar(30)
-,`kota_profile` varchar(40)
-,`kode_pos_profile` char(10)
-,`no_telp_profile` varchar(15)
-,`fax_profile` varchar(30)
-,`email_profile` varchar(50)
-,`username` varchar(50)
-,`password` varchar(50)
-,`nama_user` varchar(100)
-,`level` varchar(100)
-,`keterangan_level` text
-);
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `v_det_penjualan`
---
-DROP TABLE IF EXISTS `v_det_penjualan`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_det_penjualan`  AS  select `tb_penjualan`.`no_faktur` AS `no_faktur`,`tb_penjualan`.`tgl_transaksi` AS `tgl_transaksi`,`tb_penjualan`.`id_user` AS `id_user`,`tb_penjualan`.`id_cust` AS `id_cust`,`tb_penjualan`.`total` AS `total`,`tb_det_penjualan`.`qty` AS `qty`,`tb_barang`.`kode_barang` AS `kode_barang`,`tb_barang`.`kode_upc` AS `kode_upc`,`tb_barang`.`kode_department` AS `kode_department`,`tb_barang`.`id_supplier` AS `id_supplier`,`tb_barang`.`nama_barang` AS `nama_barang`,`tb_barang`.`nama_barang_panjang` AS `nama_barang_panjang`,`tb_barang`.`tgl_input_barang` AS `tgl_input_barang`,`tb_barang`.`harga_beli_barang` AS `harga_beli_barang`,`tb_barang`.`harga_jual_barang` AS `harga_jual_barang`,`tb_barang`.`stok_barang` AS `stok_barang`,`tb_barang`.`isi` AS `isi`,`tb_barang`.`satuan` AS `satuan` from ((`tb_penjualan` join `tb_det_penjualan` on((`tb_penjualan`.`no_faktur` = `tb_det_penjualan`.`no_faktur`))) join `tb_barang` on((`tb_det_penjualan`.`kode_barang` = `tb_barang`.`kode_barang`))) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `v_invoices`
---
-DROP TABLE IF EXISTS `v_invoices`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_invoices`  AS  select `s`.`nama_profile` AS `nama_supplier`,`s`.`alamat_profile` AS `alamat_supplier`,`s`.`id_profile` AS `id_supplier`,`s`.`provinsi_profile` AS `provinsi_supplier`,`s`.`kota_profile` AS `kota_supplier`,`s`.`kode_pos_profile` AS `kode_pos_supplier`,`s`.`no_telp_profile` AS `no_telp_supplier`,`s`.`fax_profile` AS `profile_supplier`,`s`.`email_profile` AS `email_supplier`,`t`.`nama_profile` AS `nama_toko`,`t`.`alamat_profile` AS `alamat_toko`,`t`.`id_profile` AS `id_toko`,`t`.`provinsi_profile` AS `provinsi_toko`,`t`.`kota_profile` AS `kota_toko`,`t`.`kode_pos_profile` AS `kode_pos_toko`,`t`.`no_telp_profile` AS `no_telp_toko`,`t`.`fax_profile` AS `profile_toko`,`t`.`email_profile` AS `email_toko`,`t`.`fax_profile` AS `fax_toko`,`i`.`no_invoices` AS `no_invoices`,`i`.`total` AS `total`,`i`.`status_invoice` AS `status_invoice`,`i`.`tgl_input_invoice` AS `tgl_input_invoice`,`i`.`tgl_exp_invoice` AS `tgl_exp_invoice`,`p`.`no_purchase_order` AS `no_purchase_order` from (((`tb_invoices` `i` join `tb_purchase_order` `p` on((`i`.`no_purchase_order` = `p`.`no_purchase_order`))) join `tb_profile` `s` on((`p`.`id_supplier` = `s`.`id_profile`))) join `tb_profile` `t` on((`p`.`id_toko` = `t`.`id_profile`))) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `v_profile`
---
-DROP TABLE IF EXISTS `v_profile`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_profile`  AS  select `tb_profile`.`id_profile` AS `id_profile`,`tb_profile`.`id_user` AS `id_user`,`tb_profile`.`nama_profile` AS `nama_profile`,`tb_profile`.`alamat_profile` AS `alamat_profile`,`tb_profile`.`provinsi_profile` AS `provinsi_profile`,`tb_profile`.`kota_profile` AS `kota_profile`,`tb_profile`.`kode_pos_profile` AS `kode_pos_profile`,`tb_profile`.`no_telp_profile` AS `no_telp_profile`,`tb_profile`.`fax_profile` AS `fax_profile`,`tb_profile`.`email_profile` AS `email_profile`,`tb_user`.`username` AS `username`,`tb_user`.`password` AS `password`,`tb_user`.`nama_user` AS `nama_user`,`tb_level`.`level` AS `level`,`tb_level`.`keterangan_level` AS `keterangan_level` from ((`tb_level` join `tb_user` on((`tb_level`.`id_level` = `tb_user`.`id_level`))) join `tb_profile` on((`tb_user`.`id_user` = `tb_profile`.`id_user`))) ;
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `ci_sessions`
+-- Indexes for table `ci_sessions`
 --
 ALTER TABLE `ci_sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
--- Indeks untuk tabel `currency`
+-- Indexes for table `currency`
 --
 ALTER TABLE `currency`
   ADD PRIMARY KEY (`iso`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indeks untuk tabel `customers`
+-- Indexes for table `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `expenses`
+-- Indexes for table `expenses`
 --
 ALTER TABLE `expenses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `expense_categories`
+-- Indexes for table `expense_categories`
 --
 ALTER TABLE `expense_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `gift_card`
+-- Indexes for table `gift_card`
 --
 ALTER TABLE `gift_card`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `good_received`
---
-ALTER TABLE `good_received`
-  ADD PRIMARY KEY (`no_good_received`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `no_po` (`no_po`),
-  ADD KEY `outlet_id` (`outlet_id`);
-
---
--- Indeks untuk tabel `inventory`
+-- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `outlets`
+-- Indexes for table `outlets`
 --
 ALTER TABLE `outlets`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `payment_method`
+-- Indexes for table `payment_method`
 --
 ALTER TABLE `payment_method`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `purchase_order`
+-- Indexes for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `purchase_order_items`
+-- Indexes for table `purchase_order_items`
 --
 ALTER TABLE `purchase_order_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `purchase_order_status`
+-- Indexes for table `purchase_order_status`
 --
 ALTER TABLE `purchase_order_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `return_items`
+-- Indexes for table `return_items`
 --
 ALTER TABLE `return_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sales_order`
+-- Indexes for table `sales_order`
 --
 ALTER TABLE `sales_order`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`sales_order_no`);
 
 --
--- Indeks untuk tabel `sales_order_items`
+-- Indexes for table `sales_order_items`
 --
 ALTER TABLE `sales_order_items`
   ADD PRIMARY KEY (`id`),
@@ -1790,267 +1350,185 @@ ALTER TABLE `sales_order_items`
   ADD KEY `id_product` (`id_product`);
 
 --
--- Indeks untuk tabel `site_setting`
+-- Indexes for table `site_setting`
 --
 ALTER TABLE `site_setting`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `suppliers`
+-- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `suspend`
+-- Indexes for table `suspend`
 --
 ALTER TABLE `suspend`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `suspend_items`
+-- Indexes for table `suspend_items`
 --
 ALTER TABLE `suspend_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_bank`
---
-ALTER TABLE `tb_bank`
-  ADD PRIMARY KEY (`id_bank`),
-  ADD KEY `id_supplier` (`id_supplier`);
-
---
--- Indeks untuk tabel `tb_barang`
---
-ALTER TABLE `tb_barang`
-  ADD PRIMARY KEY (`kode_barang`);
-
---
--- Indeks untuk tabel `tb_department`
---
-ALTER TABLE `tb_department`
-  ADD PRIMARY KEY (`kode_department`);
-
---
--- Indeks untuk tabel `tb_det_retur`
---
-ALTER TABLE `tb_det_retur`
-  ADD PRIMARY KEY (`no_retur`,`kode_barang`);
-
---
--- Indeks untuk tabel `tb_level`
---
-ALTER TABLE `tb_level`
-  ADD PRIMARY KEY (`id_level`);
-
---
--- Indeks untuk tabel `tb_penjualan`
---
-ALTER TABLE `tb_penjualan`
-  ADD PRIMARY KEY (`no_faktur`);
-
---
--- Indeks untuk tabel `tb_profile`
---
-ALTER TABLE `tb_profile`
-  ADD PRIMARY KEY (`id_profile`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indeks untuk tabel `tb_purchase_order`
---
-ALTER TABLE `tb_purchase_order`
-  ADD PRIMARY KEY (`no_purchase_order`);
-
---
--- Indeks untuk tabel `tb_retur_jual`
---
-ALTER TABLE `tb_retur_jual`
-  ADD PRIMARY KEY (`no_retur`),
-  ADD KEY `no_faktur` (`no_faktur`);
-
---
--- Indeks untuk tabel `tb_session`
---
-ALTER TABLE `tb_session`
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indeks untuk tabel `tb_surat_keputusan`
---
-ALTER TABLE `tb_surat_keputusan`
-  ADD PRIMARY KEY (`id_surat_keputusan`),
-  ADD KEY `kode_listing` (`kode_listing`);
-
---
--- Indeks untuk tabel `tb_temp`
---
-ALTER TABLE `tb_temp`
-  ADD PRIMARY KEY (`no_faktur`,`kode_barang`);
-
---
--- Indeks untuk tabel `tb_user`
---
-ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- Indeks untuk tabel `timezones`
+-- Indexes for table `timezones`
 --
 ALTER TABLE `timezones`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `user_roles`
+-- Indexes for table `user_roles`
 --
 ALTER TABLE `user_roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `customers`
+-- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `expenses`
+-- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `expense_categories`
+-- AUTO_INCREMENT for table `expense_categories`
 --
 ALTER TABLE `expense_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `gift_card`
+-- AUTO_INCREMENT for table `gift_card`
 --
 ALTER TABLE `gift_card`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `inventory`
+-- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `outlets`
+-- AUTO_INCREMENT for table `outlets`
 --
 ALTER TABLE `outlets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `payment_method`
+-- AUTO_INCREMENT for table `payment_method`
 --
 ALTER TABLE `payment_method`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `purchase_order`
+-- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `purchase_order_items`
+-- AUTO_INCREMENT for table `purchase_order_items`
 --
 ALTER TABLE `purchase_order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `purchase_order_status`
+-- AUTO_INCREMENT for table `purchase_order_status`
 --
 ALTER TABLE `purchase_order_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `return_items`
+-- AUTO_INCREMENT for table `return_items`
 --
 ALTER TABLE `return_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `site_setting`
+-- AUTO_INCREMENT for table `sales_order_items`
+--
+ALTER TABLE `sales_order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `site_setting`
 --
 ALTER TABLE `site_setting`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `suppliers`
+-- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `suspend`
+-- AUTO_INCREMENT for table `suspend`
 --
 ALTER TABLE `suspend`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `suspend_items`
+-- AUTO_INCREMENT for table `suspend_items`
 --
 ALTER TABLE `suspend_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_level`
---
-ALTER TABLE `tb_level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT untuk tabel `timezones`
+-- AUTO_INCREMENT for table `timezones`
 --
 ALTER TABLE `timezones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=422;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `user_roles`
+-- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
