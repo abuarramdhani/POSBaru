@@ -14,7 +14,7 @@
 		<section class="scrollable wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header"><?php echo $lang_purchase_order; ?></h1>
+					<h1 class="page-header"><?php echo $lang_good_received; ?></h1>
 				</div>
 			</div><!--/.row-->
 			<div class="row">
@@ -34,6 +34,8 @@
 										<th>No</th>
 										<th><?php echo $lang_good_received_number ?></th>
 										<th><?php echo $lang_suppliers ?></th>
+										<th><?php echo $lang_outlets ?></th>
+										<th><?php echo $lang_date ?></th>
 										<th><?php echo $lang_action?></th>
 									</tr>
 								</thead>
