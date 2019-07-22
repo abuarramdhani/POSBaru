@@ -1,11 +1,11 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header.php';
 ?>
 <?php
     $poDtaData = $this->Constant_model->getDataOneColumn('purchase_order', 'id', $id);
 
     if (count($poDtaData) == 0) {
-        redirect(base_url().'index.php');
+        redirect(base_url());
     }
 
     $po_numb = $poDtaData[0]->po_number;
@@ -33,11 +33,11 @@
 		};
 */
 		
-		// $('input#typeahead').typeahead({
-		// 	name: 'typeahead',
-		// 	remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
-		// 	limit : 10
-		// });
+		$('input#typeahead').typeahead({
+			name: 'typeahead',
+			remote:'<?=base_url()?>index.php/purchase_order/searchProduct?q=%QUERY',
+			limit : 10
+		});
 		
 		$("#addToList").click(function(){
 			var row_count 		= document.getElementById("row_count").value;
@@ -173,18 +173,9 @@
 	}
 </style>
 
-<section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
 
-		<section class="scrollable wrapper">
-		
 
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<div class="col-lg-12">
 			<?php
@@ -533,14 +524,13 @@
 	</div><!-- Row // END -->
 	</form>
 	
-		</section>
-	</section>
-</section>
-
+	<br /><br /><br /><br /><br />
+	
+</div><!-- Right Colmn // END -->
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

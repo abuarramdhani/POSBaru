@@ -49,10 +49,10 @@ class Auth extends CI_Controller
 
             if (empty($em)) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please enter your username!'));
-                redirect(base_url().'index.php');
+                redirect(base_url().'index.php?username');
             } elseif (empty($ps)) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please enter your password!'));
-                redirect(base_url().'index.php');
+                redirect(base_url().'index.php?password');
             } else {
                 $result = $this->Auth_model->verifyLogIn($data);
                 $user_id = $result[0]['id'];

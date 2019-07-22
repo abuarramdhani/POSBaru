@@ -6,9 +6,9 @@
     $user_outlet = $this->input->cookie('out_id', TRUE);
     $login_name = $this->input->cookie('fullname', TRUE);
 
-    if (empty($user_id)) {
-        redirect(base_url(), 'refresh');
-    }
+    // if (empty($user_id)) {
+    //     redirect(base_url(), 'refresh');
+    // }
 
     $tk_c = $this->router->class;
     $tk_m = $this->router->method;
