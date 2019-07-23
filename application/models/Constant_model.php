@@ -49,7 +49,14 @@ class Constant_model extends CI_Model
 
         return $result;
     }
+    public function getBarangSalesORder()
+    {
+        $query = $this->db->query("SELECT products.*,inventory.qty FROM products JOIN inventory ON products.code = inventory.product_code WHERE inventory.outlet_id ='".$this->input->cookie('out_id', TRUE)."'");
+        $result = $query->result();
+        $this->db->save_queries = false;
 
+        return $result;
+    }
     // Query Data from Table by One Columns and Sort;
     public function getDataOneColumnSortColumn($table, $col1_name, $col1_value, $sort_column, $sort_type)
     {

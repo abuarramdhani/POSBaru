@@ -31,4 +31,11 @@ class Inventory_model extends CI_Model
 
         return $result;
     }
+    public function updateStock($data, $where)
+        {
+            $this->db->where($where);
+            $this->db->update('inventory', $data);
+
+            return true;
+        }
 }

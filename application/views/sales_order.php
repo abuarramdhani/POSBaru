@@ -101,14 +101,17 @@
 								<select id="typeahead" class="add_product_po form-control">
 									<option value="">Cari Barang</option>
 								<?php
-                                    $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
+                                    $prodData = $this->Constant_model->getBarangSalesORder();
                                     for ($p = 0; $p < count($prodData); ++$p) {
                                         $prod_code = $prodData[$p]->code;
-                                        $prod_name = $prodData[$p]->name; ?>
+                                        $prod_name = $prodData[$p]->name;
+                                        if ($prodData[$p]->qty != "0") {
+                                         ?>
 										<option value="<?php echo $prod_code; ?>">
 											<?php echo $prod_name.' ['.$prod_code.']'; ?>
 										</option>
 								<?php
+										}
                                         unset($prod_code);
                                         unset($prod_name);
                                     }
@@ -157,7 +160,7 @@
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 			
-			<a href="<?=base_url()?>index.php/purchase_order/po_view" style="text-decoration: none;">
+			<a href="<?=base_url()?>index.php/sales_order/view" style="text-decoration: none;">
 				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
 					<i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
 				</div>
