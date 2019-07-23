@@ -80,7 +80,7 @@
 									</thead>
 									<tbody>
 <?php
-    $query = $this->db->query('SELECT sales_order.*,SUM(sales_order_items.qty*sales_order_items.retail_price) as total FROM sales_order JOIN sales_order_items ON sales_order.sales_order_no = sales_order_items.id_sales_order WHERE sales_order.user_id=1 GROUP BY sales_order.sales_order_no ORDER BY date DESC  ');
+    $query = $this->db->query('SELECT sales_order.*,SUM(sales_order_items.qty*sales_order_items.retail_price) as total FROM sales_order JOIN sales_order_items ON sales_order.sales_order_no = sales_order_items.id_sales_order WHERE sales_order.user_id='.$this->input->cookie('user_id', TRUE).' GROUP BY sales_order.sales_order_no ORDER BY date DESC');
     $penjualan = $query->result();
 
     for ($g = 0; $g < count($penjualan); ++$g) {

@@ -9,6 +9,7 @@ class Sales_order extends CI_Controller
 	{
 		parent::__construct();
         $this->load->model('Constant_model');
+        $this->load->model('Inventory_model');
 	}
 	function index(){
 		$settingResult = $this->db->get_where('site_setting');
@@ -153,7 +154,7 @@ class Sales_order extends CI_Controller
                                 );
                                 $this->Constant_model->insertData('sales_order_items', $ins_po_item_data);
                                 $update = array(
-                                    'qty' => 'qty-'-$qty,
+                                    'qty' => 'qty-'.$qty,
                                 );
                                 $where = array(
                                     'outlet_id' => $this->input->cookie('out_id', TRUE),
