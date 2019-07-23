@@ -18,6 +18,7 @@ class Products_model extends CI_Model
 
         return $query->num_rows();
     }
+
     public function updateData($data, $code)
         {
             $this->db->where('code', $code);

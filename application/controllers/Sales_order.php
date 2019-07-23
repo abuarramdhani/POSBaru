@@ -143,15 +143,23 @@ class Sales_order extends CI_Controller
                         $price = $this->input->post("price_$i");
                         if ($qty > 0) {
                                 $ins_po_item_data = array(
-                                        'id' => '',
-                                        'id_sales_order' => $sales_order_no,
-                                        'id_product' => $products_data[0]->id,
-                                        'retail_price' => $qty,
-                                        'purchase_price' => $products_data[0]->retail_price,
-                                        'qty' => $price,
+                                    'id' => '',
+                                    'id_sales_order' => $sales_order_no,
+                                    'id_product' => $products_data[0]->id,
+                                    'retail_price' => $qty,
+                                    'purchase_price' => $products_data[0]->retail_price,
+                                    'qty' => $price,
                                         
                                 );
                                 $this->Constant_model->insertData('sales_order_items', $ins_po_item_data);
+                                $update = array(
+                                    'qty' => 'qty-'-$qty,
+                                );
+                                $where = array(
+                                    'outlet_id' => $this->input->cookie('out_id', TRUE),
+                                    'product_code' => $pcode
+                                );
+                                $this->Inventory_model->updateStock($update, $where);
                         }
                 }
 

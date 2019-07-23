@@ -101,7 +101,7 @@
 								<select id="typeahead" class="add_product_po form-control">
 									<option value="">Cari Barang</option>
 								<?php
-                                    $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
+                                    $prodData = $this->Constant_model->manualQery("SELECT products.*,inventory.qty FROM products JOIN inventory ON products.code = inventory.product_code WHERE inventory.outlet_id ='".$this->input->cookie('out_id', TRUE)."'");
                                     for ($p = 0; $p < count($prodData); ++$p) {
                                         $prod_code = $prodData[$p]->code;
                                         $prod_name = $prodData[$p]->name; ?>
