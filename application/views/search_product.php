@@ -1,5 +1,6 @@
 <?php
     require_once 'includes/header2.php';
+    
 ?>
 <!-- Add jQuery library -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>

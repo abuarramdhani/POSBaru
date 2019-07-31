@@ -17,8 +17,11 @@
 		
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-6">
 			<h1 class="page-header">Buat Faktur</h1>
+		</div>
+		<div class="col-lg-6">
+			<h1 class="page-header">Total</h1>
 		</div>
 	</div><!--/.row-->
 	
@@ -96,47 +99,40 @@
 										</select>
 									</div>
 								</div>
+								<div class="col-md-3" id="lama">
+									<label>Lama Kredit / hari</label>
+									<input type="text" name="kredit" value="2" class="form-control">
+								</div>
 							</div>
-							<div class="col-md-4">
-								<h1>Total</h1>
+							<div class="col-md-12">
+								<div class="form-group col-md-4">
+									<label>Cari Barang <span style="color: #F00">*</span></label>
+									<!-- <input type="text" class="form-control" id="typeahead" placeholder="Search Product" name="typeahead" /> -->
+									<select id="typeahead" class="add_product_po form-control">
+										<option value="">Cari Barang</option>
+										<?php foreach ($barang as $data): ?>
+											<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
+										<?php endforeach ?>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<label>&nbsp;</label>
+									<div style="background-color: #686868; color: #FFF; width: 200px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList">Tambahkan</div>
+								</div>
 							</div>
-					</div>
-
-					
-					
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Cari Barang <span style="color: #F00">*</span></label>
-								<!-- <input type="text" class="form-control" id="typeahead" placeholder="Search Product" name="typeahead" /> -->
-								<select id="typeahead" class="add_product_po form-control">
-									<option value="">Cari Barang</option>
-									<?php foreach ($barang as $data): ?>
-										<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
-									<?php endforeach ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label>&nbsp;</label>
-							<div style="background-color: #686868; color: #FFF; width: 200px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList">Tambahkan</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
+							<div class="col-md-12">
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
+									    	<th width="10%" style="background-color: #686868; color: #FFF;">Kode Barang</th>
 									    	<th width="20%" style="background-color: #686868; color: #FFF;">Nama Barang</th>
-									    	<th width="20%" style="background-color: #686868; color: #FFF;">Kode Barang</th>
 									    	<th width="10%" style="background-color: #686868; color: #FFF;">Qty</th>
-									    	<th width="10%" style="background-color: #686868; color: #FFF;">Harga Print</th>
-									    	<th width="10%" style="background-color: #686868; color: #FFF;">Harga Deal</th>
+									    	<th width="20%" style="background-color: #686868; color: #FFF;">Harga Print</th>
+									    	<th width="15%" style="background-color: #686868; color: #FFF;">Harga Deal</th>
 									    	<th width="40%" style="background-color: #686868; color: #FFF;">Gudang</th>
 									    	
-										    <th width="10%" style="background-color: #686868; color: #FFF;">Aksi</th>
+										    <th width="5%" style="background-color: #686868; color: #FFF;">Aksi</th>
 										</tr>
 									</thead>
 									<tbody id="addItemWrp">
@@ -145,7 +141,7 @@
 								</table>
 							</div>
 						</div>
-					</div>		
+					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<center>
@@ -162,16 +158,20 @@
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 			
+			
+			
+		</div><!-- Col md 12 // END -->
+	</div><!-- Row // END -->
+	</form>
+	<div class="row">
+		<div class="col-md-12">
 			<a href="<?=base_url()?>index.php/sales_order/view" style="text-decoration: none;">
 				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
 					<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
 				</div>
 			</a>
-			
-		</div><!-- Col md 12 // END -->
-	</div><!-- Row // END -->
-	</form>
-	
+		</div>	
+	</div>
 		</section>
 	</section>
 </section>
@@ -214,19 +214,21 @@
 								
 								
 							} else {
-								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_print_'+row_count+'" value="'+harga+'" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_deal_'+row_count+'" value="'+harga+'" /></td><td><select class="form-control" id="listgudang" style="width: 50%;" id="gudang"><option></option></select></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
-						        $('#addItemWrp').append(cell);
-						        row_count++;
-						        $('#row_count').val(row_count);
+								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_print_'+row_count+'" value="'+harga+'" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_deal_'+row_count+'" value="'+harga+'" /></td><td><select class="form-control" id="listgudang_'+row_count+'" style="width: 50%;"><option></option></select></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
+						        
+						        
 						        $.ajax({
 									url	:'<?=base_url()?>index.php/cashier/get_gudang',
 									type:'POST',
 									success:function(data){
-										// alert(data);
-										$('#listgudang').html(data);
-
+										var a = row_count-1;
+										$('#listgudang_'+a).html(data);
 									}
 								});
+								row_count++;
+						        $('#addItemWrp').append(cell);
+						        document.getElementById("typeahead").value 	= "";
+						        document.getElementById("row_count").value 	= row_count;
 							}
 							
 						}
@@ -271,7 +273,7 @@
 <script>
 	$(document).ready(function() {
 		$(".add_product_po").select2({
-			placeholder: "<?php echo $lang_search_product_by_namecode; ?>",
+			placeholder: "Cari berdasarkan kode>",
 			allowClear: true
 		});
 	});
