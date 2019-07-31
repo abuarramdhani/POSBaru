@@ -36,6 +36,8 @@ class Purchaseorder_model extends CI_Model
 
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $start);
+        $this->db->select('purchase_order.*,SUM(purchase_order_items.cost*purchase_order_items.ordered_qty) as total');
+        $this->db->join('purchase_order_items','purchase_order.id = purchase_order_items.po_id');
         $query = $this->db->get('purchase_order');
 
         $result = $query->result();

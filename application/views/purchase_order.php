@@ -83,6 +83,7 @@
 							    <thead>
 							    	<tr>
 								    	<th width="15%"><?php echo $lang_purchase_order_number; ?></th>
+								    	<th width="15%">Total</th>
 									    <th width="12%"><?php echo $lang_outlets; ?></th>
 									    <th width="10%"><?php echo $lang_suppliers; ?></th>
 									    <th width="10%"><?php echo $lang_created_date; ?></th>
@@ -96,6 +97,7 @@
         foreach ($results as $data) {
             $id = $data->id;
             $po_numb = $data->po_number;
+            $total = $data->total;
             $supplier_id = $data->supplier_id;
             $outlet_id = $data->outlet_id;
             $po_date = $data->po_date;
@@ -109,6 +111,7 @@
             $status_name = $statusData[0]->name; ?>
 			<tr>
 				<td><?php echo $po_numb; ?></td>
+				<td><?php echo number_format($total,0,'.',','); ?> </td>
 				<td><?php echo $outlet_name; ?></td>
 				<td><?php echo $supplier_name; ?></td>
 				<td><?php echo date("$dateformat", strtotime($po_date)); ?></td>
@@ -136,7 +139,7 @@
                             if ($user_role == '1') {
                                 ?>
 						<a href="<?=base_url()?>index.php/purchase_order/deletePO?id=<?php echo $id; ?>&po_numb=<?php echo $po_numb; ?>" style="text-decoration: none; margin-left: 10px;" onclick="return confirm('Are you sure to delete this Purchase Order : <?php echo $po_numb; ?>?')">
-							<i class="fa fa-cross" style="color:#F00;"></i>
+							<i class="icono-cross" style="color:#F00;"></i>
 						</a>
 						<?php
 
@@ -144,6 +147,15 @@
 				<?php	
                     } else {
                         ?>
+						<?php
+                            if ($status_id == '2') {
+                                ?>
+								<a href="<?=base_url()?>index.php/purchase_order/receivepo?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 5px;">
+									<button class="btn btn-primary" style="padding: 5px 12px;">&nbsp;&nbsp;<?php echo $lang_receive; ?>&nbsp;&nbsp;</button>
+								</a>
+						<?php
+
+                            } ?>
 						<a href="<?=base_url()?>index.php/purchase_order/viewpo?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 5px;">
 							<button class="btn btn-primary" style="padding: 5px 12px;">&nbsp;&nbsp;<?php echo $lang_view; ?>&nbsp;&nbsp;</button>
 						</a>
@@ -153,7 +165,7 @@
                                 if ($user_role == '1') {
                                     ?>
 						<a href="<?=base_url()?>index.php/purchase_order/deletePO?id=<?php echo $id; ?>&po_numb=<?php echo $po_numb; ?>" style="text-decoration: none; margin-left: 10px;" onclick="return confirm('Are you sure to delete this Purchase Order : <?php echo $po_numb; ?>?')">
-							<i class="fa fa-cross" style="color:#F00;"></i>
+							<i class="icono-cross" style="color:#F00;"></i>
 						</a>
 						<?php
 
