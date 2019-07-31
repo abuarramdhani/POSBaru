@@ -31,4 +31,7 @@ class Customers_model extends CI_Model
 
         return $result;
     }
+    function getAllCustomers(){
+        return $this->db->get('customers')->result_array();
+    }
 }

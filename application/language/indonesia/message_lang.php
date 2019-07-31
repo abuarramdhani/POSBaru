@@ -1,4 +1,4 @@
-<?php
+ <?php
     $lang['dashboard'] = 'Dashboard';
     $lang['customers'] = 'Pelanggan';
     $lang['gift_card'] = 'Gift Card';
@@ -25,7 +25,7 @@
     $lang['product_category'] = 'Kategori Barang';
     $lang['purchase_order'] = 'Purchase Order';
     $lang['setting'] = 'Pengaturan';
-    $lang['outlets'] = 'Outlet';
+    $lang['outlets'] = 'Gudang';
     $lang['users'] = 'Users';
     $lang['suppliers'] = 'Suppliers';
     $lang['system_setting'] = 'System Setting';
