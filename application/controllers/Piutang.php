@@ -8,6 +8,7 @@
  	function __construct()
  	{
  		parent::__construct();
+        $this->load->model('Constant_model');
  	}
  	function index(){
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
@@ -91,4 +92,93 @@
         $data['lang_search'] = $this->lang->line('search');
         $this->load->view('create_piutang',$data);
     }
+    public function insertPiutang(){
+        $customer_id = strip_tags($this->input->post('customer_id'));
+        $amount =strip_tags($this->input->post('amount'));
+        $user_id = strip_tags($this->input->cookie('user_id', TRUE));
+        $created_date = date('Y-m-d H:i:s',time());
+        if ($customer_id == null) {
+            echo "Customer cannot be null";
+        }else if ($amount == 0 || $amount == null) {
+            echo "Amount must be more than 0";
+        }else{
+            $dataInsert = array(
+                'customer_id' =>$customer_id,
+                'amount' => $amount,
+                'crated_id' => $user_id,
+                'note' => '',
+                'created_date' => $created_date
+            );
+            try {
+                $insertData = $this->Constant_model->insertData('piutang',$dataInsert);    
+            } catch (Exception $e) {
+                $error = $e;    
+            }
+            
+            if ($insertData) {
+                echo "Berhasil";
+            }else{
+                echo $error;
+            }
+        }
+
+    }
+    public function getAllCustomer(){
+        $data = $this->Constant_model->getAllData('customers');
+        echo json_encode($data);
+    }
+    public function getSelectionData($id){
+        $data = $this->Constant_model->getSelectionData('piutang','customer_id',$id);
+        if (count($data) > 0) {
+            foreach ($data as $data) {
+                echo "<tr>";
+                echo "<td>".$data['created_date']."</td>";
+                echo "<td>".$data['name']."</td>";
+                echo "<td>".$data['amount']."</td>";
+                echo "<td>
+                <button>Edit</button>
+                <a href='#'>Delete</button>
+                </td>";                
+                echo "</tr>";
+            }
+        }else{
+            echo "<center>Data kosong</center>";
+        }
+        
+    }
+    public function deleteData($id){
+        $delete = $this->Constant_model->deleteData('piutang',$id);
+    }
+    public function updateData(){
+        $customer_id = strip_tags($this->input->post('customer_id'));
+        $amount =strip_tags($this->input->post('amount'));
+        $user_id = strip_tags($this->input->cookie('user_id', TRUE));
+        $created_date = date('Y-m-d H:i:s',time());
+        if ($customer_id == null) {
+            echo "Customer cannot be null";
+        }else if ($amount == 0 || $amount == null) {
+            echo "Amount must be more than 0";
+        }else{
+            $dataInsert = array(
+                'customer_id' =>$customer_id,
+                'amount' => $amount,
+                'crated_id' => $user_id,
+                'note' => '',
+                'created_date' => $created_date
+            );
+            try {
+                $edit = $this->Constant_model->deleteData('piutang',$id);  
+            } catch (Exception $e) {
+                $error = $e;    
+            }
+            
+            if ($edit) {
+                echo "Berhasil";
+            }else{
+                echo $error;
+            }
+        }
+         
+    }
+
  } ?>

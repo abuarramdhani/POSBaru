@@ -20,9 +20,19 @@ class Constant_model extends CI_Model
 
         return $result;
     }
+    function getAllData($table){
+        $query = $this->db->get($table);
+        return $query->result_array();
+    }
     public function manualQery($query){
         $this->db->query($query);
         
+    }
+    public function getSelectionData($table,$where,$id){
+        $this->db->where($where,$id);
+        $query = $this->db->get($table);
+        return $query->result_array();
+
     }
 
     // Query Data from Table by One Columns;
