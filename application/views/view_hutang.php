@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
     $search_code = "";
     $search_name = "";
 ?>
@@ -15,8 +15,8 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<form action="<?=base_url()?>index.php/piutang/search" method="get">
 						<div class="row" style="margin-top: 10px;">

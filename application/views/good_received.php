@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -27,7 +27,7 @@
 								</button>
 							</a>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<table class="table table-responsive" id="data">
 								<thead>
 									<tr>

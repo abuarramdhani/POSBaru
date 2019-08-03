@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 
     $siteDtaData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
 
@@ -64,8 +64,8 @@
 	<form action="<?=base_url()?>index.php/setting/updateSiteSetting" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

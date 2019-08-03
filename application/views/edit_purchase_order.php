@@ -197,8 +197,8 @@
 	<form action="<?=base_url()?>index.php/purchase_order/updatePO" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

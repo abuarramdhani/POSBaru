@@ -105,9 +105,11 @@
             $dataInsert = array(
                 'customer_id' =>$customer_id,
                 'amount' => $amount,
+                'created_date' => $created_date,
                 'crated_id' => $user_id,
                 'note' => '',
-                'created_date' => $created_date
+                'jatuh_tempo' => $jatuh_tempo,
+                'preference_id' => $preference_id
             );
             try {
                 $insertData = $this->Constant_model->insertData('piutang',$dataInsert);    
@@ -125,7 +127,11 @@
     }
     public function getAllCustomer(){
         $data = $this->Constant_model->getAllData('customers');
-        echo json_encode($data);
+        if (count($data) > 0) {
+            foreach ($data as $data) {
+                echo "<option value='".$data['id']."'>".$data['fullname']."</option>";
+            }
+        }
     }
     public function getSelectionData($id){
         $data = $this->Constant_model->getSelectionData('piutang','customer_id',$id);
@@ -136,8 +142,8 @@
                 echo "<td>".$data['name']."</td>";
                 echo "<td>".$data['amount']."</td>";
                 echo "<td>
-                <button>Edit</button>
-                <a href='#'>Delete</button>
+                <button class='btn btn-primary'>Edit</button>
+                <a class='btn btn-danger' href='index.php/piutang/deleteData/".$data['id']."'>Delete</button>
                 </td>";                
                 echo "</tr>";
             }
@@ -162,9 +168,11 @@
             $dataInsert = array(
                 'customer_id' =>$customer_id,
                 'amount' => $amount,
+                'created_date' => $created_date,
                 'crated_id' => $user_id,
                 'note' => '',
-                'created_date' => $created_date
+                'jatuh_tempo' => $jatuh_tempo,
+                'preference_id' => $preference_id
             );
             try {
                 $edit = $this->Constant_model->deleteData('piutang',$id);  

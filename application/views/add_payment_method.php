@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <section id="content">
 	<section class="vbox">
@@ -21,8 +21,8 @@
 	<form action="<?=base_url()?>index.php/setting/insertPaymentMethod" method="post">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

@@ -17,8 +17,8 @@
 <form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default" style="background-color: transparent; -webkit-box-shadow: none; box-shadow: none;">
-				<div class="panel-body">
+			<div class="card" style="background-color: transparent; -webkit-box-shadow: none; box-shadow: none;">
+				<div class="card-body">
 					
 					
 					<div class="row">

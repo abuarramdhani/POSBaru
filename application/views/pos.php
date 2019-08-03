@@ -46,8 +46,8 @@
 <form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<div class="row" style="margin-top: 0px;">
 						<div class="col-md-4" style="padding-right: 0px;">
@@ -503,7 +503,7 @@
 
 
   
-							<div class="panel panel-default" style="border: 1px solid #ddd;">
+							<div class="card" style="border: 1px solid #ddd;">
 								<div class="panel-body tabs">
 									
 <div class="row" style="margin-left: 0px; margin-right: 0px;">

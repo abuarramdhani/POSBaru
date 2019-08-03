@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 
     $custDtaData = $this->Constant_model->getDataOneColumn('customers', 'id', $cust_id);
 
@@ -33,8 +33,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<div class="row">
 						<div class="col-md-12" style="text-align: right;">

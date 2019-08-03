@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 
@@ -9,127 +9,68 @@
 
 <section id="content">
 	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Dashboard</p>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-
-	<div class="row">
-		<div class="col-lg-6">
-			<h1 class="page-header">Buat Faktur</h1>
-		</div>
-		<div class="col-lg-6">
-			<h1 class="page-header">Total</h1>
-		</div>
-	</div><!--/.row-->
+	
 	
 	<form action="<?=base_url()?>index.php/cashier/insertSales" method="post">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
-					
-					
-					<div class="row">
-						<div class="row">
-							<div class="col-md-8">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Faktur Penjualan <span style="color: #F00">*</span></label>
-										<input type="text" name="sales_order_no" class="form-control" maxlength="250" autofocus required autocomplete="off" />
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Metode Pembayaran</label>
-										<select class="form-control" id="payment_method">
-											<?php foreach ($payment_methods as $data): ?>
-												<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="col-md-12" style="border-top: 1px solid #ccc;">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Pilih Konsumen</label>
-										<select class="form-control" id="payment_method">
-											<?php foreach ($customers as $data): ?>
-												<option value="<?php echo $data['id'] ?>"><?php echo $data['fullname'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-3" id="lama">
-									<label>Lama Kredit / hari</label>
-									<input type="text" name="kredit" value="2" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group col-md-4">
-									<label>Cari Barang <span style="color: #F00">*</span></label>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Penjualan</h5>
+					<div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom01">Faktur Penjualan</label>
+                            <input type="text" name="sales_order_no" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Metode Pembayaran</label>
+								<select class="form-control" id="payment_method">
+									<?php foreach ($payment_methods as $data): ?>
+										<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
+									<?php endforeach ?>
+								</select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                    	<div class="col-md-4 mb-3">
+                    		<label>Pilih Konsumen</label>
+								<select class="form-control" id="payment_method">
+									<?php foreach ($customers as $data): ?>
+										<option value="<?php echo $data['id'] ?>"><?php echo $data['fullname'] ?></option>
+									<?php endforeach ?>
+								</select>
+                    	</div>
+                    	<div class="col-md-4 mb-3">
+                    		<label>Lama Kredit / hari</label>
+							<input type="text" name="kredit" value="2" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-row">
+                    	<div class="col-md-4 mb-3">
+                    		<label>Cari Barang <span style="color: #F00">*</span></label>
 									<!-- <input type="text" class="form-control" id="typeahead" placeholder="Search Product" name="typeahead" /> -->
-									<select id="typeahead" class="add_product_po form-control">
-										<option value="">Cari Barang</option>
-										<?php foreach ($barang as $data): ?>
-											<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
-										<?php endforeach ?>
-									</select>
-								</div>
-								<div class="col-md-4">
-									<label>&nbsp;</label>
+							<select id="typeahead" class="add_product_po form-control">
+								<option value="">Cari Barang</option>
+								<?php foreach ($barang as $data): ?>
+									<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
+								<?php endforeach ?>
+							</select>
+                    	</div>
+                    	<div class="col-md-4 mb-3">
+                    		<label>&nbsp;</label>
 									<div style="background-color: #686868; color: #FFF; width: 200px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList">Tambahkan</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-							<div class="table-responsive">
-								<table class="table">
+                    	</div>
+                    </div>
+                    <div class="form-row">
+                    	<div class="col-md-12">
+                    		<table class="table">
 									<thead>
 										<tr>
 									    	<th width="10%" style="background-color: #686868; color: #FFF;">Kode Barang</th>
-									    	<th width="20%" style="background-color: #686868; color: #FFF;">Nama Barang</th>
-									    	<th width="10%" style="background-color: #686868; color: #FFF;">Qty</th>
+									    	<th width="10%" style="background-color: #686868; color: #FFF;">Nama Barang</th>
+									    	<th width="20%" style="background-color: #686868; color: #FFF;">Qty</th>
 									    	<th width="20%" style="background-color: #686868; color: #FFF;">Harga Print</th>
-									    	<th width="15%" style="background-color: #686868; color: #FFF;">Harga Deal</th>
+									    	<th width="20%" style="background-color: #686868; color: #FFF;">Harga Deal</th>
 									    	<th width="40%" style="background-color: #686868; color: #FFF;">Gudang</th>
 									    	
 										    <th width="5%" style="background-color: #686868; color: #FFF;">Aksi</th>
@@ -139,39 +80,19 @@
 									
 									</tbody>
 								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<center>
-								<div class="form-group">
-									<input type="hidden" id="row_count" name="row_count" value="1" />
-									<button class="btn btn-primary" style="padding: 15px 40px;">Simpan</button>
-								</div>
-							</center>
-						</div>
-					</div>
-					
-					
-					
-				</div><!-- Panel Body // END -->
-			</div><!-- Panel Default // END -->
-			
-			
-			
+                    	</div>
+                    </div>
+                    <div class="form-row">
+                    	<input type="hidden" id="row_count" name="row_count" value="1" />
+						<center>
+							<button class="btn btn-primary" style="padding: 15px 40px;">Simpan</button>
+						</center>
+                    </div>
+				</div>
+			</div>
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	</form>
-	<div class="row">
-		<div class="col-md-12">
-			<a href="<?=base_url()?>index.php/sales_order/view" style="text-decoration: none;">
-				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
-					<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
-				</div>
-			</a>
-		</div>	
-	</div>
 		</section>
 	</section>
 </section>

@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <?php
     $poDtaData = $this->Constant_model->getDataOneColumn('purchase_order', 'id', $id);
@@ -195,8 +195,8 @@
 	<form action="<?=base_url()?>index.php/purchase_order/ReceiveItemsPO" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

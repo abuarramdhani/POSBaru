@@ -1,26 +1,11 @@
 <?php
-$this->load->view('includes/header2.php');
+$this->load->view('includes/header4.php');
 ?>
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-	<section class="scrollable wrapper">
-
-
-		<div class="col-md-12">
-			<h1 class="page-header"><?php echo $lang_customers; ?></h1>
-		</div><!--/.row-->
-
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {
@@ -197,11 +182,6 @@ $this->load->view('includes/header2.php');
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
-
-	</section>
-
-	</section>
-
 		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
 </section>
 

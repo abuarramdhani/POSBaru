@@ -10,7 +10,7 @@
 	
 	<div class="row">
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/pos" style="text-decoration: none">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_point_of_sales; ?></h4>
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/sales/list_sales" style="text-decoration: none">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_sales; ?></h4>
@@ -33,7 +33,7 @@
             if ($user_role < 3) {
                 ?>
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/reports/sales_report" style="text-decoration: none">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_reports; ?></h4>
@@ -47,7 +47,7 @@
             }
         ?>
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/setting/outlets" style="text-decoration: none">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_outlets; ?></h4>
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/setting/users" style="text-decoration: none;">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_users; ?></h4>
@@ -70,7 +70,7 @@
             if ($user_role == '1') {
                 ?>
 		<div class="col-xs-6 col-md-2">
-			<div class="panel panel-default">
+			<div class="card">
 				<a href="<?=base_url()?>index.php/setting/system_setting" style="text-decoration: none;">
 					<div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
 						<h4><?php echo $lang_system_setting; ?></h4>
@@ -203,9 +203,9 @@
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
+			<div class="card">
 				<!-- <div class="panel-heading">Sales Chart</div> -->
-				<div class="panel-body">
+				<div class="card-body">
 										
 					<div id="sales_chart" style="min-width: 310px; height: 400px;"></div>
 					
