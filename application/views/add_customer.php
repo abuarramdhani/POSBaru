@@ -1,28 +1,12 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_add_customer; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
 	<form action="<?=base_url()?>index.php/customers/insertCustomer" method="post">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {
@@ -99,17 +83,9 @@
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 			
-			<a href="<?=base_url()?>index.php/customers/view" style="text-decoration: none;">
-				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
-					<i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
-				</div>
-			</a>
-			
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	</form>
-		</section>
-	</section>
 </section>
 
 	

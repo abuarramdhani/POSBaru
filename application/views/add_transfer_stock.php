@@ -1,17 +1,8 @@
 <?php
-    require 'includes/header2.php';
+    require 'includes/header4.php';
 ?>
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
 
-		<section class="scrollable wrapper">
-		
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"><?php echo $lang_transfer_stock; ?></h1>
@@ -21,8 +12,8 @@
 	<form action="<?=base_url()?>index.php/transfer_stock/insertTransferStock" method="post">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

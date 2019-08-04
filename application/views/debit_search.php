@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -68,8 +68,8 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<form action="<?=base_url()?>index.php/debit/searchDebit" method="get">
 						<div class="row" style="margin-top: 10px;">

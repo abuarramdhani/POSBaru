@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <!-- Add jQuery library -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -38,8 +38,8 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<form action="<?=base_url()?>index.php/inventory/searchInventory" method="get">
 						<div class="row" style="margin-top: 10px;">

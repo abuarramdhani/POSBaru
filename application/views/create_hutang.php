@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 <section id="content">
@@ -18,8 +18,8 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					<div class="row">
 						<div class="row">
 							<div class="col-md-8">

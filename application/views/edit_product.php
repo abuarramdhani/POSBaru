@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 <?php
@@ -66,8 +66,8 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {
@@ -234,8 +234,8 @@
 			</div><!-- Panel Default // END -->
 			
 			
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					<h1 class="page-header" style="margin-top: 0px; padding-bottom: 4px; font-size: 30px; margin: 0px 0 11px; color: #0079c0;">
 						<?php echo $lang_inventory_by_outlet; ?>
 					</h1>

@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 
     $userDtaData = $this->Constant_model->getDataOneColumn('users', 'id', $id);
 
@@ -47,8 +47,8 @@
 		<div class="col-md-12">
 			
 			
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

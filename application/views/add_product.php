@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 <style type="text/css">
@@ -50,8 +50,8 @@
 	<form action="<?=base_url()?>index.php/products/insertProduct" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {

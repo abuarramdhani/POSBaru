@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <section id="content">
 	<section class="vbox">
@@ -15,11 +15,11 @@
 			</div><!--/.row-->
 			<div class="row">
 				<div class="col-md-12">
-					<div class="panel panel-default">
+					<div class="card">
 						<div class="panel-heading">
 							<?php echo $lang_create_good_received; ?>		
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="col-md-4">
 								<label><?php echo $lang_filter_by_supplier ?></label>
 								<select class="form-control">

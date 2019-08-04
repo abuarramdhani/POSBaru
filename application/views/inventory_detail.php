@@ -1,18 +1,9 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
 
-		<section class="scrollable wrapper">
-		
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -22,8 +13,8 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					
 					<h1 class="page-header" style="margin-top: 0px; padding-bottom: 4px; font-size: 30px; margin: 0px 0 11px; color: #0079c0;">
@@ -66,8 +57,8 @@
                 if ($user_role < 3) {
                     ?>
 			<form action="<?=base_url()?>index.php/inventory/updateInventoryQty" method="post" onsubmit="return confirm('Do you want to update Inventory?')">
-				<div class="panel panel-default">
-					<div class="panel-body">
+				<div class="card">
+					<div class="card-body">
 						
 						<?php
                             if (!empty($alert_msg)) {

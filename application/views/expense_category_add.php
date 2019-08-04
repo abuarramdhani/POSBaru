@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/header2.php';
+    require_once 'includes/header4.php';
 ?>
 <script type="text/javascript" src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
 <!-- <script type="text/javascript" src="<?=base_url()?>assets/ckfinder/ckfinder.js"></script> -->
@@ -24,8 +24,8 @@
 	<form action="<?=base_url()?>index.php/expenses/insertExpenseCategory" method="post">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 					
 					<?php
                         if (!empty($alert_msg)) {
