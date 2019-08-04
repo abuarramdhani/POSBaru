@@ -10,7 +10,8 @@ class Cashier extends CI_Controller
 		parent::__construct();
 		$this->load->model('Cashier_model');
 		$this->load->model('Customers_model');
-		$this->load->model('Outlets_model');
+        $this->load->model('Outlets_model');
+		$this->load->model('Constant_model');
 	}
 	function index(){
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
@@ -63,7 +64,7 @@ class Cashier extends CI_Controller
                         echo "<option value='".$data['id']."'>".$data['name']."</option>";
                 }
 	}
-        public function checkPcode()
+    public function checkPcode()
     {
         $pcode = $this->input->get('pcode');
 
@@ -87,6 +88,81 @@ class Cashier extends CI_Controller
             );
         }
         echo json_encode($response);
+    }
+    function insertSales(){
+        $no_sales = strip_tags($this->input->post('no_sales'));
+        $customer_id = strip_tags($this->input->post('customer_id'));
+        $method_id = strip_tags($this->input->post('method_id'));
+        $lama_kredit = strip_tags($this->input->post('kredit'));
+        $row_count = $this->input->post('row_count');
+        $user_id = $this->input->cookie('user_id', TRUE);
+        $tm = date('Y-m-d H:i:s', time());
+        $sales_date = date('Y-m-d', time());
+        if (empty($no_sales)) {
+            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please enter Purchase Order Number!'));
+            redirect(base_url().'index.php/cashier/?error=no_sales');
+        } elseif (empty($customer_id)) {
+            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please select Outlet for Purchase Order!'));
+            redirect(base_url().'index.php/cashier/?error=customer_id');
+        } elseif (empty($method_id)) {
+            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please select Supplier for Purchase Order!'));
+            redirect(base_url().'index.php/cashier/?error=method_id');
+        } else {
+            $ckPOResult = $this->db->query("SELECT * FROM sales WHERE code = '$no_sales' ");
+            $ckPORows = $ckPOResult->num_rows();
+            if ($ckPORows > 0) {
+                $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', "Purchase Order Number : $po_numb is already existing in the system! Please try another one!"));
+                redirect(base_url().'index.php/cashier/?success');
+            } else {
+                $cek = $this->Constant_model->getDataOneColumn('sales', 'code', $no_sales);
+                if (count($cek) >= 1) {
+                    // error_log(message)
+                }else{
+                    $ins_sales_data = array(
+                        'code' => $no_sales,
+                        'created_date' => $tm,
+                        'created_id' => $user_id,
+                        'customer_id' => $customer_id,
+                        'total' => 0,
+                        'lama_kredit' => $lama_kredit,
+                        'jatuh_tempo' => $tm
+                    );
+                    $po_id = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
+                    // PO Items;
+                    for ($i = 1; $i < $row_count; ++$i) {
+                        $pcode = $this->input->post("pcode_$i");
+                        $price = $this->input->post("price_$i");
+                        $qty = $this->input->post("qty_$i");
+                        $price_print = $this->input->post("price_print_$i");
+                        $price_deal = $this->input->post("price_deal_$i");
+                        $outlet_id = $this->input->post("listgudang_$i");
+                        if ($qty > 0) {
+                            $ins_sales_item_data = array(
+                                    'sales_id' => $no_sales,
+                                    'product_code' => $pcode,
+                                    'qty' => $qty,
+                                    'price_print' => $price_print,
+                                    'price_deal' => $price_deal,
+                                    'outlet_id' => $outlet_id
+                            );
+                            $this->Constant_model->insertData('sales_items', $ins_sales_item_data);
+                            // $update = array(
+                            //     'qty' => 'qty-'.$qty,
+                            // );
+                            // $where = array(
+                            //     'outlet_id' => $this->input->cookie('out_id', TRUE),
+                            //     'product_code' => $pcode
+                            // );
+                            // $this->Inventory_model->updateStock($update, $where);
+                        }
+                    }
+
+                    $this->session->set_flashdata('alert_msg', array('success', 'Create Purchase Order', "Successfully Created Purchase Order : $po_numb"));
+                    redirect(base_url().'index.php/cashier/?success');
+                }
+                
+            }
+        }
     }
 }
  ?>

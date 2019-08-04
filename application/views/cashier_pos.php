@@ -72,13 +72,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Faktur Penjualan <span style="color: #F00">*</span></label>
-										<input type="text" name="sales_order_no" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+										<input type="text" name="no_sales" class="form-control" maxlength="250" autofocus required autocomplete="off" />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Metode Pembayaran</label>
-										<select class="form-control" id="payment_method">
+										<select class="form-control" id="payment_method" name="method_id">
 											<?php foreach ($payment_methods as $data): ?>
 												<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
 											<?php endforeach ?>
@@ -92,7 +92,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Pilih Konsumen</label>
-										<select class="form-control" id="payment_method">
+										<select class="form-control" id="customers" name="customer_id">
 											<?php foreach ($customers as $data): ?>
 												<option value="<?php echo $data['id'] ?>"><?php echo $data['fullname'] ?></option>
 											<?php endforeach ?>
@@ -214,7 +214,7 @@
 								
 								
 							} else {
-								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_print_'+row_count+'" value="'+harga+'" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_deal_'+row_count+'" value="'+harga+'" /></td><td><select class="form-control" id="listgudang_'+row_count+'" style="width: 50%;"><option></option></select></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
+								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_print_'+row_count+'" value="'+harga+'" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_deal_'+row_count+'" value="'+harga+'" /></td><td><select class="form-control" id="listgudang_'+row_count+'" name="listgudang_'+row_count+'" style="width: 50%;"><option></option></select></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
 						        
 						        
 						        $.ajax({
