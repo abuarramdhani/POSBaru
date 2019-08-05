@@ -15,13 +15,6 @@
 
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_add_gift_card; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<form action="<?=base_url()?>index.php/gift_card/insertGiftCard" method="post">
 	<div class="row">
@@ -75,8 +68,8 @@
 								<div class="input-group">
 									<input id="btn-input" type="text" class="form-control input-md" name="gift_card_numb" required autocomplete="off" />
 									<span class="input-group-btn">
-										<button class="btn btn-primary btn-md" id="btn-todo" style="padding: 2px 12px;">
-											<i class="icono-gear"></i>
+										<button class="btn btn-primary" id="btn-todo">
+											<i class="fa fa-gear"></i> 
 											<?php echo $lang_generate; ?>
 										</button>
 									</span>
@@ -128,8 +121,7 @@
 	</form>
 	
 	
-		</section>
-	</section>
+
 </section>
 <script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.js" type="text/javascript"></script>
 <script src="<?=base_url()?>assets/js/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
@@ -147,5 +139,5 @@
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

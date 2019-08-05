@@ -8,22 +8,6 @@
 
 
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" disabled class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">Create Sales Order</h1>
-		</div>
-	</div><!--/.row-->
 	
 	<form action="<?=base_url()?>index.php/sales_order/insertSalesOrder" method="post">
 	<div class="row">
@@ -170,8 +154,7 @@
 	</div><!-- Row // END -->
 	</form>
 	
-		</section>
-	</section>
+
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -254,7 +237,7 @@
 */
 </script>
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

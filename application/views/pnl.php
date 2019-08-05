@@ -46,8 +46,7 @@ require_once 'includes/header4.php';
 					</div><!-- Panel Default // END -->
 				</div><!-- Col md 12 // END -->
 			</div><!-- Row // END -->
-		</section>
-	</section>
+
 </section>
 <script src="<?=base_url()?>assets/js/highcharts.js"></script>
 <script src="<?=base_url()?>assets/js/exporting.js"></script>	
@@ -179,5 +178,5 @@ require_once 'includes/header4.php';
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

@@ -42,11 +42,6 @@
 	} );
 </script>
 <section id="content">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_add_new_expenses; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<form action="<?=base_url()?>index.php/expenses/insertNewExpenses" method="post" enctype="multipart/form-data">
 	<div class="row">
@@ -211,5 +206,5 @@
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

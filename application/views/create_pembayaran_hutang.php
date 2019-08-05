@@ -3,15 +3,6 @@
 ?>
 
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Dashboard</p>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-
-	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">Buat Pembayaran</h1>
 		</div>

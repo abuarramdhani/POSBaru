@@ -49,5 +49,5 @@
 </section>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

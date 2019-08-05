@@ -2,7 +2,6 @@
     require_once 'includes/header4.php';
 ?>
 <style type="text/css">
-	@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 	
 	label { font-size: 22px; }
 	
@@ -173,14 +172,6 @@
 
 
 <section id="content">
-
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_create_return_order; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
 	<form action="<?=base_url()?>index.php/returnorder/insertReturnOrder" method="post" onsubmit="return confirm('<?php echo $lang_are_you_confirm_return; ?>')">
 	<div class="row">
 		<div class="col-md-12">
@@ -782,7 +773,7 @@
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

@@ -2,18 +2,6 @@
     require_once 'includes/header4.php';
 ?>
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-		</header>
-
-		<section class="scrollable wrapper">
-		
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">List Penjualan anda</h1>
-		</div>
-	</div><!--/.row-->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -117,13 +105,10 @@
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-	
-		</section>
-	</section>
 </section>
 	
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

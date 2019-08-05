@@ -75,13 +75,6 @@
 
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_create_purchase_order; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<form action="<?=base_url()?>index.php/purchase_order/insertNewPO" method="post" enctype="multipart/form-data">
 	<div class="row">
@@ -248,31 +241,24 @@
 					
 					<div class="row">
 						<div class="col-md-12">
-<div class="table-responsive">
-	<table class="table">
-		<thead>
-			<tr>
-		    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
-		    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
-		    	<th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_order_qty; ?></th>
-		    	<th width="20%" style="background-color: #686868; color: #FFF;">Harga Beli</th>
-			    <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
-			</tr>
-		</thead>
-		<tbody id="addItemWrp">
-		
-		</tbody>
-	</table>
-</div>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+									    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
+									    	<th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
+									    	<th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_order_qty; ?></th>
+									    	<th width="20%" style="background-color: #686868; color: #FFF;">Harga Beli</th>
+										    <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
+										</tr>
+									</thead>
+									<tbody id="addItemWrp">
+									
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-					
-					<!-- Product List // END -->
-					
-					
-					
-										
-										
 					<div class="row">
 						<div class="col-md-12">
 							<center>
@@ -299,8 +285,7 @@
 	</div><!-- Row // END -->
 	</form>
 	
-		</section>
-	</section>
+
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -387,7 +372,7 @@
 */
 </script>
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

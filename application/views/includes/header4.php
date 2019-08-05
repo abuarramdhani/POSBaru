@@ -10,9 +10,6 @@ $user_id = $this->input->cookie('user_id', TRUE);
     //     redirect(base_url(), 'refresh');
     // }
 
-    $tk_c = $this->router->class;
-    $tk_m = $this->router->method;
-
     $alert_msg = $this->session->flashdata('alert_msg');
 
     $settingResult = $this->db->get_where('site_setting');
@@ -61,6 +58,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
     <!-- begin::custom styles -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/app.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/custom.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- end::custom styles -->
 
 </head>
@@ -74,90 +72,43 @@ $user_id = $this->input->cookie('user_id', TRUE);
 <div class="side-menu">
     <div class='side-menu-body'>
         <ul>
-            <li <?php if ($tk_c == 'dashboard') {
-                        ?> class="active" <?php 
-                    } ?>>
-                        <a href="<?=base_url()?>index.php/dashboard">
-                        <i class="fa fa-dashboard"></i>
-                        <?php echo $lang_dashboard; ?></a>
-                    </li>
-                    <li <?php if ($tk_c == 'customers') {
-                        ?> class="active" <?php 
-                    } ?>>
-                        <a href="<?=base_url()?>index.php/customers/view">
-                            <i class="fa fa-user"></i>
-                            <?php echo $lang_customers; ?></a>
-                    </li>
-                    <li <?php if ($tk_c == 'transfer_stock') {
-                        ?> class="active" <?php 
-                    } ?>>
-                        <a href="<?=base_url()?>index.php/transfer_stock/view"> <i class="fa fa-exchange"></i> <?php echo $lang_transfer_stock; ?></a>
-                    </li>
+            <?php 
+            $link = $this->uri->segment(1);
+            $func = $this->uri->segment(2);
+             ?>
+            <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/customers/view',$lang_customers,($link=="customers"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/transfer_stock/view',$lang_transfer_stock,($link=="transfer_stock"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/sales/list_sales',$lang_sales,($link=="sales"?'class="active"':'')) ?></li>
                     
-                    <li <?php if ($tk_c == 'gift_card') {
-                        ?> class="dropdown-submenu active" <?php 
-                    } else {
-                        echo 'class="dropdown-submenu"';
-                    } ?>>
-                        <a data-toggle="dropdown" href="">
-                            <i class="fa fa-credit-card"></i>
-                            <?php echo $lang_gift_card; ?>
-                        </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'gift_card') {
-                        ?> <?php 
-                    } ?>" id="sub-item-gift">
-                            <?php
-                                if ($user_role == '1') {
-                                    ?>
-                            <li>
-                                <a <?php if (($tk_m == 'add_gift_card')) {
-                                        
-                                    } ?> href="<?=base_url()?>index.php/gift_card/add_gift_card">
-                                    <b class="badge pull-right">302</b>
-                                    <?php echo $lang_add_gift_card; ?>
-                                </a>
-                            </li>
-                            <?php
-
-                                } ?>
-                            <li>
-                                <a <?php if (($tk_m == 'list_gift_card')) {
-                                    ?> style="background-color: #e9ecf2;" <?php 
-                                } ?> href="<?=base_url()?>index.php/gift_card/list_gift_card">
-                                    <?php echo $lang_list_gift_card; ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li <?php if ($tk_c == 'sales') {
+                    <li <?php if ($link == 'sales') {
                                     ?> class="dropdown-submenu active" <?php 
                                 } else {
                                     echo 'class="dropdown-submenu"';
                                 } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-dollar"></i>
                             <?php echo $lang_sales; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'sales') {
+                        <ul class="dropdown-menu <?php if ($link != 'sales') {
                                     ?> dropdown <?php 
                                 } ?>" id="sub-item-sales">
                             <li>
-                                <a <?php if (($tk_m == 'list_sales')) {
+                                <a <?php if (($func == 'list_sales')) {
                                     ?> style="background-color: #e9ecf2;" <?php 
                                 } ?> href="<?=base_url()?>index.php/sales/list_sales">
                                     <?php echo $lang_today_sales; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($tk_m == 'debit')) {
+                                <a <?php if (($func == 'debit')) {
                                     ?> style="background-color: #e9ecf2;" <?php 
                                 } ?> href="<?=base_url()?>index.php/debit/view">
                                     <?php echo $lang_debit; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($tk_m == 'opened_bill')) {
+                                <a <?php if (($func == 'opened_bill')) {
                                     ?> style="background-color: #e9ecf2;" <?php 
                                 } ?> href="<?=base_url()?>index.php/sales/opened_bill">
                                     <?php echo $lang_opened_bill; ?>
@@ -167,7 +118,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             if ($user_role < 3) {
                         ?>
                             <li>
-                                <a <?php if (($tk_m == 'sales_report')) {
+                                <a <?php if (($func == 'sales_report')) {
                                 ?> style="background-color: #e9ecf2;" <?php 
                             } ?> href="<?=base_url()?>index.php/reports/sales_report">
                                     <?php echo $lang_sales_report; ?>
@@ -179,20 +130,19 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         </ul>
                     </li>
     
-                    <li <?php if ($tk_c == 'expenses') {
+                    <li <?php if ($link == 'expenses') {
                             ?> class="dropdown-submenu active" <?php 
                         } else {
                             echo 'class="dropdown-submenu"';
                         } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-share-square-o"></i>
                             <?php echo $lang_expenses; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'expenses') {
+                        <ul class="dropdown-menu <?php if ($link != 'expenses') {
                             ?> dropdown <?php 
                         } ?>" id="sub-item-expenses">
                             <li>
-                                <a <?php if (($tk_m == 'view') || ($tk_m == 'addNewExpenses') || ($tk_m == 'searchExpenses') || ($tk_m == 'editExpenses')) {
+                                <a <?php if (($func == 'view') || ($func == 'addNewExpenses') || ($func == 'searchExpenses') || ($func == 'editExpenses')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/expenses/view">
                                     <?php echo $lang_expenses; ?>
@@ -200,7 +150,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                                 <?php
                                     if ($user_role < 3) {
                                         ?>
-                                <a <?php if (($tk_m == 'expense_category') || ($tk_m == 'expense_category_add') || ($tk_m == 'expense_category_edit')) {
+                                <a <?php if (($func == 'expense_category') || ($func == 'expense_category_add') || ($func == 'expense_category_edit')) {
                                             ?> style="background-color: #e9ecf2;" <?php 
                                         } ?> href="<?=base_url()?>index.php/expenses/expense_category">
                                     <?php echo $lang_expenses_category; ?>
@@ -217,25 +167,24 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     <?php
                         if ($user_role == 1) {
                             ?>
-                    <li <?php if (($tk_c == 'pnl')) {
+                    <li <?php if (($link == 'pnl')) {
                                 ?> class="dropdown-submenu active" <?php 
                             } else {
                                 echo 'class="dropdown-submenu"';
                             } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-book"></i>
                             <?php echo $lang_pnl; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if (($tk_c != 'pnl')) {
+                        <ul class="dropdown-menu <?php if (($link != 'pnl')) {
                                 ?> dropdown <?php 
                             } ?>" id="sub-item-pnlreport">
                             <li>
-                                <a <?php if (($tk_m == 'pnl_graph_view')) {
+                                <a <?php if (($func == 'pnl_graph_view')) {
                                 ?> style="background-color: #e9ecf2;" <?php 
                             } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
                                     <?php echo $lang_pnl; ?>
                                 </a>
-                                <a <?php if (($tk_m == 'pnl_report')) {
+                                <a <?php if (($func == 'pnl_report')) {
                                 ?> style="background-color: #e9ecf2;" <?php 
                             } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
                                     <?php echo $lang_pnl_report; ?>
@@ -247,27 +196,26 @@ $user_id = $this->input->cookie('user_id', TRUE);
 
                         } ?>
                     
-                    <li <?php if ($tk_c == 'returnorder') {
+                    <li <?php if ($link == 'returnorder') {
                             ?> class="dropdown-submenu active" <?php 
                         } else {
                             echo 'class="dropdown-submenu"';
                         } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-sign-out"></i>
                             <?php echo $lang_return_order; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'returnorder') {
+                        <ul class="dropdown-menu <?php if ($link != 'returnorder') {
                             ?> dropdown <?php 
                         } ?>" id="sub-item-return">
                             <li>
-                                <a <?php if (($tk_m == 'create_return') || ($tk_m == 'confirmation')) {
+                                <a <?php if (($func == 'create_return') || ($func == 'confirmation')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/returnorder/create_return">
                                     <?php echo $lang_create_return_order; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($tk_m == 'return_report')) {
+                                <a <?php if (($func == 'return_report')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/returnorder/return_report">
                                     <?php echo $lang_return_order_report; ?>
@@ -276,20 +224,19 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         </ul>
                     </li>
                     
-                    <li <?php if ($tk_c == 'products') {
+                    <li <?php if ($link == 'products') {
                             ?> class="dropdown-submenu active" <?php 
                         } else {
                             echo 'class="dropdown-submenu"';
                         } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-archive"></i>
                             <?php echo $lang_products; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'products') {
+                        <ul class="dropdown-menu <?php if ($link != 'products') {
                             ?> dropdown <?php 
                         } ?>" id="sub-item-product">
                             <li>
-                                <a <?php if (($tk_m == 'list_products') || ($tk_m == 'addproduct')) {
+                                <a <?php if (($func == 'list_products') || ($func == 'addproduct')) {
                                     ?> style="background-color: #e9ecf2;" <?php 
                                 } ?> href="<?=base_url()?>index.php/products/list_products">
                                     <?php echo $lang_list_products; ?>
@@ -310,7 +257,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             <li>
                                 <a href="<?=base_url()?>index.php/products/product_category"><?php echo $lang_product_category; ?></a>
                             </li>
-                                <a <?php if (($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {
+                                <a <?php if (($func == 'product_category') || ($func == 'addproductcategory') || ($func == 'editproductcategory')) {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/products/product_category">
                                     <?php echo $lang_product_category; ?>
@@ -326,38 +273,36 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     <?php
                         if ($user_role < 3) {
                             ?>
-                    <li <?php if ($tk_c == 'purchase_order') {
+                    <li <?php if ($link == 'purchase_order') {
                                 ?> class="active" <?php 
                             } ?>>
                         <a href="<?=base_url()?>index.php/purchase_order/po_view">
-                            <i class="fa fa-sign-in"></i>
                             <?php echo $lang_purchase_order; ?></a>
                     </li>
                     <?php
 
                         } ?>
                     
-                    <li <?php if ($tk_c == 'setting') {
+                    <li <?php if ($link == 'setting') {
                             ?> class="dropdown-submenu active" <?php 
                         } else {
                             echo 'class="dropdown-submenu"';
                         } ?>>
                         <a data-toggle="dropdown" href="">
-                            <i class="fa fa-gear"></i>
                             <?php echo $lang_setting; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($tk_c != 'setting') {
+                        <ul class="dropdown-menu <?php if ($link != 'setting') {
                             ?> dropdown <?php 
                         } ?>" id="sub-item-1">
                             <li>
-                                <a <?php if (($tk_m == 'outlets') || ($tk_m == 'addoutlet') || ($tk_m == 'editoutlet')) {
+                                <a <?php if (($func == 'outlets') || ($func == 'addoutlet') || ($func == 'editoutlet')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/setting/outlets">
                                     <?php echo $lang_outlets; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {
+                                <a <?php if (($func == 'users') || ($func == 'adduser') || ($func == 'edituser')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/setting/users">
                                     <?php echo $lang_users; ?>
@@ -367,21 +312,21 @@ $user_id = $this->input->cookie('user_id', TRUE);
                                 if ($user_role == '1') {
                                     ?>
                             <li>
-                                <a <?php if (($tk_m == 'suppliers') || ($tk_m == 'addsupplier') || ($tk_m == 'editsupplier')) {
+                                <a <?php if (($func == 'suppliers') || ($func == 'addsupplier') || ($func == 'editsupplier')) {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/suppliers">
                                     <?php echo $lang_suppliers; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if ($tk_m == 'system_setting') {
+                                <a <?php if ($func == 'system_setting') {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/system_setting">
                                     <?php echo $lang_system_setting; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($tk_m == 'payment_methods') || ($tk_m == 'addpaymentmethod') || ($tk_m == 'editpaymentmethod')) {
+                                <a <?php if (($func == 'payment_methods') || ($func == 'addpaymentmethod') || ($func == 'editpaymentmethod')) {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/payment_methods">
                                     <?php echo $lang_payment_methods; ?>

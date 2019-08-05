@@ -119,8 +119,7 @@
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	</form>
-		</section>
-	</section>
+
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -212,7 +211,7 @@
 */
 </script>
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

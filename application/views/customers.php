@@ -6,7 +6,6 @@ $this->load->view('includes/header4.php');
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					
 					<?php
                         if (!empty($alert_msg)) {
                             $flash_status = $alert_msg[0];
@@ -42,7 +41,7 @@ $this->load->view('includes/header4.php');
                     ?>
 					
 					<?php
-                        if ($this->session->userdata('user_role') < 3) {
+                        if ($this->input->cookie('user_role',TRUE) < 3) {
                             ?>
 					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
 						<div class="col-md-6">
@@ -192,5 +191,5 @@ $this->load->view('includes/header4.php');
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

@@ -4,16 +4,6 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <section id="content">
-	<section class="vbox">
-		<section class="scrollable wrapper">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header" style="text-align: center; padding-bottom: 0px; margin-bottom: 10px;">
-				<?php echo $lang_choose_outlet; ?>
-			</h1>
-		</div>
-	</div><!--/.row-->
-	
 <form action="<?=base_url()?>index.php/pos/insertSale" method="post">	
 	<div class="row">
 		<div class="col-md-12">
@@ -64,9 +54,6 @@
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-	
-		</section>
-	</section>
 </section>
 
 

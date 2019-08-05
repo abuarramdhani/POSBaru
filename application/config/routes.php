@@ -69,3 +69,4 @@ $route['setting/suppliers/(:num)'] = 'setting/suppliers/$1';
 $route['purchase_order/po_view/(:num)'] = 'purchase_order/po_view/$1';
 $route['inventory/view/(:num)'] = 'inventory/view/$1';
 $route['debit/view/(:num)'] = 'debit/view/$1';
+$route['transfer_stock/view/(:num)'] = 'transfer_stock/view/$1';

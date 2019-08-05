@@ -3,12 +3,6 @@
 ?>
 <section id="content">
 
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_transfer_stock; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
 	<form action="<?=base_url()?>index.php/transfer_stock/insertTransferStock" method="post">
 	<div class="row">
 		<div class="col-md-12">
@@ -119,13 +113,12 @@
 	</div><!-- Row // END -->
 	</form>
 	
-		</section>
-	</section>
+
 </section>
 
 	
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

@@ -110,13 +110,12 @@
 	</form>
 	
 		
-		</section>
-	</section>
+
 </section>
 
 	
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>

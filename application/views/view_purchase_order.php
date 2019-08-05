@@ -177,13 +177,6 @@
 
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_received_from_supplier; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<form action="<?=base_url()?>index.php/purchase_order/ReceiveItemsPO" method="post" enctype="multipart/form-data">
 	<div class="row">
@@ -428,12 +421,9 @@
 			</div><!-- Col md 12 // END -->
 		</div><!-- Row // END -->
 	</form>
-	
-		</section>
-	</section>
 </section>
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
 

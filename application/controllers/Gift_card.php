@@ -48,7 +48,7 @@ class Gift_card extends CI_Controller
     // ****************************** View Page -- START ****************************** //
 
     // View Gift Card;
-    public function list_gift_card()
+    public function view()
     {
         $siteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $siteSetting_dateformat = $siteSettingData[0]->datetime_format;

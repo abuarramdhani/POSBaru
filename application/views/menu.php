@@ -163,8 +163,7 @@ $this->load->view('includes/header.php');
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-		</section>
-	</section>
+
 </section>
 
 	

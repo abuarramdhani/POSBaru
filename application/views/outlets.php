@@ -3,14 +3,6 @@
 ?>
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_outlets; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -148,13 +140,12 @@
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-		</section>
-	</section>
+
 </section>
 
 	
 	
 	
 <?php
-    require_once 'includes/footer2.php';
+    require_once 'includes/footer4.php';
 ?>
