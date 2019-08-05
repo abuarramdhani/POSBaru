@@ -28,6 +28,10 @@ class Constant_model extends CI_Model
         $this->db->query($query);
         
     }
+    public function manualQerySelect($query){
+        return $this->db->query($query)->result_array();
+        
+    }
     public function getSelectionData($table,$where,$id){
         $this->db->where($where,$id);
         $query = $this->db->get($table);

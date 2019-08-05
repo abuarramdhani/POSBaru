@@ -5,9 +5,18 @@
 
 <!-- Select2 -->
 <link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
-
+<script type="text/javascript">
+	$(document).on('change','#customer_id',function(){
+			var customer_id = this.val();
+			alert(customer_id);
+			// if(customer_id == 9){
+			// 	$('#wrap').html('<label>Lama Kredit / hari</label><input type="text" name="kredit" value="2" class="form-control">');
+			// }
+		});
+</script>
 
 <section id="content">
+	<?php echo form_open('index.php/cashier/insertSales') ?>
 					<?php
                         if (!empty($alert_msg)) {
                             $flash_status = $alert_msg[0];
@@ -47,11 +56,11 @@
 					<div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationCustom01">Faktur Penjualan</label>
-                            <input type="text" name="sales_order_no" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+                            <input type="text" name="sales_order_no" id="sales_order_no" readonly="" class="form-control" maxlength="250" autofocus required autocomplete="off" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <label>Metode Pembayaran</label>
-								<select class="form-control" id="payment_method">
+								<select class="form-control" id="payment_method" name="method_id">
 									<?php foreach ($payment_methods as $data): ?>
 										<option value="<?php echo $data['id'] ?>"><?php echo $data['name'] ?></option>
 									<?php endforeach ?>
@@ -61,15 +70,14 @@
                     <div class="form-row">
                     	<div class="col-md-4 mb-3">
                     		<label>Pilih Konsumen</label>
-								<select class="form-control" id="payment_method">
+								<select class="form-control" id="customer_id" name="customer_id">
 									<?php foreach ($customers as $data): ?>
 										<option value="<?php echo $data['id'] ?>"><?php echo $data['fullname'] ?></option>
 									<?php endforeach ?>
 								</select>
                     	</div>
-                    	<div class="col-md-4 mb-3">
-                    		<label>Lama Kredit / hari</label>
-							<input type="text" name="kredit" value="2" class="form-control">
+                    	<div class="col-md-4 mb-3" id="wrap">
+                    		
                     	</div>
                     </div>
                     <div class="form-row">
@@ -112,6 +120,8 @@
                     	<input type="hidden" id="row_count" name="row_count" value="1" />
 						<center>
 							<button class="btn btn-primary" style="padding: 15px 40px;">Simpan</button>
+							<button class="btn btn-primary" style="padding: 15px 40px;">Tahan</button>
+							<button class="btn btn-primary" style="padding: 15px 40px;">Buka Transaksi Ditahan</button>
 						</center>
                     </div>
 				</div>
@@ -125,14 +135,27 @@
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="<?=base_url()?>assets/js/typeahead.min.js"></script>
+<script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 	<script>
+	function get_kode(){
+		$.ajax({
+			url		: '<?=base_url()?>index.php/cashier/get_kode',
+			success:function(data){
+				$('#sales_order_no').val(data);
+			}
+		});
+	}
 	$(document).ready(function(){
-/*
+		$(".add_product_po").select2({
+			placeholder: "Cari barang",
+			allowClear: true
+		});
+/*	
 		document.getElementById("uploadBtn").onchange = function () {
 			document.getElementById("uploadFile").value = this.value;
 		};
 */
-		
+			get_kode();
 			$("#addToList").click(function(){
 				var row_count 		= document.getElementById("row_count").value;
 				var pcode 			= document.getElementById("typeahead").value;
@@ -179,11 +202,6 @@
 							
 						}
 					});
-					
-					
-					
-				        
-			        
 			    } else {
 				    alert("Please search the product by Product Code OR Name!");
 				    //document.getElementById("typeahead").focus();
@@ -192,14 +210,11 @@
 			});
 		
 	});
+		
 	
 	function deletediv(ele){
 		$('#row_' + ele).remove();
 	}
-	$(document).ready(function(){
-		
-	});
-
 /*
 	document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById("addToList").addEventListener("click", handler);
@@ -210,17 +225,9 @@
 	}
 */
 </script>
-<?php
-    require_once 'includes/footer4.php';
-?>
 
+<?php 
+require 'includes/footer4.php';
+ ?>
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 <!-- Select2 -->
-<script>
-	$(document).ready(function() {
-		$(".add_product_po").select2({
-			placeholder: "Cari berdasarkan kode>",
-			allowClear: true
-		});
-	});
-</script>

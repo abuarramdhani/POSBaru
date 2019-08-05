@@ -58,6 +58,12 @@ class Cashier extends CI_Controller
         $data['barang'] = $this->Cashier_model->getBarang();
 		$this->load->view('cashier_pos',$data);
 	}
+    function get_kode(){
+        $date = date('Ymd');
+        $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),1)+1 as kode FROM sales');
+        $kode = $q[0]['kode'];
+        echo $date."".$kode;
+    }
 	function get_gudang(){
 		$data = $this->Outlets_model->getAllOutlets();
 		foreach ($data as $data) {
@@ -90,7 +96,7 @@ class Cashier extends CI_Controller
         echo json_encode($response);
     }
     function insertSales(){
-        $no_sales = strip_tags($this->input->post('no_sales'));
+        $no_sales = strip_tags($this->input->post('sales_order_no'));
         $customer_id = strip_tags($this->input->post('customer_id'));
         $method_id = strip_tags($this->input->post('method_id'));
         $lama_kredit = strip_tags($this->input->post('kredit'));
@@ -124,11 +130,11 @@ class Cashier extends CI_Controller
                         'created_id' => $user_id,
                         'customer_id' => $customer_id,
                         'total' => 0,
-                        'lama_kredit' => $lama_kredit,
-                        'jatuh_tempo' => $tm
+                        'lama_kredit' => $lama_kredit
                     );
                     $po_id = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
                     // PO Items;
+                    $amount =0;
                     for ($i = 1; $i < $row_count; ++$i) {
                         $pcode = $this->input->post("pcode_$i");
                         $price = $this->input->post("price_$i");
@@ -146,6 +152,7 @@ class Cashier extends CI_Controller
                                     'outlet_id' => $outlet_id
                             );
                             $this->Constant_model->insertData('sales_items', $ins_sales_item_data);
+                            $amount += $qty*$price_deal;
                             // $update = array(
                             //     'qty' => 'qty-'.$qty,
                             // );
@@ -155,8 +162,24 @@ class Cashier extends CI_Controller
                             // );
                             // $this->Inventory_model->updateStock($update, $where);
                         }
+                       
                     }
-
+                     if ($method_id == 3) {
+                        $dataInsert = array(
+                            'customer_id' =>$customer_id,
+                            'amount' => $amount,
+                            'created_date' => $created_date,
+                            'crated_id' => $user_id,
+                            'note' => '',
+                            'jatuh_tempo' => strtotime("+".$lama_kredit." day", $tm),
+                            'preference_id' => $no_sales
+                        );
+                        try {
+                            $insertData = $this->Constant_model->insertData('piutang',$dataInsert);    
+                        } catch (Exception $e) {
+                            $error = $e;    
+                        }
+                    }
                     $this->session->set_flashdata('alert_msg', array('success', 'Create Purchase Order', "Successfully Created Purchase Order : $po_numb"));
                     redirect(base_url().'index.php/cashier/?success');
                 }

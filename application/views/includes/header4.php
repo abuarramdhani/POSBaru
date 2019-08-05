@@ -41,7 +41,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gramos - Admin Dashboard</title>
+    <title><?php echo $setting_site_name ?> - Dashboard</title>
 
     <!-- begin::global styles -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/vendors/bundle.css" type="text/css">
@@ -81,6 +81,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
             <li><?php echo anchor('index.php/transfer_stock/view',$lang_transfer_stock,($link=="transfer_stock"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/sales/list_sales',$lang_sales,($link=="sales"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/cashier/',$lang_pos,($link=="cashier"?'class="active"':'')) ?></li>
                     
                     <li <?php if ($link == 'sales') {
                                     ?> class="dropdown-submenu active" <?php 
@@ -271,14 +272,14 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     
                     
                     <?php
-                        if ($user_role < 3) {
+                    if ($user_role < 3) {
                             ?>
-                    <li <?php if ($link == 'purchase_order') {
+                    <!-- <li <?php if ($link == 'purchase_order') {
                                 ?> class="active" <?php 
                             } ?>>
                         <a href="<?=base_url()?>index.php/purchase_order/po_view">
                             <?php echo $lang_purchase_order; ?></a>
-                    </li>
+                    </li> -->
                     <?php
 
                         } ?>
@@ -349,7 +350,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
         <div class="header-logo">
             <a href="#">
                 <img src="<?php echo base_url() ?>assets/media/image/light-logo.png" alt="...">
-                <span class="logo-text d-none d-lg-block">Gramos</span>
+                <span class="logo-text d-none d-lg-block"><?php echo $setting_site_name ?></span>
             </a>
         </div>
 
