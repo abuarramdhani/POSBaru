@@ -150,6 +150,15 @@
 			placeholder: "Cari barang",
 			allowClear: true
 		});
+	$('#payment_method').change(function(){
+		var payment_method = $('#payment_method').val();
+		if(payment_method == 9){
+			$('#wrap').html('<label for="lama_kredit">Lama Kredit</label><input type="text" name="lama_kredit" id="lama_kredit" readonly="" class="form-control"/>');
+		}else if(payment_method == 6){
+			$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" readonly="" class="form-control"/>');
+		}
+		
+	});
 /*	
 		document.getElementById("uploadBtn").onchange = function () {
 			document.getElementById("uploadFile").value = this.value;

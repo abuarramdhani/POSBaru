@@ -187,5 +187,126 @@ class Cashier extends CI_Controller
             }
         }
     }
+    function insertDetItemSales(){
+        $no_sales = strip_tags($this->input->post('sales_order_no'));
+        $pcode = strip_tags($this->input->post("pcode"));
+        $qty = strip_tags($this->input->post("qty"));
+        $price_print = strip_tags($this->input->post("price_print"));
+        $price_deal = strip_tags($this->input->post("price_deal"));
+        $outlet_id = strip_tags($this->input->post("listgudang"));
+        $cek = $this->Constant_model->getDataTwoColumn('temp_sales_items','sales_id',$no_sales,'product_code',$pcode);
+        if (count($cek ) > 0) {
+            echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
+        }else{
+            $dataInsert = array(
+                'sales_id' =>$no_sales,
+                'product_code' => $pcode,
+                'qty' => $qty,
+                'price_print' => $price_print,
+                'price_deal' => $price_deal,
+                'outlet_id' => $outlet_id
+            );
+            try {
+                $insertData = $this->Constant_model->insertData('temp_sales_items',$dataInsert);    
+            } catch (Exception $e) {
+                $error = $e;    
+            }
+            if($insertData){
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+            }else{
+                echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$error));
+            }
+            
+        }
+    }
+    function editKolom(){
+        $no_sales = strip_tags($this->input->post('sales_order_no'));
+        $pcode = strip_tags($this->input->post("pcode"));
+        $qty = strip_tags($this->input->post("qty"));
+        $price_print = strip_tags($this->input->post("price_print"));
+        $price_deal = strip_tags($this->input->post("price_deal"));
+        $outlet_id = strip_tags($this->input->post("listgudang"));
+        $type = $this->input->post('type');
+        $where = array(
+            'sales_id' => $sales_id,
+            'product_code' => $pcode
+        );
+        switch ($type) {
+            case 'qty':
+                $data = array(
+                    'qty' => $qty
+                );
+                break;
+            case 'price_print':
+                $data = array(
+                    'price_print' => $price_print
+                );
+                break;
+            case 'price_deal':
+                $data = array(
+                    'price_deal' => $price_deal
+                );
+                break;
+            case 'outlets':
+                $data = array(
+                    'outlet_id' => $outlet_id
+                );
+                break;
+            default:
+                $data = array(
+                    '' => ''
+                );
+                break;
+            
+        }
+        try {
+            $update = $this->Constant_model->updateDataCashier('temp_sales_items',$data,$where);    
+        } catch (Exception $e) {
+            $error = $e; 
+        }
+        if($insertData){
+            echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+        }else{
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$error));
+        }
+
+    }
+    function getDataTempSales($id){
+        $data = $this->Constant_model->manualQerySelect("SELECT sales_items.*,products.name,products.code FROM sales_items JOIN products ON sales_items.product_code = products.id WHERE sales_items.sales_id=$id");
+        foreach ($data as $data) {
+            echo "<tr>";
+            echo "<td>".$data['code']."</td>";
+            echo "<td>".$data['name']."</td>";
+            echo "<td><input type='text' class='form-control' name='qty' value='".$data['name']."' /></td>";
+            echo "<td><input type='text' class='form-control' name='price_print' value='".$data['price_print']."' /></td>";
+            echo "<td><input type='text' class='form-control' name='price_deal' value='".$data['price_deal']."' /></td>";
+            echo "<td><td><select class='form-control' id='listgudang' name='listgudang' style='width: 50%;'><option></option></select></td>";
+            echo "</tr>";
+        }
+    }          
+    function insertSalesTemp(){
+        $no_sales = strip_tags($this->input->post('sales_order_no'));
+        $customer_id = strip_tags($this->input->post('customer_id'));
+        $method_id = strip_tags($this->input->post('method_id'));
+        $lama_kredit = strip_tags($this->input->post('kredit'));
+        $user_id = $this->input->cookie('user_id', TRUE);
+        $tm = date('Y-m-d H:i:s', time());
+        $sales_date = date('Y-m-d', time());
+        $cek = $this->Constant_model->getDataOneColumn('temp_sales', 'code', $no_sales);
+                if (count($cek) >= 1) {
+                    echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
+                }else{
+                    $ins_sales_data = array(
+                        'code' => $no_sales,
+                        'created_date' => $tm,
+                        'created_id' => $user_id,
+                        'customer_id' => $customer_id
+                    );
+                    $po_id = $this->Constant_model->insertDataReturnLastId('temp_sales', $ins_sales_data);
+                    
+                    $this->session->set_flashdata('alert_msg', array('success', 'Create Purchase Order', "Successfully Created Purchase Order : $po_numb"));
+                    redirect(base_url().'index.php/cashier/?success');
+                }
+    }
 }
  ?>

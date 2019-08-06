@@ -134,6 +134,13 @@ class Constant_model extends CI_Model
 
         return true;
     }
+    public function updateDataCashier($table, $data, $id)
+    {
+        $this->db->where($id);
+        $this->db->update("$table", $data);
+
+        return true;
+    }
 
     // Delete Data from Any Table;
     public function deleteData($table, $id)
