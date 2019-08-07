@@ -61,8 +61,16 @@ class Cashier extends CI_Controller
     function get_kode(){
         $date = date('Ymd');
         $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),1)+1 as kode FROM sales');
-        $kode = $q[0]['kode'];
-        echo $date."".$kode;
+        $qt = $this->Constant_model->manualQerySelect('SELECT MAX(sales_id)+1 as kode FROM temp_sales_items');
+        if (count($qt) > 0) {
+            $kode = $qt[0]['kode'];
+            echo trim($kode);
+        }else{
+            $kode = $q[0]['kode'];
+            echo trim($date."".$kode);
+        }
+        // echo count($qt);
+        
     }
 	function get_gudang(){
 		$data = $this->Outlets_model->getAllOutlets();
@@ -70,6 +78,15 @@ class Cashier extends CI_Controller
                         echo "<option value='".$data['id']."'>".$data['name']."</option>";
                 }
 	}
+    function getTempData(){
+        $data = $this->Constant_model->manualQerySelect("SELECT sales_id FROM temp_sales_items GROUP BY 1");
+
+        foreach ($data as $data) {
+            echo "<tr>";
+            echo "<td>".$data['sales_id']."</td>";
+            echo "</tr>";
+        }
+    }
     public function checkPcode()
     {
         $pcode = $this->input->get('pcode');
@@ -198,13 +215,14 @@ class Cashier extends CI_Controller
         if (count($cek ) > 0) {
             echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
         }else{
+
             $dataInsert = array(
                 'sales_id' =>$no_sales,
                 'product_code' => $pcode,
-                'qty' => $qty,
+                'qty' => 1,
                 'price_print' => $price_print,
                 'price_deal' => $price_deal,
-                'outlet_id' => $outlet_id
+                'outlet_id' => 1
             );
             try {
                 $insertData = $this->Constant_model->insertData('temp_sales_items',$dataInsert);    
@@ -261,26 +279,29 @@ class Cashier extends CI_Controller
         }
         try {
             $update = $this->Constant_model->updateDataCashier('temp_sales_items',$data,$where);    
-        } catch (Exception $e) {
-            $error = $e; 
-        }
-        if($insertData){
             echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
-        }else{
-            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$error));
+        } catch (Exception $e) {
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
         }
 
     }
     function getDataTempSales($id){
-        $data = $this->Constant_model->manualQerySelect("SELECT sales_items.*,products.name,products.code FROM sales_items JOIN products ON sales_items.product_code = products.id WHERE sales_items.sales_id=$id");
+        $data = $this->Constant_model->manualQerySelect("SELECT temp_sales_items.*,products.name,products.code FROM temp_sales_items JOIN products ON temp_sales_items.product_code = products.id WHERE temp_sales_items.sales_id=$id");
+
         foreach ($data as $data) {
+            $a = $this->Constant_model->getAllData('outlets');
             echo "<tr>";
             echo "<td>".$data['code']."</td>";
             echo "<td>".$data['name']."</td>";
-            echo "<td><input type='text' class='form-control' name='qty' value='".$data['name']."' /></td>";
-            echo "<td><input type='text' class='form-control' name='price_print' value='".$data['price_print']."' /></td>";
-            echo "<td><input type='text' class='form-control' name='price_deal' value='".$data['price_deal']."' /></td>";
-            echo "<td><td><select class='form-control' id='listgudang' name='listgudang' style='width: 50%;'><option></option></select></td>";
+            echo "<td><input type='text' class='form-control' typeKolom='qty' id='qty' name='qty' value='".$data['qty']."' /></td>";
+            echo "<td><input type='text' class='form-control' typeKolom='price_print' id='price_print' name='price_print' value='".$data['price_print']."' /></td>";
+            echo "<td><input type='text' class='form-control' typeKolom='price_deal' id='price_deal' name='price_deal' value='".$data['price_deal']."' /></td>";
+            echo "<td><select class='form-control' typeKolom='outlets' id='listgudang' name='listgudang' style='width: 50%;'>";
+            foreach ($a as $a) {
+                echo "<option>".$a['name']."</option>";
+            }
+            echo "</select></td>";
+            echo "<td>Hapus</td>";
             echo "</tr>";
         }
     }          
@@ -297,16 +318,20 @@ class Cashier extends CI_Controller
                     echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
                 }else{
                     $ins_sales_data = array(
-                        'code' => $no_sales,
+                        'code' => 1,
                         'created_date' => $tm,
                         'created_id' => $user_id,
-                        'customer_id' => $customer_id
+                        'customer_id' => 1
                     );
-                    $po_id = $this->Constant_model->insertDataReturnLastId('temp_sales', $ins_sales_data);
                     
-                    $this->session->set_flashdata('alert_msg', array('success', 'Create Purchase Order', "Successfully Created Purchase Order : $po_numb"));
-                    redirect(base_url().'index.php/cashier/?success');
+                    try {
+                        $insertData = $this->Constant_model->insertDataReturnLastId('temp_sales', $ins_sales_data);   
+                        echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                    } catch (Exception $e) {
+                        echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                    }
                 }
+
     }
 }
  ?>
