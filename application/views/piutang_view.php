@@ -60,32 +60,7 @@
 									    <th width="15%">Aksi</th>
 									</tr>
 							    </thead>
-								<tbody>
-								<?php
-								    $sort = '';
-
-								    if (!empty($search_code)) {
-								        $sort .= " AND code LIKE '$search_code%' ";
-								    }
-
-								    if (!empty($search_name)) {
-								        $sort .= " AND name LIKE '%$search_name%' ";
-								    }
-
-								    if (!empty($search_category)) {
-								        if ($search_category == '-') {
-								            $sort .= ' AND category > 0 ';
-								        } else {
-								            $sort .= " AND category = '$search_category' ";
-								        }
-								    }
-
-								    $prodResult = $this->db->query("SELECT * FROM products WHERE created_datetime != '0000-00-00 00:00:00' $sort ");
-								    $prodRows = $prodResult->num_rows();
-
-								    $result_count = $prodRows;
-
-								?>
+								<tbody id="data_piutang">
 								</tbody>
 							</table>
 						</div>
@@ -93,27 +68,6 @@
 						</div>
 					</div>
 					
-					<div class="row">
-						<div class="col-md-6" style="float: left; padding-top: 10px;">
-							<?php
-                                if ($result_count > 0) {
-                                    ?>
-							Showing 1 to <?php echo $result_count; ?> of <?php echo $result_count; ?> 
-							<?php
-                                if ($result_count == 1) {
-                                    echo 'entry';
-                                } else {
-                                    echo 'entries';
-                                } ?>
-							<?php
-
-                                }
-                            ?>
-						</div>
-						<div class="col-md-6" style="text-align: right;">
-							<?php //echo $links;?>
-						</div>
-					</div>
 					
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
@@ -122,9 +76,19 @@
 
 </section>
 
-
 	
 	
 <?php
     require_once 'includes/footer4.php';
 ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:'http://localhost/POSBaru/index.php/piutang/getSelectionData',
+			success:function(data){
+				$('#data_piutang').html(data);
+			}
+
+		});
+	});
+</script>

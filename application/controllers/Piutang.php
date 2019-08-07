@@ -98,9 +98,9 @@
         $user_id = strip_tags($this->input->cookie('user_id', TRUE));
         $created_date = date('Y-m-d H:i:s',time());
         if ($customer_id == null) {
-            echo "Customer cannot be null";
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : Supplier kosong')); 
         }else if ($amount == 0 || $amount == null) {
-            echo "Amount must be more than 0";
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : Jumlah kosong')); 
         }else{
             $dataInsert = array(
                 'customer_id' =>$customer_id,
@@ -112,15 +112,10 @@
                 'preference_id' => $preference_id
             );
             try {
-                $insertData = $this->Constant_model->insertData('piutang',$dataInsert);    
+                $insertData = $this->Constant_model->insertData('piutang',$dataInsert);   
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil')); 
             } catch (Exception $e) {
-                $error = $e;    
-            }
-            
-            if ($insertData) {
-                echo "Berhasil";
-            }else{
-                echo $error;
+                echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
             }
         }
 
@@ -133,14 +128,14 @@
             }
         }
     }
-    public function getSelectionData($id){
-        $data = $this->Constant_model->getSelectionData('piutang','customer_id',$id);
+    public function getSelectionData(){
+        $data = $this->Constant_model->manualQerySelect("SELECT piutang.id, customers.fullname,piutang.customer_id ,SUM(piutang.amount) as amount,piutang.created_date FROM piutang JOIN customers ON piutang.customer_id = customers.id GROUP BY customers.fullname");
         if (count($data) > 0) {
             foreach ($data as $data) {
                 echo "<tr>";
                 echo "<td>".$data['created_date']."</td>";
-                echo "<td>".$data['name']."</td>";
-                echo "<td>".$data['amount']."</td>";
+                echo "<td>".$data['fullname']."</td>";
+                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
                 echo "<td>
                 <button class='btn btn-primary'>Edit</button>
                 <a class='btn btn-danger' href='index.php/piutang/deleteData/".$data['id']."'>Delete</button>
@@ -153,19 +148,26 @@
         
     }
     public function deleteData($id){
-        $delete = $this->Constant_model->deleteData('piutang',$id);
+        try {
+            $delete = $this->Constant_model->deleteData('piutang',$id); 
+            echo json_encode(array('status'=> 200,'message' => 'Berhasil')); 
+        } catch (Exception $e) {
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
+        }
+        
     }
     public function updateData(){
+        $id = strip_tags($this->input->post('id'));
         $customer_id = strip_tags($this->input->post('customer_id'));
         $amount =strip_tags($this->input->post('amount'));
         $user_id = strip_tags($this->input->cookie('user_id', TRUE));
         $created_date = date('Y-m-d H:i:s',time());
         if ($customer_id == null) {
-            echo "Customer cannot be null";
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : Supplier kosong')); 
         }else if ($amount == 0 || $amount == null) {
-            echo "Amount must be more than 0";
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : Jumlah kosong')); 
         }else{
-            $dataInsert = array(
+            $dataUpdate = array(
                 'customer_id' =>$customer_id,
                 'amount' => $amount,
                 'created_date' => $created_date,
@@ -175,15 +177,10 @@
                 'preference_id' => $preference_id
             );
             try {
-                $edit = $this->Constant_model->deleteData('piutang',$id);  
+                $updateData = $this->Constant_model->updateData('piutang',$dataUpdate,$id);   
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil')); 
             } catch (Exception $e) {
-                $error = $e;    
-            }
-            
-            if ($edit) {
-                echo "Berhasil";
-            }else{
-                echo $error;
+                echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
             }
         }
          

@@ -78,7 +78,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
              ?>
             <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/customers/view',$lang_customers,($link=="customers"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/transfer_stock/view',$lang_transfer_stock,($link=="transfer_stock"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/transfer_stock/view',"Transfer Stock",($link=="transfer_stock"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/sales/list_sales',$lang_sales,($link=="sales"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/cashier/',$lang_pos,($link=="cashier"?'class="active"':'')) ?></li>

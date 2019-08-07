@@ -60,16 +60,15 @@ class Cashier extends CI_Controller
 	}
     function get_kode(){
         $date = date('Ymd');
-        $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),1)+1 as kode FROM sales');
-        $qt = $this->Constant_model->manualQerySelect('SELECT MAX(sales_id)+1 as kode FROM temp_sales_items');
-        if (count($qt) > 0) {
-            $kode = $qt[0]['kode'];
-            echo trim($kode);
-        }else{
+        $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),0)+1 as kode FROM sales');
+        $qt = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(sales_id)+1,0) as kode FROM temp_sales_items');
+        if ($qt[0]['kode'] == 0) {
             $kode = $q[0]['kode'];
-            echo trim($date."".$kode);
+            echo $date."".$kode;
+        }else{
+             $kode = $qt[0]['kode'];
+            echo $kode;
         }
-        // echo count($qt);
         
     }
 	function get_gudang(){
@@ -112,98 +111,6 @@ class Cashier extends CI_Controller
         }
         echo json_encode($response);
     }
-    function insertSales(){
-        $no_sales = strip_tags($this->input->post('sales_order_no'));
-        $customer_id = strip_tags($this->input->post('customer_id'));
-        $method_id = strip_tags($this->input->post('method_id'));
-        $lama_kredit = strip_tags($this->input->post('kredit'));
-        $row_count = $this->input->post('row_count');
-        $user_id = $this->input->cookie('user_id', TRUE);
-        $tm = date('Y-m-d H:i:s', time());
-        $sales_date = date('Y-m-d', time());
-        if (empty($no_sales)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please enter Purchase Order Number!'));
-            redirect(base_url().'index.php/cashier/?error=no_sales');
-        } elseif (empty($customer_id)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please select Outlet for Purchase Order!'));
-            redirect(base_url().'index.php/cashier/?error=customer_id');
-        } elseif (empty($method_id)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', 'Please select Supplier for Purchase Order!'));
-            redirect(base_url().'index.php/cashier/?error=method_id');
-        } else {
-            $ckPOResult = $this->db->query("SELECT * FROM sales WHERE code = '$no_sales' ");
-            $ckPORows = $ckPOResult->num_rows();
-            if ($ckPORows > 0) {
-                $this->session->set_flashdata('alert_msg', array('failure', 'Create Purchase Order', "Purchase Order Number : $po_numb is already existing in the system! Please try another one!"));
-                redirect(base_url().'index.php/cashier/?success');
-            } else {
-                $cek = $this->Constant_model->getDataOneColumn('sales', 'code', $no_sales);
-                if (count($cek) >= 1) {
-                    // error_log(message)
-                }else{
-                    $ins_sales_data = array(
-                        'code' => $no_sales,
-                        'created_date' => $tm,
-                        'created_id' => $user_id,
-                        'customer_id' => $customer_id,
-                        'total' => 0,
-                        'lama_kredit' => $lama_kredit
-                    );
-                    $po_id = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
-                    // PO Items;
-                    $amount =0;
-                    for ($i = 1; $i < $row_count; ++$i) {
-                        $pcode = $this->input->post("pcode_$i");
-                        $price = $this->input->post("price_$i");
-                        $qty = $this->input->post("qty_$i");
-                        $price_print = $this->input->post("price_print_$i");
-                        $price_deal = $this->input->post("price_deal_$i");
-                        $outlet_id = $this->input->post("listgudang_$i");
-                        if ($qty > 0) {
-                            $ins_sales_item_data = array(
-                                    'sales_id' => $no_sales,
-                                    'product_code' => $pcode,
-                                    'qty' => $qty,
-                                    'price_print' => $price_print,
-                                    'price_deal' => $price_deal,
-                                    'outlet_id' => $outlet_id
-                            );
-                            $this->Constant_model->insertData('sales_items', $ins_sales_item_data);
-                            $amount += $qty*$price_deal;
-                            // $update = array(
-                            //     'qty' => 'qty-'.$qty,
-                            // );
-                            // $where = array(
-                            //     'outlet_id' => $this->input->cookie('out_id', TRUE),
-                            //     'product_code' => $pcode
-                            // );
-                            // $this->Inventory_model->updateStock($update, $where);
-                        }
-                       
-                    }
-                     if ($method_id == 3) {
-                        $dataInsert = array(
-                            'customer_id' =>$customer_id,
-                            'amount' => $amount,
-                            'created_date' => $created_date,
-                            'crated_id' => $user_id,
-                            'note' => '',
-                            'jatuh_tempo' => strtotime("+".$lama_kredit." day", $tm),
-                            'preference_id' => $no_sales
-                        );
-                        try {
-                            $insertData = $this->Constant_model->insertData('piutang',$dataInsert);    
-                        } catch (Exception $e) {
-                            $error = $e;    
-                        }
-                    }
-                    $this->session->set_flashdata('alert_msg', array('success', 'Create Purchase Order', "Successfully Created Purchase Order : $po_numb"));
-                    redirect(base_url().'index.php/cashier/?success');
-                }
-                
-            }
-        }
-    }
     function insertDetItemSales(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
         $pcode = strip_tags($this->input->post("pcode"));
@@ -243,10 +150,10 @@ class Cashier extends CI_Controller
         $qty = strip_tags($this->input->post("qty"));
         $price_print = strip_tags($this->input->post("price_print"));
         $price_deal = strip_tags($this->input->post("price_deal"));
-        $outlet_id = strip_tags($this->input->post("listgudang"));
+        $outlet_id = strip_tags($this->input->post("outlet_id"));
         $type = $this->input->post('type');
         $where = array(
-            'sales_id' => $sales_id,
+            'sales_id' => $no_sales,
             'product_code' => $pcode
         );
         switch ($type) {
@@ -278,7 +185,8 @@ class Cashier extends CI_Controller
             
         }
         try {
-            $update = $this->Constant_model->updateDataCashier('temp_sales_items',$data,$where);    
+            $update = $this->Constant_model->updateDataCashier('temp_sales_items',$data,$where);
+            echo $this->db->last_query();  
             echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
         } catch (Exception $e) {
             echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
@@ -286,52 +194,127 @@ class Cashier extends CI_Controller
 
     }
     function getDataTempSales($id){
-        $data = $this->Constant_model->manualQerySelect("SELECT temp_sales_items.*,products.name,products.code FROM temp_sales_items JOIN products ON temp_sales_items.product_code = products.id WHERE temp_sales_items.sales_id=$id");
+        $data = $this->Constant_model->manualQerySelect("SELECT temp_sales_items.*,products.name,products.code,products.id as kode_barang FROM temp_sales_items JOIN products ON temp_sales_items.product_code = products.id WHERE temp_sales_items.sales_id=$id");
 
         foreach ($data as $data) {
             $a = $this->Constant_model->getAllData('outlets');
             echo "<tr>";
             echo "<td>".$data['code']."</td>";
             echo "<td>".$data['name']."</td>";
-            echo "<td><input type='text' class='form-control' typeKolom='qty' id='qty' name='qty' value='".$data['qty']."' /></td>";
-            echo "<td><input type='text' class='form-control' typeKolom='price_print' id='price_print' name='price_print' value='".$data['price_print']."' /></td>";
-            echo "<td><input type='text' class='form-control' typeKolom='price_deal' id='price_deal' name='price_deal' value='".$data['price_deal']."' /></td>";
-            echo "<td><select class='form-control' typeKolom='outlets' id='listgudang' name='listgudang' style='width: 50%;'>";
+            echo "<td><input type='text' class='form-control' typeKolom='qty' id='qty' name='qty' value='".$data['qty']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' /></td>";
+            echo "<td><input type='text' class='form-control' typeKolom='price_print' id='price_print' name='price_print' value='".$data['price_print']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
+            echo "<td><input type='text' class='form-control' typeKolom='price_deal' id='price_deal' name='price_deal' value='".$data['price_deal']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
+            echo "<td><select class='form-control' typeKolom='outlets' id='listgudang' name='listgudang' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' style='width: 50%;'>";
             foreach ($a as $a) {
-                echo "<option>".$a['name']."</option>";
+                echo "<option value='".$a['id']."'>".$a['name']."</option>";
             }
             echo "</select></td>";
-            echo "<td>Hapus</td>";
+            echo "<td><button id='btnHapusBarang' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' class='btn btn-danger'><i class='fa fa-trash'></i></button></td>";
             echo "</tr>";
         }
     }          
-    function insertSalesTemp(){
+    function insertSales(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
         $customer_id = strip_tags($this->input->post('customer_id'));
         $method_id = strip_tags($this->input->post('method_id'));
-        $lama_kredit = strip_tags($this->input->post('kredit'));
+        
         $user_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
         $sales_date = date('Y-m-d', time());
-        $cek = $this->Constant_model->getDataOneColumn('temp_sales', 'code', $no_sales);
-                if (count($cek) >= 1) {
-                    echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
-                }else{
-                    $ins_sales_data = array(
-                        'code' => 1,
-                        'created_date' => $tm,
-                        'created_id' => $user_id,
-                        'customer_id' => 1
+        $qTotal = $this->Constant_model->manualQerySelect("SELECT SUM(qty*price_deal) as total_deal,SUM(qty*price_print) as total_print FROM temp_sales_items WHERE sales_id='$no_sales'");
+        $total_deal = $qTotal[0]['total_deal'];
+        $total_print = $qTotal[0]['total_print'];
+
+        $cek = $this->Constant_model->getDataOneColumn('sales', 'code', $no_sales);
+        if (count($cek) >= 1) {
+            echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
+        }else{
+            $ins_sales_data = array(
+                'code' => $no_sales,
+                'created_date' => $tm,
+                'created_id' => $user_id,
+                'customer_id' =>$customer_id,
+                'method_id' => $method_id,
+                'total_deal' => $total_deal,
+                'total_print' => $total_print
+            );
+            try {
+                $insertData = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
+                $a = $this->Constant_model->getSelectionData('temp_sales_items','sales_id',$no_sales);
+                foreach ($a as $data) {
+                    $dataInsert = array(
+                        'sales_id' => $data['sales_id'],
+                        'product_code' => $data['product_code'],
+                        'qty' => $data['qty'],
+                        'price_print' => $data['price_print'],
+                        'price_deal' => $data['price_deal'],
+                        'outlet_id' => $data['outlet_id']
                     );
-                    
                     try {
-                        $insertData = $this->Constant_model->insertDataReturnLastId('temp_sales', $ins_sales_data);   
-                        echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                        $insertData = $this->Constant_model->insertData('sales_items',$dataInsert);
+                        if ($insertData) {
+                            $array = array(
+                                'sales_id' => $data['sales_id'],
+                                'product_code' => $data['product_code'],
+                            );
+                            $this->Constant_model->deleteWhere('temp_sales_items',$array);
+                            echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+
+                        }    
                     } catch (Exception $e) {
                         echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
                     }
                 }
+                
+            } catch (Exception $e) {
+                echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+            }
+            if ($method_id == 9) {
+                $lama_kredit = strip_tags($this->input->post('lama_kredit'));
+                $jatuh_tempo = date('Y-m-d', strtotime("+".$lama_kredit." days"));
+                $dataInsert = array(
+                    'customer_id' =>$customer_id,
+                    'amount' => $total_deal,
+                    'created_date' => $tm,
+                    'crated_id' => $user_id,
+                    'note' => '',
+                    'jatuh_tempo' => $jatuh_tempo,
+                    'preference_id' => $no_sales
+                );
+                try {
+                    $insertData = $this->Constant_model->insertData('piutang',$dataInsert);   
+                    echo json_encode(array('status'=> 200,'message' => 'Berhasil')); 
+                } catch (Exception $e) {
+                    echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
+                }
+            }
+        }
 
+    }
+    public function get_total(){
+
+        $no = $this->input->post('sales_id');
+        $a = $this->Constant_model->manualQerySelect("SELECT SUM(qty*price_deal) as total_deal, SUM(qty*price_print) as total_print FROM temp_sales_items WHERE sales_id='$no'");
+        $data = array(
+            'status' => 200,
+            'message' => 'Berhasil',
+            'price_print' => $a[0]['total_print'],
+            'price_deal' => $a[0]['total_deal'],
+        );
+        echo json_encode($data);
+    }
+    public function delete(){
+        $where = array(
+            'sales_id' => $this->input->post('sales_id'),
+            'product_code' => $this->input->post('product_code'),
+        );
+        try {
+            $delete = $this->Constant_model->deleteWhere('temp_sales_items',$where);
+            echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+        } catch (Exception $e) {
+            echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+        }
+        
     }
 }
  ?>

@@ -5,15 +5,6 @@
 
 <!-- Select2 -->
 <link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
-<script type="text/javascript">
-	$(document).on('change','#customer_id',function(){
-			var customer_id = this.val();
-			alert(customer_id);
-			// if(customer_id == 9){
-			// 	$('#wrap').html('<label>Lama Kredit / hari</label><input type="text" name="kredit" value="2" class="form-control">');
-			// }
-		});
-</script>
 
 <section id="content">
 					<?php
@@ -65,6 +56,10 @@
 									<?php endforeach ?>
 								</select>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Total Print</label>
+							<h3 id="total_print">0</h3>
+                        </div>
                     </div>
                     <div class="form-row">
                     	<div class="col-md-4 mb-3">
@@ -78,6 +73,10 @@
                     	<div class="col-md-4 mb-3" id="wrap">
                     		
                     	</div>
+                    	<div class="col-md-4 mb-3">
+                            <label>Total Deal</label>
+							<h3 id="total_deal">0</h3>
+                        </div>
                     </div>
                     <div class="form-row">
                     	<div class="col-md-4 mb-3">
@@ -116,9 +115,8 @@
                     	</div>
                     </div>
                     <div class="form-row">
-                    	<input type="hidden" id="row_count" name="row_count" value="1" />
 						<center>
-							<button class="btn btn-primary" style="padding: 15px 40px;">Simpan</button>
+							<button class="btn btn-primary" id="btnSimpanTransaksi" style="padding: 15px 40px;">Simpan</button>
 							<?php echo  anchor('index.php/Cashier','Tahan','class="btn btn-primary" style="padding: 15px 40px;"') ?>
 							<button class="btn btn-primary" id="btnTransaksiDitahan" style="padding: 15px 40px;">Buka Transaksi Ditahan</button>
 						</center>
@@ -142,7 +140,7 @@
 	        <table class="table table-bordered" id="tableDitahan">
 	        	<thead>
 	        		<tr>
-	        			<th>No Faktu</th>
+	        			<th>No Faktur</th>
 	        		</tr>
 	        	</thead>
 	        	<tbody id="dataDitahan">
@@ -166,19 +164,14 @@
 <script src="<?=base_url()?>assets/js/typeahead.min.js"></script>
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 	<script>
+	var sales_order_no = $.trim($('#sales_order_no').val());
+	get_total(sales_order_no);
 	function get_kode(){
 		$.ajax({
 			url		: '<?=base_url()?>index.php/cashier/get_kode',
 			success:function(data){
 				$('#sales_order_no').val(data);
 			}
-		});
-	}
-	function trigger(){
-		$('#sales_order_no').trigger('change');
-		$('#sales_order_no').change(function(){
-			var a = $.trim($('#sales_order_no').val());
-			getDataTemp(a);
 		});
 	}
 	$(document).on('dblclick','#tableDitahan tr',function(){
@@ -189,21 +182,129 @@
 	    $('#sales_order_no').val(kode);
 	    $('#sales_order_no').trigger('change');
 		getDataTemp(kode);
+		get_total(kode);
 		$('#modalTransaksiDitahan').modal('hide');
 	});
+	$(document).on('click','#btnSimpanTransaksi',function(){
+		var sales_order_no =$('#sales_order_no').val();
+		var customer_id =$('#customer_id').val();
+		var payment_method =$('#payment_method').val();
+		var lama_kredit = $('#lama_kredit').val();
+		var no_debet = $('#no_debet').val();
+		var nama_bank = $('#nama_bank').val();
+
+		var data = {
+			sales_order_no:sales_order_no,
+			customer_id:customer_id,
+			method_id:payment_method,
+			lama_kredit:lama_kredit,
+			no_debet:no_debet,
+			nama_bank:nama_bank
+		};
+		$.ajax({
+			url:'<?php echo base_url() ?>index.php/cashier/insertSales',
+			data:data,
+			type:'POST',
+			success:function(data){
+				alert(data);
+			}
+		})
+
+	});
 	$(document).on('blur','#qty',function(){
-			var a = $(this).attr('typeKolom');
-			var val = $(this).val();
-			$.ajax({
-				url	: '<?=base_url()?>index.php/cashier/editKolom',
-				data:{
-					
-				}
-				success:function(data){
-					$('#dataDitahan').html(data);
-				}
-			});
+		var a = $(this).attr('typeKolom');
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		var val = $(this).val();
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/editKolom',
+			data:{
+				qty:val,
+				type:a,
+				sales_order_no:sales_order_no,
+				pcode:pcode
+			},
+			type:'POST',
+			success:function(data){
+				get_total(sales_order_no);
+			}
 		});
+	});
+	$(document).on('blur','#price_print',function(){
+		var a = $(this).attr('typeKolom');
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		var val = $(this).val();
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/editKolom',
+			data:{
+				price_print:val,
+				type:a,
+				sales_order_no:sales_order_no,
+				pcode:pcode
+			},
+			type:'POST',
+			success:function(data){
+				get_total(sales_order_no);
+			}
+		});
+	});
+	$(document).on('blur','#price_deal',function(){
+		var a = $(this).attr('typeKolom');
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		var val = $(this).val();
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/editKolom',
+			data:{
+				price_deal:val,
+				type:a,
+				sales_order_no:sales_order_no,
+				pcode:pcode
+			},
+			type:'POST',
+			success:function(data){
+				get_total(sales_order_no);
+
+			}
+		});
+	});
+	$(document).on('click','#btnHapusBarang',function(){
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/delete',
+			data:{
+				sales_id:sales_order_no,
+				product_code:pcode
+			},
+			type:'POST',
+			success:function(data){
+				getDataTemp(sales_order_no);
+				get_total(sales_order_no);
+			}
+		});
+	});
+	$(document).on('change','#listgudang',function(){
+		var a = $(this).attr('typeKolom');
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		var val = $(this).val();
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/editKolom',
+			data:{
+				outlet_id:val,
+				type:a,
+				sales_order_no:sales_order_no,
+				pcode:pcode
+			},
+			type:'POST',
+			success:function(data){
+				get_total(sales_order_no);
+
+			}
+		});
+	});
 	$(document).ready(function(){
 		$(".add_product_po").select2({
 			placeholder: "Cari barang",
@@ -227,7 +328,7 @@
 			if(payment_method == 9){
 				$('#wrap').html('<label for="lama_kredit">Lama Kredit</label><input type="text" name="lama_kredit" id="lama_kredit" class="form-control"/>');
 			}else if(payment_method == 6){
-				$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/><label for="no_debet">Nama Bank </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/>');
+				$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/><label for="no_debet">Nama Bank </label><input type="text" name="no_debet" id="nama_bank" class="form-control col-md-6"/>');
 			}else{
 				$('#wrap').html('');
 			}
@@ -240,7 +341,6 @@
 */
 			get_kode();
 			$("#addToList").click(function(){
-				var row_count 		= document.getElementById("row_count").value;
 				var pcode 			= document.getElementById("typeahead").value;
 				
 				if(pcode.length > 0){
@@ -278,6 +378,7 @@
 									success:function(data){
 										var json = jQuery.parseJSON(data);
 										getDataTemp(sales_order_no);
+										get_total(sales_order_no);
 									}
 								});
 							}
@@ -302,8 +403,21 @@
 	}
 	
 	
-	function deletediv(ele){
-		$('#row_' + ele).remove();
+	function get_total(no){
+		$.ajax({
+			url:'<?php echo base_url() ?>index.php/Cashier/get_total',
+			data:{
+				sales_id:no
+			},
+			type:'POST',
+			success:function(data){
+				var json = jQuery.parseJSON(data);
+				var total_print = json.price_print;
+				var total_deal = json.price_deal;
+				$('#total_print').html(total_print);
+				$('#total_deal').html(total_deal);
+			}
+		});
 	}
 /*
 	document.addEventListener('DOMContentLoaded', function() {
