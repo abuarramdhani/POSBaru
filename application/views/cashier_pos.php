@@ -16,7 +16,6 @@
 </script>
 
 <section id="content">
-	<?php echo form_open('index.php/cashier/insertSales') ?>
 					<?php
                         if (!empty($alert_msg)) {
                             $flash_status = $alert_msg[0];
@@ -120,16 +119,46 @@
                     	<input type="hidden" id="row_count" name="row_count" value="1" />
 						<center>
 							<button class="btn btn-primary" style="padding: 15px 40px;">Simpan</button>
-							<button class="btn btn-primary" style="padding: 15px 40px;">Tahan</button>
-							<button class="btn btn-primary" style="padding: 15px 40px;">Buka Transaksi Ditahan</button>
+							<?php echo  anchor('index.php/Cashier','Tahan','class="btn btn-primary" style="padding: 15px 40px;"') ?>
+							<button class="btn btn-primary" id="btnTransaksiDitahan" style="padding: 15px 40px;">Buka Transaksi Ditahan</button>
 						</center>
                     </div>
 				</div>
 			</div>
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-	</form>
+	<div class="modal" id="modalTransaksiDitahan">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
 
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Modal Heading</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <table class="table table-bordered" id="tableDitahan">
+	        	<thead>
+	        		<tr>
+	        			<th>No Faktu</th>
+	        		</tr>
+	        	</thead>
+	        	<tbody id="dataDitahan">
+	        		
+	        	</tbody>
+	        </table>
+	      </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -145,20 +174,65 @@
 			}
 		});
 	}
+	function trigger(){
+		$('#sales_order_no').trigger('change');
+		$('#sales_order_no').change(function(){
+			var a = $.trim($('#sales_order_no').val());
+			getDataTemp(a);
+		});
+	}
+	$(document).on('dblclick','#tableDitahan tr',function(){
+		var $this = $(this);
+	    var row = $this.closest("tr");
+	    // row.find('td:eq(1)');
+	    var kode = row.find('td:first').text();
+	    $('#sales_order_no').val(kode);
+	    $('#sales_order_no').trigger('change');
+		getDataTemp(kode);
+		$('#modalTransaksiDitahan').modal('hide');
+	});
+	$(document).on('blur','#qty',function(){
+			var a = $(this).attr('typeKolom');
+			var val = $(this).val();
+			$.ajax({
+				url	: '<?=base_url()?>index.php/cashier/editKolom',
+				data:{
+					
+				}
+				success:function(data){
+					$('#dataDitahan').html(data);
+				}
+			});
+		});
 	$(document).ready(function(){
 		$(".add_product_po").select2({
 			placeholder: "Cari barang",
 			allowClear: true
 		});
-	$('#payment_method').change(function(){
-		var payment_method = $('#payment_method').val();
-		if(payment_method == 9){
-			$('#wrap').html('<label for="lama_kredit">Lama Kredit</label><input type="text" name="lama_kredit" id="lama_kredit" readonly="" class="form-control"/>');
-		}else if(payment_method == 6){
-			$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" readonly="" class="form-control"/>');
-		}
 		
-	});
+		$('#btnTransaksiDitahan').click(function(){
+			$.ajax({
+				url	: '<?=base_url()?>index.php/cashier/getTempData',
+				success:function(data){
+					$('#dataDitahan').html(data);
+				}
+			});
+			$('#modalTransaksiDitahan').modal('show');
+
+		});
+		
+		
+		$('#payment_method').change(function(){
+			var payment_method = $('#payment_method').val();
+			if(payment_method == 9){
+				$('#wrap').html('<label for="lama_kredit">Lama Kredit</label><input type="text" name="lama_kredit" id="lama_kredit" class="form-control"/>');
+			}else if(payment_method == 6){
+				$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/><label for="no_debet">Nama Bank </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/>');
+			}else{
+				$('#wrap').html('');
+			}
+			
+		});
 /*	
 		document.getElementById("uploadBtn").onchange = function () {
 			document.getElementById("uploadFile").value = this.value;
@@ -186,27 +260,26 @@
 							var status 	= data.errorMsg;
 							var name 	= data.name;
 							var harga 	= data.price;
-							
+							var sales_order_no = $.trim($('#sales_order_no').val());
+							var typeahead = $('#typeahead').val();
 							if(status == "failure"){
-								alert("Invalid Product Code! Please search Product by Product Code");
-								
-								
+								swal("Invalid Product Code! Please search Product by Product Code");
 							} else {
-								var cell = $('<tr id="row_'+row_count+'"><td>'+pcode+'</td><td>'+name+'</td><td><input type="text" class="form-control" name="qty_'+row_count+'" value="1" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_print_'+row_count+'" value="'+harga+'" style="width: 50%;" /></td><td><input type="text" class="form-control" name="price_deal_'+row_count+'" value="'+harga+'" /></td><td><select class="form-control" id="listgudang_'+row_count+'" name="listgudang_'+row_count+'" style="width: 50%;"><option></option></select></td><td><a onclick="deletediv('+row_count+')" style="cursor:pointer"><i class="fa fa-delete" style="color:#F00;"></i></a></td></tr><input type="hidden" class="form-control" name="pcode_'+row_count+'" value="'+pcode+'" />');
-						        
-						        
+								var data = {
+									sales_order_no:sales_order_no,
+									pcode:typeahead,
+									price_print:harga,
+									price_deal:harga
+								};
 						        $.ajax({
-									url	:'<?=base_url()?>index.php/cashier/get_gudang',
+									url	:'<?=base_url()?>index.php/cashier/insertDetItemSales',
 									type:'POST',
+									data:data,
 									success:function(data){
-										var a = row_count-1;
-										$('#listgudang_'+a).html(data);
+										var json = jQuery.parseJSON(data);
+										getDataTemp(sales_order_no);
 									}
 								});
-								row_count++;
-						        $('#addItemWrp').append(cell);
-						        document.getElementById("typeahead").value 	= "";
-						        document.getElementById("row_count").value 	= row_count;
 							}
 							
 						}
@@ -219,7 +292,15 @@
 			});
 		
 	});
-		
+	function getDataTemp(id){
+		$.ajax({
+			url : '<?=base_url()?>index.php/cashier/getDataTempSales/'+id,
+			success:function(data){
+				$('#addItemWrp').html(data);
+			}
+		})
+	}
+	
 	
 	function deletediv(ele){
 		$('#row_' + ele).remove();
