@@ -58,6 +58,50 @@ class Cashier extends CI_Controller
         $data['barang'] = $this->Cashier_model->getBarang();
 		$this->load->view('cashier_pos',$data);
 	}
+    function data(){
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_add_customer'] = $this->lang->line('add_customer');
+        $data['lang_export'] = $this->lang->line('export');
+        $data['lang_search'] = $this->lang->line('search');
+
+        $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id");
+        
+        $this->load->view('cashier_data',$data);
+    }
     function get_kode(){
         $date = date('Ymd');
         $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),0)+1 as kode FROM sales');
@@ -212,6 +256,12 @@ class Cashier extends CI_Controller
             echo "<td><button id='btnHapusBarang' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' class='btn btn-danger'><i class='fa fa-trash'></i></button></td>";
             echo "</tr>";
         }
+    }
+    function get_bank(){
+        $data = $this->Constant_model->getAllData('bank');
+        foreach ($data as $data) {
+            echo "<option value='".$data['code']."'>".$data['name']."</option>";
+        }
     }          
     function insertSales(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
@@ -222,11 +272,14 @@ class Cashier extends CI_Controller
         $tm = date('Y-m-d H:i:s', time());
         $sales_date = date('Y-m-d', time());
         $qTotal = $this->Constant_model->manualQerySelect("SELECT SUM(qty*price_deal) as total_deal,SUM(qty*price_print) as total_print FROM temp_sales_items WHERE sales_id='$no_sales'");
+
         $total_deal = $qTotal[0]['total_deal'];
         $total_print = $qTotal[0]['total_print'];
-
         $cek = $this->Constant_model->getDataOneColumn('sales', 'code', $no_sales);
-        if (count($cek) >= 1) {
+        $cek_barang = $this->Constant_model->getDataOneColumn('temp_sales_items', 'sales_id', $no_sales);
+        if (count($cek_barang) <0 ) {
+            echo json_encode(array('status'=> 400,'message' => 'Barang kosong'));
+        }else if (count($cek) >= 1) {
             echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
         }else{
             $ins_sales_data = array(
@@ -283,10 +336,26 @@ class Cashier extends CI_Controller
                 );
                 try {
                     $insertData = $this->Constant_model->insertData('piutang',$dataInsert);   
-                    echo json_encode(array('status'=> 200,'message' => 'Berhasil')); 
+                    echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
                 } catch (Exception $e) {
                     echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }
+            }else if($method_id == 6){
+                $nama_bank = strip_tags($this->input->post('nama_bank'));
+                $no_debet = strip_tags($this->input->post('no_debet'));
+                $dataUpdate = array(
+                    'bank_id' =>$nama_bank,
+                    'no_rek' => $no_debet,
+                );
+                $where = array(
+                    'code' => $no_sales
+                );
+                try {
+                    $updateData = $this->Constant_model->updateDataCashier('sales',$dataUpdate,$where);   
+                    echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                } catch (Exception $e) {
+                    echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
+                } 
             }
         }
 

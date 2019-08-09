@@ -186,29 +186,35 @@
 		$('#modalTransaksiDitahan').modal('hide');
 	});
 	$(document).on('click','#btnSimpanTransaksi',function(){
-		var sales_order_no =$('#sales_order_no').val();
+		var sales_order_no =$.trim($('#sales_order_no').val());
 		var customer_id =$('#customer_id').val();
 		var payment_method =$('#payment_method').val();
 		var lama_kredit = $('#lama_kredit').val();
 		var no_debet = $('#no_debet').val();
 		var nama_bank = $('#nama_bank').val();
-
+		var no_debet = $('#no_debet').val();
 		var data = {
 			sales_order_no:sales_order_no,
 			customer_id:customer_id,
 			method_id:payment_method,
 			lama_kredit:lama_kredit,
 			no_debet:no_debet,
-			nama_bank:nama_bank
+			nama_bank:nama_bank,
+			no_debet:no_debet
 		};
 		$.ajax({
 			url:'<?php echo base_url() ?>index.php/cashier/insertSales',
 			data:data,
 			type:'POST',
 			success:function(data){
-				alert(data);
+				var json = jQuery.parseJSON(data);
+				if (json.status == 400) {
+					swal(json.message);
+				}else{
+					window.location.reload();
+				}
 			}
-		})
+		});
 
 	});
 	$(document).on('blur','#qty',function(){
@@ -311,6 +317,7 @@
 			allowClear: true
 		});
 		
+		
 		$('#btnTransaksiDitahan').click(function(){
 			$.ajax({
 				url	: '<?=base_url()?>index.php/cashier/getTempData',
@@ -328,7 +335,18 @@
 			if(payment_method == 9){
 				$('#wrap').html('<label for="lama_kredit">Lama Kredit</label><input type="text" name="lama_kredit" id="lama_kredit" class="form-control"/>');
 			}else if(payment_method == 6){
-				$('#wrap').html('<label for="no_debet">No </label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-6"/><label for="no_debet">Nama Bank </label><input type="text" name="no_debet" id="nama_bank" class="form-control col-md-6"/>');
+
+				$('#wrap').html('<label for="no_debet">Nama Bank </label><select id="nama_bank" class="form-control col-md-12"></select><label for="no_debet">No Rekening</label><input type="text" name="no_debet" id="no_debet" class="form-control col-md-12"/>');
+				$("#nama_bank").select2({
+					placeholder: "Nama Bank",
+					allowClear: true
+				});
+				$.ajax({
+					url	: '	http://localhost/pos/v2/POSBaru/index.php/Cashier/get_bank',
+					success:function(data){
+						$('#nama_bank').html(data);
+					}
+				});
 			}else{
 				$('#wrap').html('');
 			}

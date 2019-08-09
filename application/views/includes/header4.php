@@ -421,7 +421,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         <li class="breadcrumb-item"><a href="#"><?php echo ucwords($this->uri->segment(1)) ?></a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             <?php if ($this->uri->segment(2)){
-                                 echo ucwords($this->uri->segment(2));
+                                 echo ucwords(str_replace('_', ' ', $this->uri->segment(2)));
                             } ?>
                             </li>
                     </ol>
