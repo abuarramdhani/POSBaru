@@ -131,7 +131,21 @@
         $data['lang_add_customer'] = $this->lang->line('add_customer');
         $data['lang_export'] = $this->lang->line('export');
         $data['lang_search'] = $this->lang->line('search');
+        
         $this->load->view('pembayaran_piutang',$data);
+    }
+    function get_data_cust($id){
+        $a = $this->Constant_model->manualQerySelect("SELECT 
+            v_data_piutang.*,
+            v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id WHERE v_data_piutang.customer_id=$id");
+        
+        if (count($a) > 0) {
+            $data = $a;
+        }else{
+            $a = $this->Constant_model->getAllData("v_data_piutang");
+            $data = $a;
+        }
+        echo json_encode($data);
     }
     public function insertPiutang(){
         $customer_id = strip_tags($this->input->post('customer_id'));
@@ -189,36 +203,70 @@
         $created_date = date('Y-m-d H:i:s');
         $created_id = $this->input->cookie('user_id',TRUE);
         $amount = $this->input->post('amount');
-        $customer_id = $this->input->get('customer_id');
+        $customer_id = $this->input->post('customer_id');
         $data_input = array(
             'code' => $code, 
             'created_date' => $created_date,
-            'crated_id' => $created_id,
+            'created_id' => $created_id,
             'amount' => $amount,
             'customer_id' => $customer_id
         );
         try {
-            $this->Constant_model->insertData('pembayaran_piutang',$data_input);
+            $this->Constant_model->insertData('piutang_payment',$data_input);
+            echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
         } catch (Exception $e) {
             echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
         }
     }
-    public function getSelectionData(){
-        $data = $this->Constant_model->manualQerySelect("SELECT piutang.id, customers.fullname,piutang.customer_id ,SUM(piutang.amount) as amount,piutang.created_date FROM piutang JOIN customers ON piutang.customer_id = customers.id GROUP BY customers.fullname");
+    function getDataPiutang($cu){
+        $data = $this->Constant_model->getSelectionData('piutang_payment','customer_id',$cu);
         if (count($data) > 0) {
+            foreach ($data as $data) {
+                echo "<tr>";
+                echo "<td>".$data['created_date']."</td>";
+                echo "<td>".$data['code']."</td>";
+                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
+                echo "</tr>";
+            }
+        }else{
+            echo "<center>Data kosong</center>";
+        }
+    }
+    public function getSelectionData(){
+        $data = $this->Constant_model->manualQerySelect("SELECT 
+            v_data_piutang.*,
+            v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id GROUP BY v_data_piutang.fullname");
+        
+        if (count($data) > 0) {
+            foreach ($data as $data) {
+                
+                echo "<tr>";
+                echo "<td>".$data['customer_id']."</td>";
+                echo "<td>".$data['fullname']."</td>";
+                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
+                echo "<td>";
+                if ($data['amount'] <= "0") {
+                   echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-primary"');
+                }else{
+                    
+                }
+                
+                echo "</td>";
+                echo "</tr>";
+            }
+        }else{
+            $data = $this->Constant_model->getAllData("v_data_piutang");
             foreach ($data as $data) {
                 echo "<tr>";
                 echo "<td>".$data['created_date']."</td>";
                 echo "<td>".$data['fullname']."</td>";
                 echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
-                echo "<td>
-                <button class='btn btn-primary'>Bayar</button>
-            
-                </td>";                
+                echo "<td>";
+                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-primary"');
+                echo "</td>";
                 echo "</tr>";
             }
-        }else{
-            echo "<center>Data kosong</center>";
+            
         }
         
     }

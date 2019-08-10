@@ -335,8 +335,7 @@ class Cashier extends CI_Controller
                     'preference_id' => $no_sales
                 );
                 try {
-                    $insertData = $this->Constant_model->insertData('piutang',$dataInsert);   
-                    echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                    $insertData = $this->Constant_model->insertData('piutang',$dataInsert);
                 } catch (Exception $e) {
                     echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }
@@ -351,11 +350,15 @@ class Cashier extends CI_Controller
                     'code' => $no_sales
                 );
                 try {
-                    $updateData = $this->Constant_model->updateDataCashier('sales',$dataUpdate,$where);   
-                    echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                    $insertData = $this->Constant_model->updateDataCashier('sales',$dataUpdate,$where);   
+                    
                 } catch (Exception $e) {
                     echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
-                } 
+                }
+
+            }
+            if ($insertData) {
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
             }
         }
 

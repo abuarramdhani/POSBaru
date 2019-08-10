@@ -6,9 +6,9 @@ $user_id = $this->input->cookie('user_id', TRUE);
     $user_outlet = $this->input->cookie('out_id', TRUE);
     $login_name = $this->input->cookie('fullname', TRUE);
 
-    // if (empty($user_id)) {
-    //     redirect(base_url(), 'refresh');
-    // }
+    if (empty($user_id)) {
+        redirect(base_url(), 'refresh');
+    }
 
     $alert_msg = $this->session->flashdata('alert_msg');
 
@@ -415,10 +415,10 @@ $user_id = $this->input->cookie('user_id', TRUE);
         <!-- begin::page header -->
         <div class="page-header d-md-flex justify-content-between align-items-center">
             <div>
-                <h4><?php echo ucwords($this->uri->segment(1)) ?></h4>
+                <h4><?php echo ucwords(str_replace('_', ' ', $this->uri->segment(1))) ?></h4>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><?php echo ucwords($this->uri->segment(1)) ?></a></li>
+                        <li class="breadcrumb-item"><a href="#"><?php echo ucwords(str_replace('_', ' ', $this->uri->segment(1))) ?></a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             <?php if ($this->uri->segment(2)){
                                  echo ucwords(str_replace('_', ' ', $this->uri->segment(2)));
