@@ -186,6 +186,7 @@ class Transfer_stock extends CI_Controller
 		$this->load->view('add_transfer_stock',$data);
 	}
 	function insertTransferStock(){
+        $code = $this->input->post('code');
 		$first_outlet = $this->input->post('first_outlet');
 		$second_outlet = $this->input->post('second_outlet');
 		$product_code = $this->input->post('product_code');
@@ -201,21 +202,12 @@ class Transfer_stock extends CI_Controller
 		$stock = $data['stock'][0]['qty'];
 		// Cek, transfer ke toko sendiri atau buka
 		if ($first_outlet == $second_outlet) {
-
-            echo "Tidak bisa transfer ke toko sendiri";
-			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Tidak bisa transfer ke toko sendiri'));
-            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            echo json_encode(array('status' => 400, 'message' => 'Tidak bisa transfer ke toko sendiri'));
 		}else if ($qty > $stock) {
-            echo "Stock barang kurang";
-			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock barang kurang'));
-            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            echo json_encode(array('status' => 400, 'message' => 'Stock barang kurang'));
 		}else if ($qty <= 0) {
-            echo "Stock kurang";
-			$this->session->set_flashdata('alert_msg', array('failure', 'Peringatan!', 'Stock kurang'));
-            
-            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            echo json_encode(array('status' => 400, 'message' => 'Stock kurang'));
 		}else{
-            echo "Berhasil";
 			$this->Constant_model->manualQery("UPDATE inventory SET qty=qty-$qty WHERE outlet_id=$first_outlet AND product_code='$product_code'");
             // Cek dulu di outlet tujuan, ada barangnya atau engga
             $a = array(
@@ -243,15 +235,17 @@ class Transfer_stock extends CI_Controller
                 'date' => $date,
                 'idUser' => $idUser
             );
+            $data = $this->Constant_model->getSelectionData('temp_transfer_stock','code',$code);
+            foreach ($data as $data) {
+                $array = array(
+                    'product_code' => $data['product_code'],
+                    'qty' => $data['qty']
+                );
+                $this->Constant_model->insertData('detail_transfer_stock',$array);
+            }
             $this->Constant_model->insertData('transfer_stock',$data_input);
-            $this->session->set_flashdata('alert_msg', array('success', 'Berhasil!', "Transfer berhasil"));
-
-            
-            redirect(base_url().'index.php/transfer_stock/add_transfer_stock'); 
+            echo json_encode(array('status' => 200, 'message' => 'berhasil'));
 		}
-
-  
-
 	}
 }
  ?>
