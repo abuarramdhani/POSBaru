@@ -20,7 +20,7 @@ class TransferStock_Model extends CI_Model
 
     public function fetch_transferstock_data($limit, $start)
     {
-        $query = $this->db->query("SELECT o.name as outlet_asal,ot.name as outlet_tujuan,transfer_stock.* FROM outlets o JOIN transfer_stock ON o.id = transfer_stock.first_outlet JOIN outlets ot ON transfer_stock.second_outlet = ot.id ORDER BY transfer_stock.id DESC LIMIT $start,$limit");
+        $query = $this->db->query("SELECT o.name as outlet_asal,ot.name as outlet_tujuan,transfer_stock.* FROM outlets o JOIN transfer_stock ON o.id = transfer_stock.first_location JOIN outlets ot ON transfer_stock.second_location = ot.id ORDER BY transfer_stock.id DESC LIMIT $start,$limit");
         // $this->db->order_by('transfer_stock.id', 'DESC');
         // $this->db->limit($limit, $start);
         // $query = $this->db->get('transfer_stock');
@@ -37,7 +37,7 @@ class TransferStock_Model extends CI_Model
     	return $query->result_array();	
     }
     function get_barang(){
-        $query = $this->db->query('SELECT DISTINCT(products.name), inventory.product_code FROM products JOIN inventory ON products.code = inventory.product_code');
+        $query = $this->db->query('SELECT DISTINCT(products.name), inventory.product_code,inventory.id FROM products JOIN inventory ON products.code = inventory.product_code');
         return $query->result();  
     }
     function update_stock($id,$data){

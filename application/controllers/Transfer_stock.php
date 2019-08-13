@@ -194,20 +194,6 @@ class Transfer_stock extends CI_Controller
 		$note = $this->input->post('note');
 		$date = date('Y-m-d H:i:s', time());
 		$idUser = $this->input->cookie('user_id',TRUE);
-		$array = array(
-			'outlet_id' => $first_outlet,
-			'product_code' => $product_code
-		);
-		$data['stock'] = $this->TransferStock_Model->check_stock($array);
-		$stock = $data['stock'][0]['qty'];
-		// Cek, transfer ke toko sendiri atau buka
-		if ($first_outlet == $second_outlet) {
-            echo json_encode(array('status' => 400, 'message' => 'Tidak bisa transfer ke toko sendiri'));
-		}else if ($qty > $stock) {
-            echo json_encode(array('status' => 400, 'message' => 'Stock barang kurang'));
-		}else if ($qty <= 0) {
-            echo json_encode(array('status' => 400, 'message' => 'Stock kurang'));
-		}else{
 			$this->Constant_model->manualQery("UPDATE inventory SET qty=qty-$qty WHERE outlet_id=$first_outlet AND product_code='$product_code'");
             // Cek dulu di outlet tujuan, ada barangnya atau engga
             $a = array(
@@ -227,25 +213,64 @@ class Transfer_stock extends CI_Controller
             }
             
             $data_input = array(
-                'first_outlet' => $first_outlet,
-                'second_outlet' => $second_outlet,
-                'product_code' => $product_code,
-                'qty' => $qty,
-                'note'=> $note,
-                'date' => $date,
-                'idUser' => $idUser
+                'code' => $code,
+                'created_id'=> $idUser,
+                'created_data' => $date,
+                'note' => $note,
+                'first_location' => $first_outlet,
+                'second_location' => $second_outlet
             );
-            $data = $this->Constant_model->getSelectionData('temp_transfer_stock','code',$code);
+            $data = $this->Constant_model->getSelectionData('temp_transfer_stock_items','code',$code);
             foreach ($data as $data) {
                 $array = array(
+                    'transfer_stock_id' =>$code,
                     'product_code' => $data['product_code'],
                     'qty' => $data['qty']
                 );
-                $this->Constant_model->insertData('detail_transfer_stock',$array);
+                $this->Constant_model->insertData('transfer_stock_items',$array);
             }
             $this->Constant_model->insertData('transfer_stock',$data_input);
             echo json_encode(array('status' => 200, 'message' => 'berhasil'));
-		}
+		
 	}
+    function insertDetailTransferStock(){
+        $code = $this->input->post('code');
+        $product_code = $this->input->post('product_code');
+        $qty = $this->input->post('qty');
+        $array = array(
+            'transfer_stock_id' =>$code,
+            'product_code' => $product_code
+        );
+        $cek = $this->Constant_model->whereData('temp_transfer_stock_items',$array);
+        if (count($cek)) {
+            echo json_encode(array('status' => 400,'message'=> 'Data sudah tersedia'));
+        }
+        $array = array(
+            'transfer_stock_id' =>$code,
+            'product_code' => $product_code,
+            'qty' => $qty
+        );
+        try {
+            $this->Constant_model->insertData('temp_transfer_stock_items',$array);
+            echo json_encode(array('status' => 200,'message'=> 'Berhasil'));
+        } catch (Exception $e) {
+            echo json_encode(array('status' => 400,'message'=> 'Error karena :'. $e));
+        }        
+    }
+    function get_data_temp(){
+        $data = $this->Constant_model->manualQerySelect('SELECT temp_transfer_stock_items.*,products.name FROM temp_transfer_stock_items JOIN products ON temp_transfer_stock_items.product_code = products.id');
+        foreach ($data as $data) {
+            echo "<tr>";
+            echo "<td>".$data['product_code']."</td>";
+            echo "<td>".$data['name']."</td>";
+            echo "<td>".$data['qty']."</td>";
+            echo "<td><button class='btn btn-danger' id='btnHapusTemp'><i class='fa fa-trash'></i></button></td>";
+            echo "</tr>";
+        }
+    }
+    function get_kode(){
+        $kode = "TS".date('Ymd')."".rand();
+        echo $kode;
+    }
 }
  ?>

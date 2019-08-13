@@ -19,25 +19,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<title><?php echo $setting_site_name; ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><?php echo $setting_site_name ?></title>
 
-	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=base_url()?>assets/css/datepicker3.css" rel="stylesheet">
-	<link href="<?=base_url()?>assets/css/styles.css" rel="stylesheet">
+    <!-- begin::global styles -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/vendors/bundle.css" type="text/css">
+    <!-- end::global styles -->
 
-	<!--[if lt IE 9]>
-	<script src="<?=base_url()?>assets/js/html5shiv.js"></script>
-	<script src="<?=base_url()?>assets/js/respond.min.js"></script>
-	<![endif]-->
-	
+    <!-- begin::custom styles -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/app.min.css" type="text/css">
+    <!-- end::custom styles -->
+
 </head>
 
-<body style="background-color: #e1e0de;">
-	
-	<div class="row">
+
+<body class="bg-white h-100-vh p-t-0">
+	<div class="p-b-50 d-block d-lg-none"></div>
+
+	<div class="container h-100-vh">
+    <div class="row align-items-md-center h-100-vh">
+        <div class="col-lg-6 d-none d-lg-block">
+            <img class="img-fluid" src="http://gramos.laborasyon.com/assets/media/svg/login.svg" alt="...">
+        </div>
+        <div class="col-lg-4 offset-lg-1">
+            <div class="d-flex align-items-center m-b-20">
+                <img src="../assets/media/image/dark-logo.png" class="m-r-15" width="40" alt="">
+                <h3 class="m-0"><?php echo $setting_site_name ?></h3>
+            </div>
+            <p>Sign in to continue.</p>
+            <form action="<?=base_url()?>index.php/auth/login" method="post">
+                <div class="form-group mb-4">
+					<input type="email" name="email" class="form-control" autofocus autocomplete="off" required placeholder="Email Address" />
+				</div>
+				<div class="form-group mb-4">
+					<input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" />
+				</div>
+                <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4" name="sp_login">Sign In</button>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Keep me signed in</label>
+                    </div>
+                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <a href="#" class="btn btn-outline-facebook btn-block">
+                            <i class="fa fa-facebook-square m-r-5"></i> With Facebook
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <a href="#" class="btn btn-outline-google btn-block">
+                            <i class="fa fa-google m-r-5"></i> With Google
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center">
+                    Don't have an account? <a href="#" class="text-primary">Create</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+	<!-- <div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel card">
 				<div class="panel-heading" style="height: 175px;">
@@ -49,12 +95,7 @@
 					
 					<form action="<?=base_url()?>index.php/auth/login" method="post">
 						<fieldset>
-							<div class="form-group">
-								<input type="email" name="email" class="form-control" autofocus autocomplete="off" required placeholder="Email Address" />
-							</div>
-							<div class="form-group">
-								<input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" />
-							</div>
+							
 							<br />
 							<center>
 								<button class="btn btn-primary" name="sp_login">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
@@ -84,7 +125,7 @@
 				</div>
 			</div>
 		</div><!-- /.col-->
-	</div><!-- /.row -->	
+	</div><!-- /.row -->	 -->
 	
 	
 	

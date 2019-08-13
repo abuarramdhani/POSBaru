@@ -133,5 +133,5 @@
 	</section>
 	
 <?php
-    require_once 'includes/footer.php';
+    require_once 'includes/footer4.php';
 ?>

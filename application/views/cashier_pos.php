@@ -163,6 +163,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="<?=base_url()?>assets/js/typeahead.min.js"></script>
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
+
 	<script>
 	var sales_order_no = $.trim($('#sales_order_no').val());
 	get_total(sales_order_no);

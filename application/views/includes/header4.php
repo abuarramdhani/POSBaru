@@ -76,200 +76,115 @@ $user_id = $this->input->cookie('user_id', TRUE);
             $link = $this->uri->segment(1);
             $func = $this->uri->segment(2);
              ?>
+            <li class="side-menu-divider">Menu</li>
             <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/customers/view',$lang_customers,($link=="customers"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/transfer_stock/view',"Transfer Stock",($link=="transfer_stock"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/sales/list_sales',$lang_sales,($link=="sales"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/cashier/',$lang_pos,($link=="cashier"?'class="active"':'')) ?></li>
-                    
-                    <li <?php if ($link == 'sales') {
-                                    ?> class="dropdown-submenu active" <?php 
-                                } else {
-                                    echo 'class="dropdown-submenu"';
-                                } ?>>
-                        <a data-toggle="dropdown" href="">
-                            <?php echo $lang_sales; ?>
-                        </a>
-                        <ul class="dropdown-menu <?php if ($link != 'sales') {
-                                    ?> dropdown <?php 
-                                } ?>" id="sub-item-sales">
-                            <li>
-                                <a <?php if (($func == 'list_sales')) {
-                                    ?> style="background-color: #e9ecf2;" <?php 
-                                } ?> href="<?=base_url()?>index.php/sales/list_sales">
-                                    <?php echo $lang_today_sales; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if (($func == 'debit')) {
-                                    ?> style="background-color: #e9ecf2;" <?php 
-                                } ?> href="<?=base_url()?>index.php/debit/view">
-                                    <?php echo $lang_debit; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if (($func == 'opened_bill')) {
-                                    ?> style="background-color: #e9ecf2;" <?php 
-                                } ?> href="<?=base_url()?>index.php/sales/opened_bill">
-                                    <?php echo $lang_opened_bill; ?>
-                                </a>
-                            </li>
-                        <?php
-                            if ($user_role < 3) {
-                        ?>
-                            <li>
-                                <a <?php if (($func == 'sales_report')) {
-                                ?> style="background-color: #e9ecf2;" <?php 
-                            } ?> href="<?=base_url()?>index.php/reports/sales_report">
-                                    <?php echo $lang_sales_report; ?>
-                                </a>
-                            </li>
-                        <?php
-                            }
-                        ?>
-                        </ul>
+            <li>
+                <a href="#"></i> <span><?php echo $lang_products; ?></span> </a>
+                <ul>
+                    <li><a href="<?=base_url()?>index.php/products/list_products"><?php echo $lang_list_products; ?></a></li>
+                    <li><a href="<?=base_url()?>index.php/inventory/view"><?php echo $lang_inventory; ?></a></li>
+                    <li><a href="<?=base_url()?>index.php/products/print_label"><?php echo $lang_print_product_label; ?></a></li>
+                    <li>
+                        <a href="<?=base_url()?>index.php/products/product_category"><?php echo $lang_product_category; ?></a>
                     </li>
-    
-                    <li <?php if ($link == 'expenses') {
-                            ?> class="dropdown-submenu active" <?php 
-                        } else {
-                            echo 'class="dropdown-submenu"';
-                        } ?>>
-                        <a data-toggle="dropdown" href="">
+                </ul>
+            </li>
+            <li>
+                <a href="#"><span><?php echo $lang_sales; ?></span> </a>
+                <ul>
+                    <li><a <?php if (($func == 'list_sales')) {
+                            ?> style="background-color: #e9ecf2;" <?php 
+                        } ?> href="<?=base_url()?>index.php/sales/list_sales">
+                            <?php echo $lang_today_sales; ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($func == 'debit')) {
+                            ?> style="background-color: #e9ecf2;" <?php 
+                        } ?> href="<?=base_url()?>index.php/debit/view">
+                            <?php echo $lang_debit; ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($func == 'opened_bill')) {
+                            ?> style="background-color: #e9ecf2;" <?php 
+                        } ?> href="<?=base_url()?>index.php/sales/opened_bill">
+                            <?php echo $lang_opened_bill; ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($func == 'sales_report')) {
+                        ?> style="background-color: #e9ecf2;" <?php 
+                    } ?> href="<?=base_url()?>index.php/reports/sales_report">
+                            <?php echo $lang_sales_report; ?>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><?php echo $lang_expenses ?></a>
+                <ul>
+                   <li>
+                        <a <?php if (($func == 'view') || ($func == 'addNewExpenses') || ($func == 'searchExpenses') || ($func == 'editExpenses')) {
+                    ?> style="background-color: #e9ecf2;" <?php 
+                } ?> href="<?=base_url()?>index.php/expenses/view">
                             <?php echo $lang_expenses; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($link != 'expenses') {
-                            ?> dropdown <?php 
-                        } ?>" id="sub-item-expenses">
-                            <li>
-                                <a <?php if (($func == 'view') || ($func == 'addNewExpenses') || ($func == 'searchExpenses') || ($func == 'editExpenses')) {
-                            ?> style="background-color: #e9ecf2;" <?php 
-                        } ?> href="<?=base_url()?>index.php/expenses/view">
-                                    <?php echo $lang_expenses; ?>
-                                </a>
-                                <?php
-                                    if ($user_role < 3) {
-                                        ?>
-                                <a <?php if (($func == 'expense_category') || ($func == 'expense_category_add') || ($func == 'expense_category_edit')) {
-                                            ?> style="background-color: #e9ecf2;" <?php 
-                                        } ?> href="<?=base_url()?>index.php/expenses/expense_category">
-                                    <?php echo $lang_expenses_category; ?>
-                                </a>
-                                <?php
+                        <?php
+                            if ($user_role < 3) {
+                                ?>
+                        <a <?php if (($func == 'expense_category') || ($func == 'expense_category_add') || ($func == 'expense_category_edit')) {
+                                    ?> style="background-color: #e9ecf2;" <?php 
+                                } ?> href="<?=base_url()?>index.php/expenses/expense_category">
+                            <?php echo $lang_expenses_category; ?>
+                        </a>
+                        <?php
 
-                                    } ?>
-                            </li>
-                        </ul>
+                            } ?>
                     </li>
-                    
-                    
-                    
-                    <?php
-                        if ($user_role == 1) {
-                            ?>
-                    <li <?php if (($link == 'pnl')) {
-                                ?> class="dropdown-submenu active" <?php 
-                            } else {
-                                echo 'class="dropdown-submenu"';
-                            } ?>>
-                        <a data-toggle="dropdown" href="">
+                </ul>
+            </li>
+            <li>
+                <a href="#"><?php echo $lang_pnl ?></a>
+                <ul>
+                    <li>
+                        <a <?php if (($func == 'pnl_graph_view')) {
+                        ?> style="background-color: #e9ecf2;" <?php 
+                    } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
                             <?php echo $lang_pnl; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if (($link != 'pnl')) {
-                                ?> dropdown <?php 
-                            } ?>" id="sub-item-pnlreport">
-                            <li>
-                                <a <?php if (($func == 'pnl_graph_view')) {
-                                ?> style="background-color: #e9ecf2;" <?php 
-                            } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
-                                    <?php echo $lang_pnl; ?>
-                                </a>
-                                <a <?php if (($func == 'pnl_report')) {
-                                ?> style="background-color: #e9ecf2;" <?php 
-                            } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
-                                    <?php echo $lang_pnl_report; ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php
-
-                        } ?>
-                    
-                    <li <?php if ($link == 'returnorder') {
-                            ?> class="dropdown-submenu active" <?php 
-                        } else {
-                            echo 'class="dropdown-submenu"';
-                        } ?>>
-                        <a data-toggle="dropdown" href="">
-                            <?php echo $lang_return_order; ?>
+                        <a <?php if (($func == 'pnl_report')) {
+                        ?> style="background-color: #e9ecf2;" <?php 
+                    } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
+                            <?php echo $lang_pnl_report; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($link != 'returnorder') {
-                            ?> dropdown <?php 
-                        } ?>" id="sub-item-return">
-                            <li>
-                                <a <?php if (($func == 'create_return') || ($func == 'confirmation')) {
-                            ?> style="background-color: #e9ecf2;" <?php 
-                        } ?> href="<?=base_url()?>index.php/returnorder/create_return">
-                                    <?php echo $lang_create_return_order; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if (($func == 'return_report')) {
-                            ?> style="background-color: #e9ecf2;" <?php 
-                        } ?> href="<?=base_url()?>index.php/returnorder/return_report">
-                                    <?php echo $lang_return_order_report; ?>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    
-                    <li <?php if ($link == 'products') {
-                            ?> class="dropdown-submenu active" <?php 
-                        } else {
-                            echo 'class="dropdown-submenu"';
-                        } ?>>
-                        <a data-toggle="dropdown" href="">
-                            <?php echo $lang_products; ?>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><?php echo $lang_return_order ?></a>
+                <ul>
+                    <li>
+                        <a <?php if (($func == 'create_return') || ($func == 'confirmation')) {
+                    ?> style="background-color: #e9ecf2;" <?php 
+                } ?> href="<?=base_url()?>index.php/returnorder/create_return">
+                            <?php echo $lang_create_return_order; ?>
                         </a>
-                        <ul class="dropdown-menu <?php if ($link != 'products') {
-                            ?> dropdown <?php 
-                        } ?>" id="sub-item-product">
-                            <li>
-                                <a <?php if (($func == 'list_products') || ($func == 'addproduct')) {
-                                    ?> style="background-color: #e9ecf2;" <?php 
-                                } ?> href="<?=base_url()?>index.php/products/list_products">
-                                    <?php echo $lang_list_products; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?=base_url()?>index.php/inventory/view"><?php echo $lang_inventory; ?></a>
-                            </li>
-                            <li>
-                                <a href="<?=base_url()?>index.php/products/print_label">
-                                    <?php echo $lang_print_product_label; ?>
-                                </a>
-                            </li>
-                            <?php
-                                if ($user_role == '1') {
-                                    ?>
-                            <li>
-                            <li>
-                                <a href="<?=base_url()?>index.php/products/product_category"><?php echo $lang_product_category; ?></a>
-                            </li>
-                                <a <?php if (($func == 'product_category') || ($func == 'addproductcategory') || ($func == 'editproductcategory')) {
-                                        ?> style="background-color: #e9ecf2;" <?php 
-                                    } ?> href="<?=base_url()?>index.php/products/product_category">
-                                    <?php echo $lang_product_category; ?>
-                                </a>
-                            </li>
-                            <?php
-
-                                } ?>
-                        </ul>
                     </li>
-                    
+                    <li>
+                        <a <?php if (($func == 'return_report')) {
+                    ?> style="background-color: #e9ecf2;" <?php 
+                } ?> href="<?=base_url()?>index.php/returnorder/return_report">
+                            <?php echo $lang_return_order_report; ?>
+                        </a>
+                    </li>
+                </ul>
+            </li>
                     
                     <?php
                     if ($user_role < 3) {
@@ -366,22 +281,12 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             <div class="nav-grid">
                                 <div class="nav-grid-row">
                                     <a href="#" class="nav-grid-item">
-                                        <i class="fa fa-address-book-o"></i>
-                                        <span>App</span>
+                                        <i class="fa fa-user"></i>
+                                        <span>Profile</span>
                                     </a>
-                                    <a href="#" class="nav-grid-item">
-                                        <i class="fa fa-envelope-o"></i>
-                                        <span>Mail</span>
-                                    </a>
-                                </div>
-                                <div class="nav-grid-row">
-                                    <a href="#" class="nav-grid-item">
-                                        <i class="fa fa-sticky-note"></i>
-                                        <span>Chat</span>
-                                    </a>
-                                    <a href="#" class="nav-grid-item">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>Dashboard</span>
+                                    <a href="<?php echo base_url() ?>index.php/Auth/logout" class="nav-grid-item">
+                                        <i class="fa fa-sign-out"></i>
+                                        <span>Keluar</span>
                                     </a>
                                 </div>
                             </div>

@@ -174,4 +174,9 @@ class Constant_model extends CI_Model
         $query = $this->db->get($table);
         return $query->num_rows();
     }
+    public function whereData($table,$where){
+        $this->db->where($where);
+        $query = $this->db->get($table);
+        return $query->result_array();
+    }
 }

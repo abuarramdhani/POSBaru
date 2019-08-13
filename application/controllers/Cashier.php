@@ -8,7 +8,8 @@ class Cashier extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Cashier_model');
+        $this->load->model('Cashier_model');
+		$this->load->model('Inventory_model');
 		$this->load->model('Customers_model');
         $this->load->model('Outlets_model');
 		$this->load->model('Constant_model');
@@ -311,16 +312,28 @@ class Cashier extends CI_Controller
                                 'product_code' => $data['product_code'],
                             );
                             $this->Constant_model->deleteWhere('temp_sales_items',$array);
-                            echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                            $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
 
                         }    
                     } catch (Exception $e) {
-                        echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                        $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                    }
+                    try {
+                        $update = array(
+                            'qty' => 'qty-'.$data['qty'],
+                        );
+                        $where = array(
+                            'outlet_id' => $data['outlet_id'],
+                            'product_code' => $data['product_code']
+                        );
+                        $this->Inventory_model->updateStock($update, $where);
+                    } catch (Exception $e) {
+                         $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
                     }
                 }
                 
             } catch (Exception $e) {
-                echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
             }
             if ($method_id == 9) {
                 $lama_kredit = strip_tags($this->input->post('lama_kredit'));
@@ -336,8 +349,9 @@ class Cashier extends CI_Controller
                 );
                 try {
                     $insertData = $this->Constant_model->insertData('piutang',$dataInsert);
+                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
                 } catch (Exception $e) {
-                    echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
+                    $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }
             }else if($method_id == 6){
                 $nama_bank = strip_tags($this->input->post('nama_bank'));
@@ -351,15 +365,13 @@ class Cashier extends CI_Controller
                 );
                 try {
                     $insertData = $this->Constant_model->updateDataCashier('sales',$dataUpdate,$where);   
-                    
+                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
                 } catch (Exception $e) {
-                    echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
+                    $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }
 
             }
-            if ($insertData) {
-                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
-            }
+            echo $response;
         }
 
     }
