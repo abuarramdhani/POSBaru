@@ -29,13 +29,6 @@
 <link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
 
 <script>
-	$(document).ready(function(){
-		$('input#typeahead').typeahead({
-			name: 'typeahead',
-			remote:'<?=base_url()?>index.php/returnorder/searchProduct?q=%QUERY',
-			limit : 10
-		});
-	});
 
 /*
 	document.addEventListener('DOMContentLoaded', function() {
@@ -54,13 +47,18 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-				
 					<div class="row">
+						<div class="col-md-3">
+							<input type="text" id="code" class="form-control" disabled>
+						</div>
+					</div>
+					<div class="row">
+
 						<div class="col-md-3">
 							<div class="form-group">
 								<label style="font-size: 13px;">Nota <span style="color: #F00">*</span></label>
 								<select name="sales_no" class="form-control" style="width: 100%;" required id="sales_no">
-									<option>Pilih</option>
+									<option value="">Pilih</option>
 									<?php foreach ($penjualan as $penjualan): ?>
 										<option value="<?php echo $penjualan['code'] ?>"><?php echo $penjualan['code'] ?></option>
 									<?php endforeach ?>
@@ -72,15 +70,15 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label style="font-size: 13px;">Metode Pengembalian <span style="color: #F00">*</span></label>
-								<select name="sales_no" class="form-control" style="width: 100%;" required id="return_method">
-									<option>Pengembalian dengan barang</option>
-									<option>Pengembalian dengan uang</option>
+								<select name="sales_no" class="form-control" required id="type_return">
+									<option value="goods">Pengembalian dengan barang</option>
+									<option value="cash">Pengembalian dengan uang</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<label style="font-size: 13px;">Total Pembelian</label>
-								<input type="text" name="total" class="form-control" disabled="">
+								<input type="text" id="amount" class="form-control" disabled="">
 						</div>
 					</div>
 										
@@ -115,7 +113,7 @@
 						<div class="col-md-12">
 							<div class="form-group" style="text-align: center;">
 								<input type="hidden" id="row_count" name="row_count" value="1" />
-								<button class="btn btn-primary" style="padding: 12px 20px;">
+								<button class="btn btn-primary" style="padding: 12px 20px;" id="btnSimpan">
 									<?php echo $lang_submit; ?>
 								</button>
 							</div>
@@ -150,16 +148,9 @@
 
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 <!-- Select2 -->
-<script>
-	$(document).ready(function() {
-		$(".add_product_po").select2({
-			placeholder: "<?php echo $lang_search_product_by_namecode; ?>",
-			allowClear: true
-		});
-	});
-</script>
 <script type="text/javascript" src="<?=base_url()?>assets/js/search/jquery.searchabledropdown.js"></script>
 <script type="text/javascript">
+	get_kode();
 	$(document).on('change','#sales_no',function() {
 		var sales_no = $('#sales_no').val();
 		$.ajax({
@@ -169,5 +160,56 @@
 			}
 		});
     });
-    
+    $(document).on('click','#btnSimpan',function(){
+    	var qty = [];
+    	var product_code = [];
+    	var status = [];
+    	var price = [];
+    	var code = $.trim($('#code').val());
+    	var sales_code = $('#sales_no').val();
+    	var amount = $('#amount').val();
+    	var type_return = $('#type_return').val();
+    	$('input[name="product_code"]:checked').each(function(i) {
+	   		if($(this).is(':checked')){
+	   			qty.push($('#qty'+i).val());
+	   			product_code.push($(this).val());
+	   			status.push($('#status'+i).val());
+	   			price.push($(this).attr('price'));
+	   		}
+		});
+    	var data = {
+    		qty:qty,
+    		product_code:product_code,
+    		status:status,
+    		code:code,
+    		price:price,
+    		amount:amount,
+    		sales_code:sales_code,
+    		type_return:type_return
+    	};
+    	$.ajax({
+    		url:'<?php echo base_url() ?>index.php/sales_return/insertReturn',
+    		data:data,
+    		type:'POST',
+    		success:function(data){
+    			var json = jQuery.parseJSON(data);
+    			if (json.status == 200) {
+    				get_kode();
+    				$('#sales_no').val('');
+    			}else{
+    				alert(status.message);
+    			}
+    		}
+    	});
+
+    });
+
+    function get_kode(){
+    	$.ajax({
+    		url:'http://localhost/pos/v2/POSBaru/index.php/sales_return/get_kode',
+    		success:function(data){
+    			$('#code').val(data);
+    		}
+    	});
+    }
 </script>	
