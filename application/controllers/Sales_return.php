@@ -108,24 +108,84 @@ class Sales_return extends CI_Controller
         $data['lang_choose_refund_by'] = $this->lang->line('choose_refund_by');
         $data['lang_choose_refund_method'] = $this->lang->line('choose_refund_method');
         $data['lang_are_you_confirm_return'] = $this->lang->line('are_you_confirm_return');
-        $data['penjualan'] = $this->Constant_model->getAllData('sales');
+        $data['penjualan'] = $this->Constant_model->manualQerySelect('SELECT sales.code FROM sales ');
 		$this->load->view('create_sales_return',$data);
 	}
 	function get_data($id){
 		$data = $this->Constant_model->manualQerySelect("SELECT sales_items.*,products.name FROM  sales_items JOIN products on sales_items.product_code = products.id WHERE sales_items.sales_id='$id'");
+        $i = 0;
 		foreach ($data as $data) {
 			echo "<tr>";
 			echo "<td>".$data['product_code']."</td>";
 			echo "<td>".$data['name']."</td>";
-			echo "<td><input type='text' class='form-control'></td>";
-			echo "<td><input type='text' class='form-control'></td>";
+			echo "<td><input type='text' class='form-control' id='qty$i'></td>";
+			echo "<td><select class='form-control' id='status$i'>
+                <option value='1'>Bagus</option>
+                <option value='2'>Tidak Bagus</option>
+            </select></td>";
 			echo "<td> <div class='custom-control'>
-                          <input type='checkbox' class='custom-control' id='check".$data['product_code']."'>
+                          <input type='checkbox' class='custom-control' id='check".$data['product_code']."' price='".$data['price_deal']."' name='product_code' value='".$data['product_code']."'>
                             <label class='custom-control-label' for='check".$data['product_code']."'>&nbsp;</label>
                         </div>";
             echo "</td>";
 			echo "</tr>";
+            $i++;
 		}
 	}
+	function insertReturn(){
+        $code = $this->input->post('code');
+        $amount = $this->input->post('amount');
+        $status = $this->input->post('status');
+        $price = $this->input->post('price');
+        $product_code = $this->input->post('product_code');
+        $qty = $this->input->post('qty');
+        $type_return = $this->input->post('type_return');
+        $sales_code = $this->input->post('sales_code');
+		$return_status = $this->input->post('return_status');
+        $date = date('Y-m-d H:i:s');
+        $id = $this->input->cookie('user_id',TRUE);
+        $cek = $this->Constant_model->getSelectionData('return_sales','sales_code',$sales_code);
+        if (count($cek) > 0) {
+            echo json_encode(array('status'=> 400,'message' => 'Data sudah tersedia'));
+        }else{
+            $total = 0;
+            for ($i=0; $i < count($price) ; $i++) { 
+                $total += $price[$i]*$qty[$i];
+            }
+            $data_return = array(
+                'code' => $code,
+                'sales_code' => $sales_code,
+                'date_created' => $date,
+                'id_created' => $id,
+                'amount' => $total,
+                'type_return' => $type_return,
+                'return_status' => 'success'
+            );
+            try {
+                $id = $this->Constant_model->insertDataReturnLastId('return_sales',$data_return);
+                for ($i=0; $i < count($product_code); $i++) { 
+                    $data_return_detail = array(
+                        'order_id' => $id,
+                        'product_code' => $product_code[$i],
+                        'price' => $price[$i],
+                        'qty' => $qty[$i],
+                        'item_condition' => $status[$i]
+                    );
+                   $this->Constant_model->insertData('return_items',$data_return_detail);
+                }
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+            } catch (Exception $e) {
+                echo json_encode(array('status'=> 400,'message' => 'Gagal karena : '. $e));
+            }
+        }
+        
+	}
+    function get_kode(){
+        $date = date('Ymd');
+        $q = $this->Constant_model->manualQerySelect('SELECT IFNULL(MAX(id),0)+1 as kode FROM return_sales');
+        $kode = $q[0]['kode'];
+        echo "RS".$date."".$kode;
+        
+    }
 }
  ?>
