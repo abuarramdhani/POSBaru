@@ -130,8 +130,11 @@ class Sales extends CI_Controller
         $data['lang_quantity'] = $this->lang->line('quantity');
 
         $data['lang_items'] = $this->lang->line('items');
-
-        $this->load->view('list_sales', $data);
+ $today_start = date('Y-m-d 00:00:00', time());
+        $today_end = date('Y-m-d 23:59:59', time());
+        $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.created_date BETWEEN '$today_start' AND '$today_end'");
+        
+        $this->load->view('cashier_data', $data);
     }
 
     // Opened Bill;

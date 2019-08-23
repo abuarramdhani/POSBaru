@@ -44,7 +44,7 @@
 					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px;">
 						<div class="col-md-12">
 							<a href="<?=base_url()?>index.php/products/addproduct" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i>
 									<?php echo $lang_add_product; ?>
 								</button>
 							</a>

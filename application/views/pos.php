@@ -269,7 +269,7 @@
 <div class="row" style="margin-bottom: 5px;">
 	<div class="col-md-12">
 		<a class="btn btn-primary" href="#addCustomerPopUp" data-toggle="modal" style="border: 0px; width: 100%; padding: 0px 12px;">
-			<i class="icono-plus"></i> <?php echo $lang_add_customer; ?>
+			<i class="fa fa-plus"></i> <?php echo $lang_add_customer; ?>
 		</a>
 	</div>
 </div>
@@ -513,7 +513,7 @@
 <!--
 	<div class="col-md-3" style="padding-top: 10px;">
 		<a class="btn btn-primary" href="#addProductPopUp" data-toggle="modal" style="border: 0px; width: 100%; padding: 3px 12px; background-color: #b205c2;">
-			<i class="icono-plus"></i> Add Product
+			<i class="fa fa-plus"></i> Add Product
 		</a>
 	</div>
 -->

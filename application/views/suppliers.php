@@ -49,7 +49,7 @@
                                 if ($user_role == 1) {
                                     ?>
 							<a href="<?=base_url()?>index.php/setting/addsupplier" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i><?php echo $lang_add_supplier; ?></button>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i><?php echo $lang_add_supplier; ?></button>
 							</a>
 							<?php
 

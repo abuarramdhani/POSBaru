@@ -64,7 +64,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/expenses/expense_category_add" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i><?php echo $lang_add_expenses_category; ?></button>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i><?php echo $lang_add_expenses_category; ?></button>
 							</a>
 						</div>
 						<div class="col-md-6"></div>

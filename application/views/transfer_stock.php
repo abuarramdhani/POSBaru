@@ -8,47 +8,13 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
-					
 					<div class="row">
 						<div class="col-md-12">
 							<?php
                                 if ($user_role == 1 || $user_role == 2) {
                                     ?>
 							<a href="<?=base_url()?>index.php/transfer_stock/add_transfer_stock" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i><?php echo $lang_add_transfer_stock; ?></button>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i><?php echo $lang_add_transfer_stock; ?></button>
 							</a>
 							<?php
 

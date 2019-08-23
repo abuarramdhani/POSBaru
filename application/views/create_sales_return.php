@@ -49,6 +49,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-3">
+							<label>Kode Return</label>
 							<input type="text" id="code" class="form-control" disabled>
 						</div>
 					</div>
@@ -76,10 +77,10 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<!-- <div class="col-md-3">
 							<label style="font-size: 13px;">Total Pembelian</label>
 								<input type="text" id="amount" class="form-control" disabled="">
-						</div>
+						</div> -->
 					</div>
 										
 					<div class="row">
@@ -124,20 +125,12 @@
 					
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-						
-				</div>
-			</div>
-			
-			
-		</div><!-- Col md 12 // END -->
-	</div><!-- Row // END -->
-	</form>
-	
-	</section>
-	</section>
+		</div>
+	</div>
+	<div class="row">
+		<a href="<?php echo base_url() ?>index.php/sales_return/data_return" class="btn btn-primary"> Kembali</a>
+	</div>				
+</div>
 </section>
 
 	
@@ -187,7 +180,10 @@
     		sales_code:sales_code,
     		type_return:type_return
     	};
-    	$.ajax({
+    	if (qty == null || status == null) {
+    		alert('Data tidak boleh kosong');
+    	}else{
+    		$.ajax({
     		url:'<?php echo base_url() ?>index.php/sales_return/insertReturn',
     		data:data,
     		type:'POST',
@@ -197,10 +193,12 @@
     				get_kode();
     				$('#sales_no').val('');
     			}else{
-    				alert(status.message);
+    				alert(json.message);
     			}
     		}
     	});
+    	}
+    	
 
     });
 

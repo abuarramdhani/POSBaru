@@ -22,7 +22,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<a href="<?=base_url()?>index.php/goodreceive/create_good_receive" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="fa fa-plus"></i>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i>
 									<?php echo $lang_create_good_received; ?>
 								</button>
 							</a>

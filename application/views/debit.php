@@ -71,13 +71,13 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label><?php echo $lang_date_from; ?></label>
-									<input type="text" name="start_date" class="form-control" id="startDate" style="height: 35px" />
+									<input type="date" name="start_date" class="form-control" id="startDate" style="height: 35px" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label><?php echo $lang_date_to; ?></label>
-									<input type="text" name="end_date" class="form-control" id="endDate" style="height: 35px" />
+									<input type="date" name="end_date" class="form-control" id="endDate" style="height: 35px" />
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -99,10 +99,8 @@
 							    	<tr>
 								    	<th width="16%"><?php echo $lang_sale_id; ?></th>
 								    	<th width="16%"><?php echo $lang_date; ?></th>
-								    	<th width="16%"><?php echo $lang_outlets; ?></th>
 								    	<th width="16%"><?php echo $lang_customer_name; ?></th>
 								    	<th width="16%"><?php echo $lang_grand_total; ?></th>
-								    	<th width="16%"><?php echo $lang_unpaid_amount; ?></th>
 									    <th width="16%"><?php echo $lang_action; ?></th>
 									</tr>
 							    </thead>
@@ -111,21 +109,17 @@
                                     if (count($results) > 0) {
                                         foreach ($results as $data) {
                                             $id = $data->id;
-                                            $cust_name = $data->customer_name;
-                                            $order_date = date("$display_dateformat", strtotime($data->ordered_datetime));
-                                            $outlet_name = $data->outlet_name;
-                                            $grandTotal = $data->grandtotal;
-                                            $paid_amt = $data->paid_amt;
+                                            $cust_name = $data->no_rek;
+                                            $order_date = date("$display_dateformat", strtotime($data->created_date));
+                                            $grandTotal = $data->total_deal;
 
                                             $unpaid_amt = 0;
-                                            $unpaid_amt = $paid_amt - $grandTotal; ?>
+                                            ?>
                                 			<tr>
 	                                			<td><?php echo $id; ?></td>
 	                                			<td><?php echo $order_date; ?></td>
-	                                			<td><?php echo $outlet_name; ?></td>
 	                                			<td><?php echo $cust_name; ?></td>
 	                                			<td><?php echo number_format($grandTotal, 2); ?></td>
-	                                			<td><?php echo number_format($unpaid_amt, 2); ?></td>
 	                                			<td>
                     			<a href="<?=base_url()?>index.php/debit/make_payment?id=<?php echo $id; ?>" style="text-decoration: none;">
 									<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_make_payment; ?>&nbsp;&nbsp;</button>

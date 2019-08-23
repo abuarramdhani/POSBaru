@@ -22,11 +22,12 @@ class Debit_model extends CI_Model
 
     public function fetch_debit_data($limit, $start)
     {
-        $this->db->where('vt_status', '0');
-        $this->db->order_by('id', 'DESC');
+        $this->db->select("sales.*");
+        $this->db->from('sales');
+        $this->db->join('payment_method','sales.method_id = payment_method.id');
+        $this->db->where('sales.method_id = 6');
         $this->db->limit($limit, $start);
-        $query = $this->db->get('orders');
-
+        $query = $this->db->get();
         $result = $query->result();
 
         $this->db->save_queries = false;

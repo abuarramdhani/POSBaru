@@ -99,7 +99,9 @@ class Cashier extends CI_Controller
         $data['lang_export'] = $this->lang->line('export');
         $data['lang_search'] = $this->lang->line('search');
 
-        $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id");
+        $today_start = date('Y-m-d 00:00:00', time());
+        $today_end = date('Y-m-d 23:59:59', time());
+        $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.created_date BETWEEN '$today_start' AND '$today_end'");
         
         $this->load->view('cashier_data',$data);
     }
@@ -188,6 +190,12 @@ class Cashier extends CI_Controller
             }
             
         }
+    }
+    function print($id){
+        $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $data['site_name'] = $site[0]->site_name;
+        $data['site_logo'] = $site[0]->site_logo;
+        $this->load->view('print_struk',$data);
     }
     function editKolom(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
@@ -296,6 +304,24 @@ class Cashier extends CI_Controller
                 $insertData = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
                 $a = $this->Constant_model->getSelectionData('temp_sales_items','sales_id',$no_sales);
                 foreach ($a as $data) {
+                    $b = $this->Constant_model->getSelectionData('products','id',$data['product_code']);
+                    foreach ($b as $c) {
+                       try {
+                            $update = array(
+                                'qty' => 'qty-'.$data['qty'],
+                            );
+                            $where = array(
+                                'outlet_id' => $data['outlet_id'],
+                                'product_code' => $c['code']
+                            );
+                            $this->Inventory_model->updateStock($update, $where);
+                            $response = json_encode(array('status'=> 200,'message' => 'Data berhasil :')); 
+                        } catch (Exception $e) {
+                             $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                        }
+                    }
+                }
+                foreach ($a as $data) {
                     $dataInsert = array(
                         'sales_id' => $data['sales_id'],
                         'product_code' => $data['product_code'],
@@ -318,18 +344,7 @@ class Cashier extends CI_Controller
                     } catch (Exception $e) {
                         $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
                     }
-                    try {
-                        $update = array(
-                            'qty' => 'qty-'.$data['qty'],
-                        );
-                        $where = array(
-                            'outlet_id' => $data['outlet_id'],
-                            'product_code' => $data['product_code']
-                        );
-                        $this->Inventory_model->updateStock($update, $where);
-                    } catch (Exception $e) {
-                         $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
-                    }
+                    
                 }
                 
             } catch (Exception $e) {
@@ -399,6 +414,28 @@ class Cashier extends CI_Controller
             echo json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
         }
         
+    }
+    function updateStok($no_sales){
+        $a = $this->Constant_model->getSelectionData('sales_items','sales_id',$no_sales);
+        foreach ($a as $data) {
+            $b = $this->Constant_model->getSelectionData('products','id',$data['product_code']);
+            foreach ($b as $c) {
+               try {
+                    $update = array(
+                        'qty' => 'qty-'.$data['qty'],
+                    );
+                    $where = array(
+                        'outlet_id' => $data['outlet_id'],
+                        'product_code' => $c['code']
+                    );
+                    $this->Inventory_model->updateStock($update, $where);
+                    $response = json_encode(array('status'=> 200,'message' => 'Data berhasil :')); 
+                } catch (Exception $e) {
+                     $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
+                }
+            }
+        }
+        echo $response;
     }
 }
  ?>

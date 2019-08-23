@@ -56,7 +56,7 @@
                                 if ($user_role < 3) {
                                     ?>
 							<a href="<?=base_url()?>index.php/purchase_order/create_purchase_order" style="text-decoration: none">
-								<button class="btn btn-primary" style="padding: 0px 12px;"><i class="fa fa-plus"></i>
+								<button class="btn btn-primary"  ><i class="fa fa-plus"></i>
 									<?php echo $lang_create_purchase_order; ?>
 								</button>
 							</a>

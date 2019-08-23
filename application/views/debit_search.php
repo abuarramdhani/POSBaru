@@ -37,22 +37,6 @@
 <script type="text/javascript" src="<?=base_url()?>assets/js/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
 <section id="content">
-    <section class="vbox">
-        <header class="header bg-white b-b">
-            <p>Welcome to <?php echo $lang_dashboard; ?></p>
-            <a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-                <i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-            </a>
-        </header>
-
-        <section class="scrollable wrapper">
-        
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_debit; ?></h1>
-		</div>
-	</div><!--/.row-->
 
 <?php
     $url_name = '';
@@ -82,13 +66,13 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label><?php echo $lang_date_from; ?></label>
-									<input type="text" name="start_date" class="form-control" id="startDate" style="height: 35px" value="<?php echo $url_start; ?>" />
+									<input type="date" name="start_date" class="form-control" id="startDate" style="height: 35px" value="<?php echo $url_start; ?>" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label><?php echo $lang_date_to; ?></label>
-									<input type="text" name="end_date" class="form-control" id="endDate" style="height: 35px" value="<?php echo $url_end; ?>" />
+									<input type="date" name="end_date" class="form-control" id="endDate" style="height: 35px" value="<?php echo $url_end; ?>" />
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -107,16 +91,14 @@
 						<div class="table-responsive">
 							<table class="table">
 							    <thead>
-							    	<tr>
-								    	<th width="16%"><?php echo $lang_sale_id; ?></th>
-								    	<th width="16%"><?php echo $lang_date; ?></th>
-								    	<th width="16%"><?php echo $lang_outlets; ?></th>
-								    	<th width="16%"><?php echo $lang_customer_name; ?></th>
-								    	<th width="16%"><?php echo $lang_grand_total; ?></th>
-								    	<th width="16%"><?php echo $lang_unpaid_amount; ?></th>
-									    <th width="16%"><?php echo $lang_action; ?></th>
-									</tr>
-							    </thead>
+                                    <tr>
+                                        <th width="16%"><?php echo $lang_sale_id; ?></th>
+                                        <th width="16%"><?php echo $lang_date; ?></th>
+                                        <th width="16%"><?php echo $lang_customer_name; ?></th>
+                                        <th width="16%"><?php echo $lang_grand_total; ?></th>
+                                        <th width="16%"><?php echo $lang_action; ?></th>
+                                    </tr>
+                                </thead>
 								<tbody>
 								<?php
 
@@ -126,8 +108,8 @@
     $order_result_count = 0;
 
     if (!empty($url_name)) {
-        $name_sort = " AND customer_name LIKE '%$url_name%' ";
-        $orderResult = $this->db->query("SELECT * FROM orders WHERE vt_status = '0' $name_sort ORDER BY id DESC ");
+        $name_sort = " AND no_rek LIKE '%$url_name%' ";
+        $orderResult = $this->db->query("SELECT * FROM sales JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.method_id=6 $name_sort ORDER BY sales.id DESC ");
         $orderData = $orderResult->result();
 
         $order_result_count = count($orderData);
@@ -178,23 +160,6 @@
 
             $end_day = $endArray[0];
             $end_mon = $endArray[1];
-            $end_yea = $endArray[2];
-
-            $url_end = $end_yea.'-'.$end_mon.'-'.$end_day;
-        }
-
-        if ($display_dateformat == 'm/d/Y') {
-            $startArray = explode('/', $url_start);
-            $endArray = explode('/', $url_end);
-
-            $start_day = $startArray[1];
-            $start_mon = $startArray[0];
-            $start_yea = $startArray[2];
-
-            $url_start = $start_yea.'-'.$start_mon.'-'.$start_day;
-
-            $end_day = $endArray[1];
-            $end_mon = $endArray[0];
             $end_yea = $endArray[2];
 
             $url_end = $end_yea.'-'.$end_mon.'-'.$end_day;
@@ -287,7 +252,7 @@
         $start_date = $url_start.' 00:00:00';
         $end_date = $url_end.' 23:59:59';
 
-        $orderResult = $this->db->query("SELECT * FROM orders WHERE vt_status = '0' $name_sort AND created_datetime >= '$start_date' AND created_datetime <= '$end_date' ORDER BY id DESC ");
+        $orderResult = $this->db->query("SELECT * FROM sales JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.method_id = 6 $name_sort AND created_date >= '$start_date' AND created_date <= '$end_date' ORDER BY sales.id DESC ");
         $orderData = $orderResult->result();
 
         $order_result_count = count($orderData);
@@ -296,21 +261,15 @@
                                     if ($order_result_count > 0) {
                                         foreach ($orderData as $data) {
                                             $id = $data->id;
-                                            $cust_name = $data->customer_name;
-                                            $order_date = date("$display_dateformat", strtotime($data->ordered_datetime));
-                                            $outlet_name = $data->outlet_name;
-                                            $grandTotal = $data->grandtotal;
-                                            $paid_amt = $data->paid_amt;
+                                            $cust_name = $data->no_rek;
+                                            $order_date = date("$display_dateformat", strtotime($data->date_created));
 
-                                            $unpaid_amt = 0;
-                                            $unpaid_amt = $paid_amt - $grandTotal; ?>
+                                            $unpaid_amt = 0; ?>
                                 			<tr>
 	                                			<td><?php echo $id; ?></td>
 	                                			<td><?php echo $order_date; ?></td>
-	                                			<td><?php echo $outlet_name; ?></td>
 	                                			<td><?php echo $cust_name; ?></td>
 	                                			<td><?php echo number_format($grandTotal, 2); ?></td>
-	                                			<td><?php echo number_format($unpaid_amt, 2); ?></td>
 	                                			<td>
                     			<a href="<?=base_url()?>index.php/debit/make_payment?id=<?php echo $id; ?>" style="text-decoration: none;">
 									<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_make_payment; ?>&nbsp;&nbsp;</button>

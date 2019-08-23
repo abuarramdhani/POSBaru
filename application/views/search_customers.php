@@ -15,7 +15,7 @@
 						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/customers/addCustomer" style="text-decoration: none;">
 								<button type="button" class="btn btn-primary" style="padding-top: 2px; padding-bottom: 2px; border: 0px;">
-									<i class="icono-plus"></i> <?php echo $lang_add_customer; ?>
+									<i class="fa fa-plus"></i> <?php echo $lang_add_customer; ?>
 								</button>
 							</a>
 						</div>

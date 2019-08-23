@@ -78,10 +78,11 @@ $user_id = $this->input->cookie('user_id', TRUE);
              ?>
             <li class="side-menu-divider">Menu</li>
             <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/piutang',"Piutang",($link=="piutang"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/hutang',"Hutang",($link=="hutang"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/customers/view',$lang_customers,($link=="customers"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/transfer_stock/view',"Transfer Stock",($link=="transfer_stock"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/sales/list_sales',$lang_sales,($link=="sales"?'class="active"':'')) ?></li>
+            <!-- <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li> -->
             <li><?php echo anchor('index.php/cashier/',$lang_pos,($link=="cashier"?'class="active"':'')) ?></li>
             <li>
                 <a href="#"></i> <span><?php echo $lang_products; ?></span> </a>
@@ -97,28 +98,28 @@ $user_id = $this->input->cookie('user_id', TRUE);
             <li>
                 <a href="#"><span><?php echo $lang_sales; ?></span> </a>
                 <ul>
-                    <li><a <?php if (($func == 'list_sales')) {
+                    <li><a <?php if (($link == 'list_sales')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/sales/list_sales">
                             <?php echo $lang_today_sales; ?>
                         </a>
                     </li>
                     <li>
-                        <a <?php if (($func == 'debit')) {
+                        <a <?php if (($link == 'debit')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/debit/view">
                             <?php echo $lang_debit; ?>
                         </a>
                     </li>
-                    <li>
-                        <a <?php if (($func == 'opened_bill')) {
+                    <!-- <li>
+                        <a <?php if (($link == 'opened_bill')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/sales/opened_bill">
                             <?php echo $lang_opened_bill; ?>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
-                        <a <?php if (($func == 'sales_report')) {
+                        <a <?php if (($link == 'sales_report')) {
                         ?> style="background-color: #e9ecf2;" <?php 
                     } ?> href="<?=base_url()?>index.php/reports/sales_report">
                             <?php echo $lang_sales_report; ?>
@@ -130,7 +131,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                 <a href="#"><?php echo $lang_expenses ?></a>
                 <ul>
                    <li>
-                        <a <?php if (($func == 'view') || ($func == 'addNewExpenses') || ($func == 'searchExpenses') || ($func == 'editExpenses')) {
+                        <a <?php if (($link == 'view') || ($link == 'addNewExpenses') || ($link == 'searchExpenses') || ($link == 'editExpenses')) {
                     ?> style="background-color: #e9ecf2;" <?php 
                 } ?> href="<?=base_url()?>index.php/expenses/view">
                             <?php echo $lang_expenses; ?>
@@ -138,7 +139,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         <?php
                             if ($user_role < 3) {
                                 ?>
-                        <a <?php if (($func == 'expense_category') || ($func == 'expense_category_add') || ($func == 'expense_category_edit')) {
+                        <a <?php if (($link == 'expense_category') || ($link == 'expense_category_add') || ($link == 'expense_category_edit')) {
                                     ?> style="background-color: #e9ecf2;" <?php 
                                 } ?> href="<?=base_url()?>index.php/expenses/expense_category">
                             <?php echo $lang_expenses_category; ?>
@@ -153,12 +154,12 @@ $user_id = $this->input->cookie('user_id', TRUE);
                 <a href="#"><?php echo $lang_pnl ?></a>
                 <ul>
                     <li>
-                        <a <?php if (($func == 'pnl_graph_view')) {
+                        <a <?php if (($link == 'pnl_graph_view')) {
                         ?> style="background-color: #e9ecf2;" <?php 
                     } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
                             <?php echo $lang_pnl; ?>
                         </a>
-                        <a <?php if (($func == 'pnl_report')) {
+                        <a <?php if (($link == 'pnl_report')) {
                         ?> style="background-color: #e9ecf2;" <?php 
                     } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
                             <?php echo $lang_pnl_report; ?>
@@ -167,20 +168,20 @@ $user_id = $this->input->cookie('user_id', TRUE);
                 </ul>
             </li>
             <li>
-                <a href="#"><?php echo $lang_return_order ?></a>
+                <a href="#">Sales Return</a>
                 <ul>
                     <li>
-                        <a <?php if (($func == 'create_return') || ($func == 'confirmation')) {
+                        <a <?php if (($link == '')) {
                     ?> style="background-color: #e9ecf2;" <?php 
-                } ?> href="<?=base_url()?>index.php/returnorder/create_return">
-                            <?php echo $lang_create_return_order; ?>
+                } ?> href="<?=base_url()?>index.php/sales_return/">
+                            Buat Sales Return
                         </a>
                     </li>
                     <li>
-                        <a <?php if (($func == 'return_report')) {
+                        <a <?php if (($link == 'data_return')) {
                     ?> style="background-color: #e9ecf2;" <?php 
-                } ?> href="<?=base_url()?>index.php/returnorder/return_report">
-                            <?php echo $lang_return_order_report; ?>
+                } ?> href="<?=base_url()?>index.php/sales_return/data_return">
+                            Data Sales Return
                         </a>
                     </li>
                 </ul>
@@ -211,14 +212,14 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             ?> dropdown <?php 
                         } ?>" id="sub-item-1">
                             <li>
-                                <a <?php if (($func == 'outlets') || ($func == 'addoutlet') || ($func == 'editoutlet')) {
+                                <a <?php if (($link == 'outlets') || ($link == 'addoutlet') || ($link == 'editoutlet')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/setting/outlets">
                                     <?php echo $lang_outlets; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($func == 'users') || ($func == 'adduser') || ($func == 'edituser')) {
+                                <a <?php if (($link == 'users') || ($link == 'adduser') || ($link == 'edituser')) {
                             ?> style="background-color: #e9ecf2;" <?php 
                         } ?> href="<?=base_url()?>index.php/setting/users">
                                     <?php echo $lang_users; ?>
@@ -228,21 +229,21 @@ $user_id = $this->input->cookie('user_id', TRUE);
                                 if ($user_role == '1') {
                                     ?>
                             <li>
-                                <a <?php if (($func == 'suppliers') || ($func == 'addsupplier') || ($func == 'editsupplier')) {
+                                <a <?php if (($link == 'suppliers') || ($link == 'addsupplier') || ($link == 'editsupplier')) {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/suppliers">
                                     <?php echo $lang_suppliers; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if ($func == 'system_setting') {
+                                <a <?php if ($link == 'system_setting') {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/system_setting">
                                     <?php echo $lang_system_setting; ?>
                                 </a>
                             </li>
                             <li>
-                                <a <?php if (($func == 'payment_methods') || ($func == 'addpaymentmethod') || ($func == 'editpaymentmethod')) {
+                                <a <?php if (($link == 'payment_methods') || ($link == 'addpaymentmethod') || ($link == 'editpaymentmethod')) {
                                         ?> style="background-color: #e9ecf2;" <?php 
                                     } ?> href="<?=base_url()?>index.php/setting/payment_methods">
                                     <?php echo $lang_payment_methods; ?>

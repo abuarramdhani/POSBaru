@@ -173,10 +173,20 @@ class Sales_return extends CI_Controller
                     );
                    $this->Constant_model->insertData('return_items',$data_return_detail);
                 }
-                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+
+                $response=json_encode(array('status'=> 200,'message' => 'Berhasil'));
             } catch (Exception $e) {
-                echo json_encode(array('status'=> 400,'message' => 'Gagal karena : '. $e));
+                $response=json_encode(array('status'=> 400,'message' => 'Gagal karena : '. $e));
             }
+            try {
+                $cek = $this->Constant_model->getDataOneColumn('sales','code',$sales_code);
+                if ($cek[0]->method_id == 9 && $type_return == 'cash') {
+                    $this->Constant_model->manualQery("UPDATE piutang SET amount=amount-".$total.", note='return' WHERE preference_id='$sales_code'");
+                }
+            } catch (Exception $e) {
+                $response=json_encode(array('status'=> 400,'message' => 'Gagal karena : '. $e));
+            }
+            echo $response;
         }
         
 	}
@@ -186,6 +196,83 @@ class Sales_return extends CI_Controller
         $kode = $q[0]['kode'];
         echo "RS".$date."".$kode;
         
+    }
+    function print($id){
+        $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $data['site_name'] = $site[0]->site_name;
+        $data['site_logo'] = $site[0]->site_logo;
+        $data_return = $this->Constant_model->getDataOneColumn('return_sales', 'id',$id);
+        $data['code'] = $data_return[0]->code;
+        $data['sales_code'] = $data_return[0]->sales_code;
+        $data['sales_code'] = $data_return[0]->sales_code;
+        $data['date_created'] = $data_return[0]->date_created;
+        $data['amount'] = $data_return[0]->amount;
+        $data['type_return'] = $data_return[0]->type_return;
+        $data['return_status'] = $data_return[0]->return_status;
+        $data['data_return_detail'] = $this->Constant_model->manualQerySelect("SELECT return_items.*,products.name FROM return_items JOIN products ON return_items.product_code = products.id");
+        $this->load->view('print_sales_return',$data);
+    }
+    function data_return(){
+        $data['data_return'] = $this->Constant_model->getAllData('return_sales');
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_no_match_found'] = $this->lang->line('no_match_found');
+        $data['lang_create_return_order'] = $this->lang->line('create_return_order');
+
+        $data['lang_action'] = $this->lang->line('action');
+        $data['lang_edit'] = $this->lang->line('edit');
+        $data['lang_status'] = $this->lang->line('status');
+        $data['lang_add'] = $this->lang->line('add');
+        $data['lang_back'] = $this->lang->line('back');
+        $data['lang_update'] = $this->lang->line('update');
+        $data['lang_active'] = $this->lang->line('active');
+        $data['lang_inactive'] = $this->lang->line('inactive');
+        $data['lang_name'] = $this->lang->line('name');
+        $data['lang_search_product'] = $this->lang->line('search_product');
+        $data['lang_add_to_list'] = $this->lang->line('add_to_list');
+        $data['lang_submit'] = $this->lang->line('submit');
+        $data['lang_receive'] = $this->lang->line('receive');
+        $data['lang_view'] = $this->lang->line('view');
+        $data['lang_created'] = $this->lang->line('created');
+        $data['lang_tax'] = $this->lang->line('tax');
+        $data['lang_discount_amount'] = $this->lang->line('discount_amount');
+        $data['lang_total'] = $this->lang->line('total');
+        $data['lang_totat_payable'] = $this->lang->line('totat_payable');
+        $data['lang_discount'] = $this->lang->line('discount');
+        $this->load->view('sales_return',$data);
     }
 }
  ?>
