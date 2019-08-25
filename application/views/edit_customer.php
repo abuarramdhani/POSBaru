@@ -127,7 +127,7 @@
 			
 			
 			<a href="<?=base_url()?>index.php/customers/view" style="text-decoration: none;">
-				<div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
+				<div class="btn btn-success" > 
 					<i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
 				</div>
 			</a>

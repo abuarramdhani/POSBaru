@@ -186,7 +186,37 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </li>
                 </ul>
             </li>
-                    
+            <li>
+                <a href="#"><?php echo $lang_setting; ?></a>
+                <ul>
+                    <li>
+                        <a <?php if (($link == 'outlets')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/outlets">
+                            <?php echo $lang_outlets; ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($link == 'users')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/users">
+                            <?php echo $lang_users; ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($link == 'suppliers')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/suppliers">
+                            <?php echo $lang_suppliers; ?>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a <?php if (($link == 'payment_methods')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/payment_methods">
+                            <?php echo $lang_payment_methods; ?>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a <?php if (($link == 'system_setting')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/system_setting">
+                            <?php echo $lang_system_setting; ?>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+               
                     <?php
                     if ($user_role < 3) {
                             ?>
@@ -199,61 +229,6 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     <?php
 
                         } ?>
-                    
-                    <li <?php if ($link == 'setting') {
-                            ?> class="dropdown-submenu active" <?php 
-                        } else {
-                            echo 'class="dropdown-submenu"';
-                        } ?>>
-                        <a data-toggle="dropdown" href="">
-                            <?php echo $lang_setting; ?>
-                        </a>
-                        <ul class="dropdown-menu <?php if ($link != 'setting') {
-                            ?> dropdown <?php 
-                        } ?>" id="sub-item-1">
-                            <li>
-                                <a <?php if (($link == 'outlets') || ($link == 'addoutlet') || ($link == 'editoutlet')) {
-                            ?> style="background-color: #e9ecf2;" <?php 
-                        } ?> href="<?=base_url()?>index.php/setting/outlets">
-                                    <?php echo $lang_outlets; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if (($link == 'users') || ($link == 'adduser') || ($link == 'edituser')) {
-                            ?> style="background-color: #e9ecf2;" <?php 
-                        } ?> href="<?=base_url()?>index.php/setting/users">
-                                    <?php echo $lang_users; ?>
-                                </a>
-                            </li>
-                            <?php
-                                if ($user_role == '1') {
-                                    ?>
-                            <li>
-                                <a <?php if (($link == 'suppliers') || ($link == 'addsupplier') || ($link == 'editsupplier')) {
-                                        ?> style="background-color: #e9ecf2;" <?php 
-                                    } ?> href="<?=base_url()?>index.php/setting/suppliers">
-                                    <?php echo $lang_suppliers; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if ($link == 'system_setting') {
-                                        ?> style="background-color: #e9ecf2;" <?php 
-                                    } ?> href="<?=base_url()?>index.php/setting/system_setting">
-                                    <?php echo $lang_system_setting; ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php if (($link == 'payment_methods') || ($link == 'addpaymentmethod') || ($link == 'editpaymentmethod')) {
-                                        ?> style="background-color: #e9ecf2;" <?php 
-                                    } ?> href="<?=base_url()?>index.php/setting/payment_methods">
-                                    <?php echo $lang_payment_methods; ?>
-                                </a>
-                            </li>
-                            <?php
-
-                                } ?>
-                        </ul>
-                    </li>
         </ul>
     </div>
 </div>

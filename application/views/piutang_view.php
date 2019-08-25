@@ -10,14 +10,6 @@
 <script type="text/javascript" src="<?=base_url()?>assets/js/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
 <section id="content">
-	<section class="vbox">
-		<section class="scrollable wrapper">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">Cari Konsumen</h1>
-		</div>
-	</div><!--/.row-->
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">

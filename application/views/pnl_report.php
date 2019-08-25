@@ -6,27 +6,12 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script>
-	$( function() {
-		$( "#startDate" ).datepicker({
-			format: "<?php echo $dateformat; ?>",
-			autoclose: true
-		});
-		
-		$("#endDate").datepicker({
-			format: "<?php echo $dateformat; ?>",
-			autoclose: true
-		});
-	} );
-</script>
 
 <?php
-    $url_outlet = '';
     $url_start = '';
     $url_end = '';
 
     if (isset($_GET['report'])) {
-        $url_outlet = $_GET['outlet'];
         $url_start = $_GET['start_date'];
         $url_end = $_GET['end_date'];
     }
@@ -46,13 +31,7 @@
 	} );
 </script>
 
-<section id="content">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_pnl_report; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
+<section id="content">	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -62,51 +41,14 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
-								<label><?php echo $lang_outlets; ?></label>
-								<select name="outlet" class="form-control" required>
-								<?php
-                                    if ($user_role == '1') {
-                                        ?>
-									<option value=""><?php echo $lang_choose_outlet; ?></option>
-									<option value="-" <?php if ($url_outlet == '-') {
-                                            echo 'selected="selected"';
-                                        } ?>><?php echo $lang_all_outlets; ?></option>
-								<?php
-
-                                    }
-                                ?>
-									
-								<?php
-                                    if ($user_role == '1') {
-                                        $outletData = $this->Constant_model->getDataAll('outlets', 'id', 'ASC');
-                                    } else {
-                                        $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
-                                    }
-                                    for ($o = 0; $o < count($outletData); ++$o) {
-                                        $outlet_id = $outletData[$o]->id;
-                                        $outlet_fn = $outletData[$o]->name; ?>
-										<option value="<?php echo $outlet_id; ?>" <?php if ($url_outlet == $outlet_id) {
-                                            echo 'selected="selected"';
-                                        } ?>>
-											<?php echo $outlet_fn; ?>
-										</option>
-								<?php
-
-                                    }
-                                ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
 								<label><?php echo $lang_date_from; ?></label>
-								<input type="text" name="start_date" class="form-control" id="startDate" required value="<?php echo $url_start; ?>" />
+								<input type="date" name="start_date" class="form-control" id="startDate" required value="<?php echo $url_start; ?>" />
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label><?php echo $lang_date_to; ?></label>
-								<input type="text" name="end_date" class="form-control" id="endDate" required value="<?php echo $url_end; ?>" />
+								<input type="date" name="end_date" class="form-control" id="endDate" required value="<?php echo $url_end; ?>" />
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -165,23 +107,6 @@
 
             $end_day = $endArray[0];
             $end_mon = $endArray[1];
-            $end_yea = $endArray[2];
-
-            $url_end = $end_yea.'-'.$end_mon.'-'.$end_day;
-        }
-
-        if ($site_dateformat == 'm/d/Y') {
-            $startArray = explode('/', $url_start);
-            $endArray = explode('/', $url_end);
-
-            $start_day = $startArray[1];
-            $start_mon = $startArray[0];
-            $start_yea = $startArray[2];
-
-            $url_start = $start_yea.'-'.$start_mon.'-'.$start_day;
-
-            $end_day = $endArray[1];
-            $end_mon = $endArray[0];
             $end_yea = $endArray[2];
 
             $url_end = $end_yea.'-'.$end_mon.'-'.$end_day;
@@ -269,7 +194,6 @@
         } ?>
 					<div class="row" style="margin-top: 10px;">
 						<div class="col-md-12" style="text-align: right;">
-							<a href="<?=base_url()?>index.php/pnl/exportpnlReport?report=<?php echo $_GET['report']; ?>&start_date=<?php echo $url_start; ?>&end_date=<?php echo $url_end; ?>&outlet=<?php echo $url_outlet; ?>" style="text-decoration: none">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									<?php echo $lang_export_to_excel; ?>
 								</button>
@@ -286,13 +210,10 @@
         <tr>
             <th width="12%"><?php echo $lang_date; ?></th>
             <th width="5%"><?php echo $lang_sale_id; ?></th>
-            <th width="12%"><?php echo $lang_outlets; ?></th>
             <th width="10%"><?php echo $lang_payment_methods; ?></th>
             <th width="10%"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</th>
             <th width="10%"><?php echo $lang_cost; ?> (<?php echo $site_currency; ?>)</th>
-            <th width="10%"><?php echo $lang_tax; ?> (<?php echo $site_currency; ?>)</th>
             <th width="10%"><?php echo $lang_profit_amount; ?> (<?php echo $site_currency; ?>)</th>
-            <th width="5%"><?php echo $lang_print; ?></th>
         </tr>
     </thead>
     
@@ -313,38 +234,26 @@
         $paid_sort = '';
 
         $outlet_sort = '';
-        if ($url_outlet == '-') {
-            $outlet_sort = ' AND outlet_id > 0 ';
-        } else {
-            $outlet_sort = " AND outlet_id = '$url_outlet' ";
-        }
 
-        $orderResult = $this->db->query("SELECT * FROM orders WHERE ordered_datetime >= '$start_date' AND ordered_datetime <= '$end_date' $paid_sort $outlet_sort ORDER BY ordered_datetime DESC ");
+        $orderResult = $this->db->query("SELECT sales.*,payment_method.name FROM sales JOIN payment_method ON sales.method_id = payment_method.id WHERE created_date >= '$start_date' AND created_date <= '$end_date' $paid_sort ORDER BY created_date DESC ");
         $orderRows = $orderResult->num_rows();
 
         if ($orderRows > 0) {
             $orderData = $orderResult->result();
             for ($od = 0; $od < count($orderData); ++$od) {
-                $order_id = $orderData[$od]->id;
-                $order_dtm = date("$site_dateformat H:i A", strtotime($orderData[$od]->ordered_datetime));
-                $outlet_id = $orderData[$od]->outlet_id;
-                $subTotal = $orderData[$od]->subtotal;
-                $tax = $orderData[$od]->tax;
-                $grandTotal = $orderData[$od]->grandtotal;
-                $pay_method_id = $orderData[$od]->payment_method;
-                $cheque_numb = $orderData[$od]->cheque_number;
-
-                $outlet_name = $orderData[$od]->outlet_name;
-                $payment_method_name = $orderData[$od]->payment_method_name;
-                $order_type = $orderData[$od]->status;
+                $order_id = $orderData[$od]->code;
+                $order_dtm = date("$site_dateformat H:i A", strtotime($orderData[$od]->created_date));
+                $subTotal = $orderData[$od]->total_deal;
+                $grandTotal = $orderData[$od]->total_deal;
+                $payment_method_name = $orderData[$od]->name;
 
                 // Cost;
                 $each_sales_cost = 0;
-                $itemResult = $this->db->query("SELECT * FROM order_items WHERE order_id = '$order_id' ");
+                $itemResult = $this->db->query("SELECT * FROM sales_items WHERE sales_id = '$order_id' ");
                 $itemData = $itemResult->result();
 
                 for ($t = 0; $t < count($itemData); ++$t) {
-                    $item_cost = $itemData[$t]->cost;
+                    $item_cost = $itemData[$t]->price_cost;
                     $item_qty = $itemData[$t]->qty;
 
                     $each_sales_cost += ($item_cost * $item_qty);
@@ -352,10 +261,9 @@
 
                 // Each Profit;
                 $each_profit = 0;
-                $each_profit = $grandTotal - $each_sales_cost - $tax;
+                $each_profit = $grandTotal - $each_sales_cost;
 
                 $all_grand_amt += $grandTotal;
-                $all_tax_amt += $tax;
                 $all_cost_amt += $each_sales_cost;
                 $all_profit_amt += $each_profit; ?>
                 
@@ -364,9 +272,6 @@
 	            	<?php echo $order_dtm; ?>
             	</td>
             	<td><?php echo $order_id; ?>
-            	<td>
-	            	<?php echo $outlet_name; ?>
-            	</td>
             	<td>
 	            	<?php echo $payment_method_name; ?>
 					<?php
@@ -381,31 +286,9 @@
 	            	<?php echo number_format($each_sales_cost, 2, '.', ''); ?>
             	</td>
             	<td>
-	            	<?php echo number_format($tax, 2, '.', ''); ?>
-            	</td>
-            	<td>
 	            	<?php echo number_format($each_profit, 2, '.', ''); ?>
             	</td>
-            	<td>
-<?php
-    if ($order_type == '1') {
-        ?>
-	<a onclick="openReceipt('<?=base_url()?>index.php/pos/view_invoice?id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-		<i class="icono-list" style="color: #005b8a;"></i>
-	</a>
-<?php
-
-    }
-                if ($order_type == '2') {
-                    ?>
-	<a onclick="openReceipt('<?=base_url()?>index.php/returnorder/printReturn?return_id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-		<i class="icono-list" style="color: #005b8a;"></i>
-	</a>
-<?php
-
-                } ?>
-            	</td>
-	        </tr>
+            </tr>
 <?php	
 
                 unset($order_id);
@@ -439,11 +322,6 @@
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-3" style="font-weight: bold;"><?php echo $lang_cost_total; ?> (<?php echo $site_currency; ?>)</div>
 			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_cost_amt, 2, '.', ''); ?></div>
-		</div>
-		
-		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
-			<div class="col-md-3" style="font-weight: bold;"><?php echo $lang_tax_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_tax_amt, 2, '.', ''); ?></div>
 		</div>
 		
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">

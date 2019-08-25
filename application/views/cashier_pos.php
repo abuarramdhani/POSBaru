@@ -7,39 +7,6 @@
 <link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
 
 <section id="content">
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Penjualan</h5>
@@ -119,6 +86,7 @@
 							<button class="btn btn-primary" id="btnSimpanTransaksi" style="padding: 15px 40px;">Simpan</button>
 							<?php echo  anchor('index.php/Cashier','Tahan','class="btn btn-primary" style="padding: 15px 40px;"') ?>
 							<button class="btn btn-primary" id="btnTransaksiDitahan" style="padding: 15px 40px;">Buka Transaksi Ditahan</button>
+							<a href="<?php echo base_url(); ?>index.php/cashier/data" class="btn btn-success" style="padding: 15px 40px;">Print</a>
 						</center>
                     </div>
 				</div>
@@ -212,6 +180,7 @@
 				if (json.status == 400) {
 					swal(json.message);
 				}else{
+					window.open("<?php echo base_url() ?>index.php/cashier/print/"+json.id);
 					window.location.reload();
 				}
 			}
@@ -379,6 +348,7 @@
 							var status 	= data.errorMsg;
 							var name 	= data.name;
 							var harga 	= data.price;
+							var cost 	= data.purchase_price;
 							var sales_order_no = $.trim($('#sales_order_no').val());
 							var typeahead = $('#typeahead').val();
 							if(status == "failure"){
@@ -387,6 +357,7 @@
 								var data = {
 									sales_order_no:sales_order_no,
 									pcode:typeahead,
+									cost:cost,
 									price_print:harga,
 									price_deal:harga
 								};

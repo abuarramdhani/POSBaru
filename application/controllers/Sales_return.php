@@ -201,6 +201,7 @@ class Sales_return extends CI_Controller
         $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $data['site_name'] = $site[0]->site_name;
         $data['site_logo'] = $site[0]->site_logo;
+        $data['address'] = $site[0]->address;
         $data_return = $this->Constant_model->getDataOneColumn('return_sales', 'id',$id);
         $data['code'] = $data_return[0]->code;
         $data['sales_code'] = $data_return[0]->sales_code;

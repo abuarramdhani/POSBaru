@@ -17,9 +17,6 @@ require_once 'includes/header4.php';
 ?>
 <section id="content">
 	<div class="row">
-				<div class="col-lg-12">
-					<h1 class="page-header"><?php echo $lang_pnl; ?></h1>
-				</div>
 			</div><!--/.row-->
 	
 			<div class="row">
@@ -48,6 +45,7 @@ require_once 'includes/header4.php';
 			</div><!-- Row // END -->
 
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="<?=base_url()?>assets/js/highcharts.js"></script>
 <script src="<?=base_url()?>assets/js/exporting.js"></script>	
 <script type="text/javascript">
@@ -126,12 +124,11 @@ require_once 'includes/header4.php';
                                 $exp_date_start = $year.'-'.$mon.'-'.$d;
                                 $exp_date_end = $year.'-'.$mon.'-'.$d;
 
-                                $orderResult = $this->db->query("SELECT id, grandtotal, tax FROM orders WHERE ordered_datetime >= '$full_date_start' AND ordered_datetime <= '$full_date_end' AND outlet_id = '$outlet_id' ");
+                                $orderResult = $this->db->query("SELECT id,total_deal FROM sales WHERE created_date >= '$full_date_start' AND created_date <= '$full_date_end'");
                                 $orderData = $orderResult->result();
                                 for ($od = 0; $od < count($orderData); ++$od) {
                                     $order_id = $orderData[$od]->id;
-                                    $total_monthly_amt += number_format($orderData[$od]->grandtotal, 2, '.', '');
-                                    $total_tax_amt += $orderData[$od]->tax;
+                                    $total_monthly_amt += number_format($orderData[$od]->total_deal, 2, '.', '');
 
                                     $itemResult = $this->db->query("SELECT * FROM order_items WHERE order_id = '$order_id' ");
                                     $itemData = $itemResult->result();
@@ -161,7 +158,7 @@ require_once 'includes/header4.php';
                                 */
                             }    // End of Number of Day Loop;
 
-                            echo($total_monthly_amt - ($total_expenses_amt + $total_items_cost + $total_tax_amt)).',';
+                            echo($total_monthly_amt - ($total_expenses_amt + $total_items_cost)).',';
                         } ?>
 	            ]
 	

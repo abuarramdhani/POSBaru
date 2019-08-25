@@ -25,7 +25,7 @@
         <h1><?php echo $site_name; ?></h1>
     </div>
     <div class="col-md-6">
-        Alamat
+        <?php echo $address ?>
     </div>
     </div>
     <hr>

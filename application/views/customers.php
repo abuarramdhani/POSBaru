@@ -13,7 +13,7 @@ $this->load->view('includes/header4.php');
 					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
 						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/customers/addCustomer" style="text-decoration: none;">
-								<button type="button" class="btn btn-primary" style="padding-top: 2px; padding-bottom: 2px; border: 0px;">
+								<button type="button" class="btn btn-primary">
 									<i class="fa fa-plus"></i> <?php echo $lang_add_customer; ?>
 								</button>
 							</a>

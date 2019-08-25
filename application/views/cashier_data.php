@@ -36,9 +36,10 @@
 											<td><?php echo $data['name'] ?></td>
 											<td>Rp. <?php echo number_format($data['total_deal'],0,',','.') ?></td>
 											<td>
-												<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-												<button class="btn btn-warning"><i class="fa fa-eye"></i></button>
-												<button class="btn btn-danger"><i class="fa fa-print"></i></button>
+												<a href="<?php echo base_url() ?>index.php/cashier/print_do/<?php echo $data['id'] ?>" target="_blank" class="btn btn-success">Print Surat Jalan</a>
+												<a href="<?php echo base_url() ?>index.php/cashier/print_gudang/<?php echo $data['id'] ?>" target="_blank" class="btn btn-primary">Print Gudang</a>
+												<a href="<?php echo base_url() ?>index.php/cashier/print/<?php echo $data['id'] ?>" target="_blank" class="btn btn-danger">Print Struk</a>
+							
 
 											</td>
 

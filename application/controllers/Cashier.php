@@ -149,11 +149,13 @@ class Cashier extends CI_Controller
             $ckPcodeData = $ckPcodeResult->result();
             $ckPcode_name = $ckPcodeData[0]->name;
             $ckPcode_price = $ckPcodeData[0]->retail_price;
+            $ckPcode_purchase_price = $ckPcodeData[0]->purchase_price;
 
             $response = array(
                 'errorMsg' => 'success',
                 'name' => $ckPcode_name,
                 'price' => $ckPcode_price,
+                'purchase_price' => $ckPcode_purchase_price,
             );
         }
         echo json_encode($response);
@@ -163,6 +165,7 @@ class Cashier extends CI_Controller
         $pcode = strip_tags($this->input->post("pcode"));
         $qty = strip_tags($this->input->post("qty"));
         $price_print = strip_tags($this->input->post("price_print"));
+        $cost = strip_tags($this->input->post("cost"));
         $price_deal = strip_tags($this->input->post("price_deal"));
         $outlet_id = strip_tags($this->input->post("listgudang"));
         $cek = $this->Constant_model->getDataTwoColumn('temp_sales_items','sales_id',$no_sales,'product_code',$pcode);
@@ -176,6 +179,7 @@ class Cashier extends CI_Controller
                 'qty' => 1,
                 'price_print' => $price_print,
                 'price_deal' => $price_deal,
+                'price_cost' => $cost,
                 'outlet_id' => 1
             );
             try {
@@ -195,7 +199,25 @@ class Cashier extends CI_Controller
         $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $data['site_name'] = $site[0]->site_name;
         $data['site_logo'] = $site[0]->site_logo;
+        $data['address'] = $site[0]->address;
+        $data['sales'] = $this->Constant_model->manualQerySelect("SELECT sales.*,payment_method.name as pembayaran,sales_items.qty,sales_items.price_print,outlets.name as gudang,products.name as nama_barang,users.fullname as kasir,products.code as kode_barang,customers.fullname,customers.address as alamat_customer FROM sales JOIN customers ON sales.customer_id = customers.id JOIN users ON sales.created_id = users.id JOIN payment_method ON sales.method_id = payment_method.id JOIN sales_items ON sales.code = sales_items.sales_id JOIN outlets ON sales_items.outlet_id = outlets.id JOIN products ON sales_items.product_code = products.id WHERE sales.id=$id");
         $this->load->view('print_struk',$data);
+    }
+    function print_gudang($id){
+        $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $data['site_name'] = $site[0]->site_name;
+        $data['site_logo'] = $site[0]->site_logo;
+        $data['address'] = $site[0]->address;
+        $data['sales'] = $this->Constant_model->manualQerySelect("SELECT sales.*,payment_method.name as pembayaran,sales_items.qty,sales_items.price_print,outlets.name as gudang,products.name as nama_barang,users.fullname as kasir,products.code as kode_barang,customers.fullname,customers.address as alamat_customer FROM sales JOIN customers ON sales.customer_id = customers.id JOIN users ON sales.created_id = users.id JOIN payment_method ON sales.method_id = payment_method.id JOIN sales_items ON sales.code = sales_items.sales_id JOIN outlets ON sales_items.outlet_id = outlets.id JOIN products ON sales_items.product_code = products.id WHERE sales.id=$id");
+        $this->load->view('print_struk_gudang',$data);
+    }
+    function print_do($id){
+        $site = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $data['site_name'] = $site[0]->site_name;
+        $data['site_logo'] = $site[0]->site_logo;
+        $data['address'] = $site[0]->address;
+        $data['sales'] = $this->Constant_model->manualQerySelect("SELECT sales.*,payment_method.name as pembayaran,sales_items.qty,sales_items.price_print,outlets.name as gudang,products.name as nama_barang,users.fullname as kasir,products.code as kode_barang,customers.fullname,customers.address as alamat_customer FROM sales JOIN customers ON sales.customer_id = customers.id JOIN users ON sales.created_id = users.id JOIN payment_method ON sales.method_id = payment_method.id JOIN sales_items ON sales.code = sales_items.sales_id JOIN outlets ON sales_items.outlet_id = outlets.id JOIN products ON sales_items.product_code = products.id WHERE sales.id=$id");
+        $this->load->view('print_struk_do',$data);
     }
     function editKolom(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
@@ -301,7 +323,7 @@ class Cashier extends CI_Controller
                 'total_print' => $total_print
             );
             try {
-                $insertData = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
+                $last = $this->Constant_model->insertDataReturnLastId('sales', $ins_sales_data);
                 $a = $this->Constant_model->getSelectionData('temp_sales_items','sales_id',$no_sales);
                 foreach ($a as $data) {
                     $b = $this->Constant_model->getSelectionData('products','id',$data['product_code']);
@@ -315,7 +337,7 @@ class Cashier extends CI_Controller
                                 'product_code' => $c['code']
                             );
                             $this->Inventory_model->updateStock($update, $where);
-                            $response = json_encode(array('status'=> 200,'message' => 'Data berhasil :')); 
+                            $response =  json_encode(array('status'=> 200,'message' => 'Berhasil','id' => $last));
                         } catch (Exception $e) {
                              $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));
                         }
@@ -328,6 +350,7 @@ class Cashier extends CI_Controller
                         'qty' => $data['qty'],
                         'price_print' => $data['price_print'],
                         'price_deal' => $data['price_deal'],
+                        'price_cost' => $data['price_cost'],
                         'outlet_id' => $data['outlet_id']
                     );
                     try {
@@ -338,7 +361,7 @@ class Cashier extends CI_Controller
                                 'product_code' => $data['product_code'],
                             );
                             $this->Constant_model->deleteWhere('temp_sales_items',$array);
-                            $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                            $response =  json_encode(array('status'=> 200,'message' => 'Berhasil','id' => $last));
 
                         }    
                     } catch (Exception $e) {
@@ -364,7 +387,7 @@ class Cashier extends CI_Controller
                 );
                 try {
                     $insertData = $this->Constant_model->insertData('piutang',$dataInsert);
-                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil','id' => $last));
                 } catch (Exception $e) {
                     $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }
@@ -380,7 +403,7 @@ class Cashier extends CI_Controller
                 );
                 try {
                     $insertData = $this->Constant_model->updateDataCashier('sales',$dataUpdate,$where);   
-                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil'));
+                    $response =  json_encode(array('status'=> 200,'message' => 'Berhasil','id' => $last));
                 } catch (Exception $e) {
                     $response = json_encode(array('status'=> 400,'message' => 'Data gagal karena : '.$e));  
                 }

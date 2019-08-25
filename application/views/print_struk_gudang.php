@@ -36,39 +36,39 @@ foreach ($sales as $data_total) {
     	/*}*/
     </style>
 <body>
+	
 	<div class="surat_jalan">
 		<div class="row">
 			<div class="col-md-12">
-				<h4><?php echo $site_name ?></h4>
-				<h6><?php echo $address ?></h6>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<table class="table table-bordered">
-					<tr>
-						<th>No. Faktur</th>
-						<td>:</td>
-						<td><?php echo $no_faktur ?></td>
-					</tr>
-					<tr>
-						<th>Tgl Faktur</th>
-						<td>:</td>
-						<td><?php echo $created_date ?></td>
-					</tr>
-					<tr>
-						<th>Pelanggan</th>
-						<td>:</td>
-						<td><?php echo $customer_name ?></td>
-					</tr>
-				</table>
+				<center>
+					<h1><?php echo $site_name ?></h1>
+				<p>Alamat</p>
+				</center>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<p style="text-align: right;">
-					Tgl. Cetak <?php echo date('d/m/Y H:i:s') ?>
-				</p>
+				<center>
+					<h2>BUKTI TANDA TERIMA</h2>
+					<b><?php echo $no_faktur ?></b>
+				</center>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				&nbsp;
+			</div>
+			<div class="col-md-6">
+				<b>Penerima :</b><br>
+				<h4><?php echo $customer_name ?></h4><br>
+				<p><?php echo $customer_address ?></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<b>Mohon diterima barang-barang tersebut dibawah ini :</b>
 			</div>
 		</div>
 		<div class="row">
@@ -77,56 +77,79 @@ foreach ($sales as $data_total) {
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Kode Barang</th>
 							<th>Nama Barang</th>
-							<th>Harga</th>
 							<th>Qty</th>
-							<th>Subtotal</th>
+							<th>Gudang</th>
+							<th>Keterangan</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php $i = 1;foreach ($sales as $data_items): ?>
+						<?php $i=1;foreach ($sales as $data): ?>
 							<tr>
 								<td><?php echo $i ?></td>
-								<td><?php echo $data_items['kode_barang'] ?></td>
-								<td><?php echo $data_items['nama_barang'] ?></td>
-								<td><?php echo $data_items['qty'] ?></td>
-								<td><?php echo number_format($data_items['price_print'],0,',','.') ?></td>
-								<td><?php echo number_format($data_items['price_print']*$data_items['qty'],0,',','.')  ?></td>
+								<td><?php echo $data['nama_barang'] ?></td>
+								<td><?php echo $data['qty'] ?></td>
+								<td><?php echo $data['gudang'] ?></td>
+								<td>-</td>
 							</tr>
-						<?php $i++;endforeach ?>
+						<?php $i++; endforeach ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8"></div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<table class="table table-bordered">
-					<tr>
-						<th>Total Bayar</th>
-						<td>:</td>
-						<td><?php echo number_format($total,0,'.',',') ?></td>
-					</tr>
+					<thead>
+						<tr>
+							<th>Kasir</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="height: 100px">&nbsp;</td>
+						</tr>
+						<tr>
+							<td><?php echo $kasir ?></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				Kasir : <?php echo $kasir ?>
+			<div class="col-md-3">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Hormat Kami</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="height: 100px">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-md-12">
-				<center>*** TERIMA KASIH ***</center>
+			<div class="col-md-3">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Hormat Kami</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="height: 100px">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<center>( <?php echo $site_name ?> )</center>
-			</div>
-		</div>
+		</div>	
 	</div>
 
 </body>

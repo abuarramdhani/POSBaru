@@ -27,7 +27,6 @@
     $url_end = '';
 
     if (isset($_GET['report'])) {
-        $url_outlet = $_GET['outlet'];
         $url_paid_by = $_GET['paid'];
         $url_start = $_GET['start_date'];
         $url_end = $_GET['end_date'];

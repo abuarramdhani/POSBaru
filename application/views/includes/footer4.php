@@ -20,7 +20,6 @@
 <!-- end::daterangepicker -->
 
 <!-- begin::dashboard -->
-<script src="<?php echo base_url(); ?>assets/js/examples/dashboard.js"></script>
 <!-- end::dashboard -->
 
 <!-- begin::vamp -->
