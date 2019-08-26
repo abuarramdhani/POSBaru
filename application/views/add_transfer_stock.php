@@ -11,7 +11,7 @@
 							<input type="hidden" id="code">
 								<div class="form-group">
 									<label><?php echo $lang_choose_first_outlet; ?> <span style="color: #F00">*</span></label>
-									<select class="form-control" name="first_outlet">
+									<select class="form-control" id="first_outlet">
 										<?php foreach ($first_outlet as $first_outlet): ?>
 											<option value="<?php echo $first_outlet->id ?>"><?php echo $first_outlet->name ?></option>
 										<?php endforeach ?>
@@ -21,7 +21,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label><?php echo $lang_choose_second_outlet; ?> <span style="color: #F00">*</span></label>
-									<select class="form-control" name="second_outlet">
+									<select class="form-control" id="second_outlet">
 										<?php foreach ($second_outlet as $second_outlet): ?>
 											<option value="<?php echo $second_outlet->id ?>"><?php echo $second_outlet->name ?></option>
 										<?php endforeach ?>
@@ -98,22 +98,57 @@
     require_once 'includes/footer4.php';
 ?>
 <script type="text/javascript">
-	$(document).ready(function(){
-		get_data_temp();
+	function get_kode(){
 		$.ajax({
-				url:'<?php echo base_url() ?>index.php/transfer_stock/get_kode',
-				
-				success:function(data){
-					$('#code').val(data);
-				}
-			});
+			url:'<?php echo base_url() ?>index.php/transfer_stock/get_kode',
+			
+			success:function(data){
+				$('#code').val(data);
+				get_data_temp(data);
+			}
+		});
+	}
+	$(document).ready(function(){
+		get_kode();
+		// get_data_temp();
+		
 	});
 	$(document).on('click','#btnSave',function(){
-		var code = $('#code').val();
+		var code = $.trim($('#code').val());
+		var data ={
+			code:code
+		};
+		if (code == null) {
+			swal('Code kosong');
+		}
+		else{
+			$.ajax({
+				url:'<?php echo base_url() ?>index.php/transfer_stock/insertTransferStock',
+				data:data,
+				type:'POST',
+				success:function(data){
+					var json = jQuery.parseJSON(data);
+					if (json.status == 200) {
+						swal('Berhasil!',json.message,'success');
+						get_kode();
+						window.open('<?php echo base_url() ?>index.php/transfer_stock/print/'+json.code);
+					}else{
+						swal(json.message);
+					}
+				}
+			});
+		}
+	});
+	$(document).on('click','#btnAdd',function(){
+		var code = $.trim($('#code').val());
+		var product_code = $('#product_code').val();
+		var qty = $('#qty').val();
 		var first_outlet = $('#first_outlet').val();
 		var second_outlet = $('#second_outlet').val();
 		var data ={
 			code:code,
+			product_code:product_code,
+			qty:qty,
 			first_outlet:first_outlet,
 			second_outlet:second_outlet
 		};
@@ -125,35 +160,6 @@
 			swal('Outlet tujuan kosong');
 		}else if(first_outlet == second_outlet){
 			swal('Outlet tidak boleh sama');
-		}
-		else{
-			$.ajax({
-				url:'<?php echo base_url() ?>index.php/transfer_stock/insertTransferStock',
-				data:data,
-				type:'POST',
-				success:function(data){
-					var json = jQuery.parseJSON(data);
-					if (json.status == 200) {
-						swal('Berhasil!',json.message,'success');
-						get_data_temp();
-					}else{
-						swal(json.message);
-					}
-				}
-			});
-		}
-	});
-	$(document).on('click','#btnAdd',function(){
-		var code = $('#code').val();
-		var product_code = $('#product_code').val();
-		var qty = $('#qty').val();
-		var data ={
-			code:code,
-			product_code:product_code,
-			qty:qty
-		};
-		if (code == null) {
-			swal('Code kosong');
 		}else if(product_code == null){
 			swal('Produk tidak kosong');
 		}else if(qty == null || qty == 0){
@@ -167,7 +173,7 @@
 					var json = jQuery.parseJSON(data);
 					if (json.status == 200) {
 						swal('Berhasil!',json.message,'success');
-						get_data_temp();
+						get_kode();
 					}else{
 						swal(json.message);
 					}
@@ -177,11 +183,33 @@
 
 	});
 	function get_data_temp(){
+		var code = $.trim($('#code').val());
+		var data = {
+			code:code
+		};
 		$.ajax({
-			url:'<?php echo base_url() ?>index.php/transfer_stock/get_data_temp',
+			url:'<?php echo base_url() ?>index.php/transfer_stock/get_data_temp/',
+			data:data,
+			type:'POST',
 			success:function(data){
 				$('#data').html(data);
 			}
 		});
 	};
+	$(document).on('click','#btnHapusTemp',function(){
+		var code = $.trim($(this).attr('code'));
+		var product_code = $(this).attr('product_code');
+		var data = {
+			code:code,
+			product_code:product_code
+		};
+		$.ajax({
+			url:'<?php echo base_url() ?>index.php/transfer_stock/deleteBarang/',
+			data:data,
+			type:'POST',
+			success:function(data){
+				get_kode();
+			}
+		})
+	});
 </script>

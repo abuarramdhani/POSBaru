@@ -29,30 +29,22 @@
 							<table class="table">
 							    <thead>
 							    	<tr>
-								    	<th width="25%"><?php echo $lang_first_outlet; ?></th>
-									    <th width="25%"><?php echo $lang_second_outlet; ?></th>
-									    <th width="10%"><?php echo $lang_qty_transfer_stock; ?></th>
-									    <th width="20%"><?php echo $lang_date; ?></th>
-									    <th width="10%"><?php echo $lang_action; ?></th>
+									    <th ><?php echo $lang_qty_transfer_stock; ?></th>
+									    <th ><?php echo $lang_date; ?></th>
+									    <th><?php echo $lang_action; ?></th>
 									</tr>
 							    </thead>
 								<tbody>
 								<?php
                                     if (count($results) > 0) {
                                         foreach ($results as $data) {
-                                            $first_outlet = $data->outlet_asal;
-                                            $second_outlet = $data->outlet_tujuan;
-                                            $qty = $data->qty; ?>
+                                             ?>
 											<tr>
-												<td><?php echo $first_outlet; ?></td>
-												<td><?php echo $second_outlet; ?></td>
-												<td><?php echo $qty; ?></td>
-												<td><?php echo $data->date; ?></td>
+												<td><?php echo $data->code ?></td>
+												<td><?php echo $data->created_date ?></td>
+												<td><a href="<?php echo base_url() ?>index.php/transfer_stock/print/<?php echo $data->code ?>" class="btn btn-primary" target="_blank">Print</a></td>
 											</tr>
 								<?php
-                                            unset($first_outlet);
-                                            unset($second_outlet);
-                                            unset($qty);
                                         }
                                     } else {
                                         ?>
