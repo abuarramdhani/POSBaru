@@ -75,8 +75,36 @@ $user_id = $this->input->cookie('user_id', TRUE);
             <?php 
             $link = $this->uri->segment(1);
             $func = $this->uri->segment(2);
-             ?>
+            ?>
+            
             <li class="side-menu-divider">Menu</li>
+            <?php 
+            if ($user_role == 3) {
+                echo "<li>".anchor('index.php/cashier/',$lang_pos)."</li>";
+                echo "
+                <li>
+                <a href='#'>Sales Return</a>
+                <ul>
+                    <li>
+                        <a <?php if (($link == '')) {
+                    ?> style='background-color: #e9ecf2;' <?php 
+                } ?> href='<?=base_url()?>index.php/sales_return/'>
+                            Buat Sales Return
+                        </a>
+                    </li>
+                    <li>
+                        <a <?php if (($link == 'data_return')) {
+                    ?> style='background-color: #e9ecf2;' <?php 
+                } ?> href='<?=base_url()?>index.php/sales_return/data_return'>
+                            Data Sales Return
+                        </a>
+                    </li>
+                </ul>
+            </li>
+                ";
+            }else{
+
+            ?>
             <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/piutang',"Piutang",($link=="piutang"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/hutang',"Hutang",($link=="hutang"?'class="active"':'')) ?></li>
@@ -218,6 +246,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
             </li>
                
                     <?php
+                    }
                     if ($user_role < 3) {
                             ?>
                     <!-- <li <?php if ($link == 'purchase_order') {
@@ -270,18 +299,6 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </div>
                 </li>
             </ul>
-            <form class="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search ..."
-                           aria-label="Recipient's username"
-                           aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn" type="button" id="button-addon2">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
 
     </div>

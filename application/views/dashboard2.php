@@ -87,6 +87,40 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        Jatuh Tempo Hutang
+                    </div>
+                    <div class="card-body">
+                        <div class="custom-control custom-checkbox-success custom-checkbox todo-item">
+                            <?php foreach ($jatuh_tempo_piutang as $jatuh_tempo_piutang): ?>
+                                <label class="custom-control-label d-flex justify-content-between"><?php echo $jatuh_tempo_piutang['customer_id'] ?>
+                                    <small class="text-muted font-size-11"><?php echo $jatuh_tempo_piutang['jatuh_tempo'] ?></small>
+                                </label>
+                            <?php endforeach ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        Jatuh Tempo Piutang
+                    </div>
+                    <div class="card-body">
+                        <div class="custom-control custom-checkbox-success custom-checkbox todo-item">
+                            <label class="custom-control-label d-flex justify-content-between" for="customCheck1">Talk
+                                to new customers
+                                <small class="text-muted font-size-11">13 May 2019</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</section>
 	
 <?php

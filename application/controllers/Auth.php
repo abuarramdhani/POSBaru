@@ -68,7 +68,7 @@ class Auth extends CI_Controller
                 $this->input->set_cookie('out_id',$out_id,'3600'); 
                 $this->session->set_userdata($newdata);
                 if ($role_id == 3) {
-                   redirect('index.php/pos');
+                   redirect('index.php/cashier/');
                 }else{
                    redirect('index.php/dashboard');
                 }
