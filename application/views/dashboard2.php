@@ -54,7 +54,8 @@
                                 <h4 class="m-b-0 font-weight-bold">
                                     <?php 
                                     $q = $this->db->query("SELECT SUM(amount) as total FROM piutang")->result_array();
-                                    echo number_format($q[0]['total'],0,'.',',');
+                                    $r = $this->db->query("SELECT SUM(amount) as total FROM piutang_payment")->result_array();
+                                    echo number_format($q[0]['total']-$r[0]['total'],0,'.',',');
                                      ?>
                                 </h4>
                             </div>
@@ -91,13 +92,15 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        Jatuh Tempo Hutang
+                        Jatuh Tempo Piutang
                     </div>
                     <div class="card-body">
-                        <div class="custom-control custom-checkbox-success custom-checkbox todo-item">
+                        <div class="custom-control">
                             <?php foreach ($jatuh_tempo_piutang as $jatuh_tempo_piutang): ?>
                                 <label class="custom-control-label d-flex justify-content-between"><?php echo $jatuh_tempo_piutang['customer_id'] ?>
-                                    <small class="text-muted font-size-11"><?php echo $jatuh_tempo_piutang['jatuh_tempo'] ?></small>
+                                    <small class="text-muted font-size-11">
+                                        <a href="<?php echo base_url() ?>index.php/piutang/pembayaran_piutang?code=<?php echo $jatuh_tempo_piutang['customer_id'] ?>"><?php echo $jatuh_tempo_piutang['jatuh_tempo'] ?></a>
+                                        </small>
                                 </label>
                             <?php endforeach ?>
                             
@@ -108,14 +111,16 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        Jatuh Tempo Piutang
+                        Jatuh Tempo Hutang
                     </div>
                     <div class="card-body">
-                        <div class="custom-control custom-checkbox-success custom-checkbox todo-item">
-                            <label class="custom-control-label d-flex justify-content-between" for="customCheck1">Talk
-                                to new customers
-                                <small class="text-muted font-size-11">13 May 2019</small>
-                            </label>
+                        <div class="custom-control">
+                            <?php foreach ($jatuh_tempo_hutang as $jatuh_tempo_hutang): ?>
+                                <label class="custom-control-label d-flex justify-content-between"><?php echo $jatuh_tempo_hutang['name'] ?>
+                                    <small class="text-muted font-size-11"><?php echo $jatuh_tempo_hutang['jatuh_tempo'] ?></small>
+                                </label>
+                            <?php endforeach ?>
+                            
                         </div>
                     </div>
                 </div>

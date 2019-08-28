@@ -76,7 +76,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
-			url:'<?php echo base_url() ?>/index.php/piutang/getSelectionData',
+			url:'<?php echo base_url() ?>index.php/piutang/getSelectionData',
 			success:function(data){
 				$('#data_piutang').html(data);
 			}

@@ -54,9 +54,8 @@
 									    	<th><?php echo $lang_date_time; ?></th>
 									    	<th><?php echo $lang_products; ?></th>
 									    	<th><?php echo $lang_quantity; ?></th>
-									    	<th><?php echo $lang_total_quantity; ?></th>
 										    <th><?php echo $lang_sub_total; ?> (<?php echo $currency; ?>)</th>
-										    <th><?php echo $lang_tax; ?> (<?php echo $currency; ?>)</th>
+										    
 										    <th><?php echo $lang_grand_total; ?> (<?php echo $currency; ?>)</th>
 										    <th><?php echo $lang_action; ?></th>
 										</tr>
@@ -68,20 +67,16 @@
     $total_taxTotal_amt = 0;
     $total_grandTotal_amt = 0;
 
-    $historyData = $this->Constant_model->getDataOneColumnSortColumn('orders', 'customer_id', "$cust_id", 'id', 'DESC');
+    $historyData = $this->Constant_model->getDataOneColumnSortColumn('sales', 'customer_id', "$cust_id", 'id', 'DESC');
 
     if (count($historyData) > 0) {
         for ($h = 0; $h < count($historyData); ++$h) {
             $sales_id = $historyData[$h]->id;
-            $dtm = date("$dateformat   H:i A", strtotime($historyData[$h]->ordered_datetime));
-            $subTotal = $historyData[$h]->subtotal;
-            $tax = $historyData[$h]->tax;
-            $grandTotal = $historyData[$h]->grandtotal;
-            $total_items = $historyData[$h]->total_items;
-            $order_type = $historyData[$h]->status;
+            $dtm = date("$dateformat   H:i A", strtotime($historyData[$h]->created_date));
+            $subTotal = $historyData[$h]->total_deal;
+            $grandTotal = $historyData[$h]->total_deal;
 
             $total_subTotal_amt += $subTotal;
-            $total_taxTotal_amt += $tax;
             $total_grandTotal_amt += $grandTotal;
 
             $pcodeArray = array();

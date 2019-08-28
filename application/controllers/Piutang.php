@@ -245,12 +245,12 @@
                 echo "<td>".$data['fullname']."</td>";
                 echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
                 echo "<td>";
-                if ($data['amount'] <= "0") {
-                   echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-primary"');
-                }else{
+                // if ($data['amount'] <= "0") {
+                   
+                // }else{
                     
-                }
-                
+                // }
+                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-primary"');
                 echo "</td>";
                 echo "</tr>";
             }

@@ -112,9 +112,9 @@ $this->load->view('includes/header4.php');
 									<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
 								</a>
 								
-								<a href="<?=base_url()?>index.php/customers/customer_history?cust_id=<?php echo $cust_id; ?>" style="text-decoration: none; margin-left: 10px;">
+								<!-- <a href="<?=base_url()?>index.php/customers/customer_history?cust_id=<?php echo $cust_id; ?>" style="text-decoration: none; margin-left: 10px;">
 									<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_sales_history; ?>&nbsp;&nbsp;</button>
-								</a>
+								</a> -->
 													</td>
 												</tr>
 									<?php

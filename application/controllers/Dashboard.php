@@ -42,7 +42,8 @@ class Dashboard extends CI_Controller
         $data['total_outlet'] = $this->Constant_model->count_data('outlets');
         $data['total_users'] = $this->Constant_model->count_data_condition('users',array('created_user_id' => $this->input->cookie('user_id')));
         $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
-        $data['jatuh_tempo_piutang'] = $this->Constant_model->getAllData('piutang');
+        $data['jatuh_tempo_piutang'] = $this->Constant_model->manualQerySelect('SELECT * FROM piutang ORDER BY created_date DESC');
+        $data['jatuh_tempo_hutang'] = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" ORDER BY hutang.created_date DESC');
         $dash_currency = $dashSiteSettingData[0]->currency;
         $data['currency'] = $dash_currency;
 

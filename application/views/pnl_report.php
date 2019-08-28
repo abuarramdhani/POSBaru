@@ -280,13 +280,13 @@
                         } ?>
             	</td>
             	<td>
-	            	<?php echo number_format($grandTotal, 2, '.', ''); ?>
+	            	<?php echo number_format($grandTotal, 0, '.', ','); ?>
             	</td>
             	<td>
-	            	<?php echo number_format($each_sales_cost, 2, '.', ''); ?>
+	            	<?php echo number_format($each_sales_cost, 0, '.', ','); ?>
             	</td>
             	<td>
-	            	<?php echo number_format($each_profit, 2, '.', ''); ?>
+	            	<?php echo number_format($each_profit, 0, '.', ','); ?>
             	</td>
             </tr>
 <?php	
@@ -316,17 +316,17 @@
         ?>
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; margin-top: 50px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-3" style="font-weight: bold;"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_grand_amt, 2, '.', ''); ?></div>
+			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_grand_amt, 0, '.', ','); ?></div>
 		</div>
 		
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-3" style="font-weight: bold;"><?php echo $lang_cost_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_cost_amt, 2, '.', ''); ?></div>
+			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_cost_amt, 0, '.', ','); ?></div>
 		</div>
 		
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-3" style="font-weight: bold;"><?php echo $lang_profit_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_profit_amt, 2, '.', ''); ?></div>
+			<div class="col-md-9" style="font-weight: bold;">: <?php echo number_format($all_profit_amt, 0, '.', ','); ?></div>
 		</div>
 <?php
 

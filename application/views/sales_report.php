@@ -281,11 +281,13 @@
         $orderRows = $orderResult->num_rows();
 
         if ($orderRows > 0) {
+            $total = 0;
             $orderData = $orderResult->result();
             for ($od = 0; $od < count($orderData); ++$od) {
                 $order_id = $orderData[$od]->code;
                 $order_dtm = date("$site_dateformat H:i A", strtotime($orderData[$od]->created_date));
                 $subTotal = $orderData[$od]->total_deal;
+                $total += $subTotal;
                 $grandTotal = $orderData[$od]->total_deal;
                 $pay_method_id = $orderData[$od]->name; ?>
 			<tr>
@@ -298,10 +300,10 @@
                     <?php echo $pay_method_id ?>
                 </td>
             	<td>
-	            	<?php echo number_format($subTotal, 0, '.', ''); ?> <?php echo $site_currency; ?>
+	            	<?php echo number_format($subTotal, 0, '.', ','); ?> <?php echo $site_currency; ?>
             	</td>
                 <td>
-                    <?php echo number_format($grandTotal, 0, '.', ''); ?> <?php echo $site_currency; ?>
+                    <?php echo number_format($grandTotal, 0, '.', ','); ?> <?php echo $site_currency; ?>
                 </td>
             	<td>
 <?php	
@@ -322,12 +324,12 @@
         ?>
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; margin-top: 50px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-2" style="font-weight: bold;"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($subTotal, 2); ?></div>
+			<div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($total, 0,'.',','); ?></div>
 		</div>
 		
 		<div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
 			<div class="col-md-2" style="font-weight: bold;"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</div>
-			<div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($subTotal, 2); ?></div>
+			<div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($total, 0,'.',','); ?></div>
 		</div>
 <?php
 
