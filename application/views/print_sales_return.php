@@ -20,13 +20,13 @@
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <body onload="print()">
     <div class="row">
-        <div class="col-md-6">
-        <img src="<?php echo base_url() ?>assets/img/logo/<?php echo $site_logo ?>">
-        <h1><?php echo $site_name; ?></h1>
-    </div>
-    <div class="col-md-6">
-        <?php echo $address ?>
-    </div>
+        <div class="col-md-12">
+            <center>
+                <img src="<?php echo base_url() ?>assets/img/logo/<?php echo $site_logo ?>"><br>    
+            <h1><?php echo $site_name; ?></h1>
+            <p style="font-size: 18px"><?php echo $address ?></p>
+            </center>
+        </div>
     </div>
     <hr>
     <br>
@@ -40,7 +40,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h4>Total : <?php echo $amount ?></h4>
+            <h4>Total : Rp. <?php echo number_format($amount,0,'.',',') ?></h4>
         </div>
     </div>
     <div class="row">

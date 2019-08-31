@@ -31,14 +31,14 @@
                     <div class="form-row">
                     	<div class="col-md-4 mb-3">
                     		<label>Pilih Konsumen</label>
-								<select class="form-control" id="customer_id" name="customer_id">
-									<?php foreach ($customers as $data): ?>
-										<option value="<?php echo $data['id'] ?>"><?php echo $data['fullname'] ?></option>
-									<?php endforeach ?>
-								</select>
+							<select class="form-control" id="customer_id" name="customer_id">
+									
+							</select>
+
                     	</div>
                     	<div class="col-md-4 mb-3" id="wrap">
-                    		
+                    		<label>&nbsp;</label><br>	
+                    		<button class="btn btn-primary" id="addCust"><i class="fa fa-plus"></i></button>
                     	</div>
                     	<div class="col-md-4 mb-3">
                             <label>Total Deal</label>
@@ -56,8 +56,7 @@
 							</select>
                     	</div>
                     	<div class="col-md-4 mb-3">
-                    		<label>&nbsp;</label>
-									<div style="background-color: #686868; color: #FFF; width: 200px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList">Tambahkan</div>
+									<button class="btn btn-primary" id="addToList">Tambahkan</button>
                     	</div>
                     </div>
                     <div class="form-row">
@@ -99,7 +98,7 @@
 
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 class="modal-title">Modal Heading</h4>
+	        <h4 class="modal-title">Transaksi Ditahan</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 
@@ -125,6 +124,46 @@
 	    </div>
 	  </div>
 	</div>
+	<div class="modal" id="modalAddCust">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Tambah Customer</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+
+	      <!-- Modal body -->
+	    <div class="modal-body">
+			<div class="form-group">
+					<label>Nama Pelanggan <span style="color: #F00">*</span></label>
+					<input type="text" id="fullname" class="form-control"  maxlength="499" autofocus required autocomplete="off" />
+				</div>
+			<div class="form-group">
+				<label>Email </label>
+				<input type="email" id="email" class="form-control" maxlength="254" autocomplete="off" />
+			</div>
+			<div class="form-group">
+				<label>No Telp </label>
+				<input type="text" id="mobile" class="form-control" maxlength="499" autofocus autocomplete="off" />
+			</div>
+			<div class="form-group">
+				<label>Alamat</label>
+				<textarea class="form-control" id="address"></textarea>
+			</div>
+			
+	    </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-success" data-dismiss="modal" id="simpanCust">Simpan</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -135,11 +174,21 @@
 	<script>
 	var sales_order_no = $.trim($('#sales_order_no').val());
 	get_total(sales_order_no);
+	get_customer();
 	function get_kode(){
 		$.ajax({
 			url		: '<?=base_url()?>index.php/cashier/get_kode',
 			success:function(data){
 				$('#sales_order_no').val(data);
+			}
+		});
+	}
+	function get_customer(){
+		$.ajax({
+			url: '<?=base_url()?>index.php/cashier/getCustomer',
+			success:function(data){
+				// alert(data);	
+				$('#customer_id').html(data);
 			}
 		});
 	}
@@ -171,7 +220,10 @@
 			nama_bank:nama_bank,
 			no_debet:no_debet
 		};
-		$.ajax({
+		if (customer_id == "") {
+			swal('Peringatan!','Pelanggan tidak boleh kosong','warning');
+		}else{
+			$.ajax({
 			url:'<?php echo base_url() ?>index.php/cashier/insertSales',
 			data:data,
 			type:'POST',
@@ -185,7 +237,38 @@
 				}
 			}
 		});
+		}
 
+	});
+	$(document).on('click','#simpanCust',function(){
+		var fullname =$.trim($('#fullname').val());
+		var email =$.trim($('#email').val());
+		var mobile =$.trim($('#mobile').val());
+		var address =$.trim($('#address').val());
+		var data = {
+			fullname:fullname,
+			email:email,
+			mobile:mobile,
+			address:address
+		};
+		$.ajax({
+			url:'<?php echo base_url() ?>index.php/cashier/insertCust',
+			data:data,
+			type:'POST',
+			success:function(data){
+				var json = jQuery.parseJSON(data);
+				if (json.status == 400) {
+					swal(json.message);
+				}else{
+					$('#modalAddCust').modal('hide');
+					get_customer();
+				}
+			}
+		});
+
+	});
+	$(document).on('click','#addCust',function(){
+		$('#modalAddCust').modal('show');
 	});
 	$(document).on('blur','#qty',function(){
 		var a = $(this).attr('typeKolom');
@@ -286,7 +369,7 @@
 			placeholder: "Cari barang",
 			allowClear: true
 		});
-		
+		$('#customer_id').select2();
 		
 		$('#btnTransaksiDitahan').click(function(){
 			$.ajax({

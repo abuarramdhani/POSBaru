@@ -447,34 +447,32 @@ class Customers extends CI_Controller
         $fullname = $this->input->post('fullname');
         $email = $this->input->post('email');
         $mobile = $this->input->post('mobile');
-
+        $address = $this->input->post('address');
         $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($fullname)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add Customer', 'Please enter Customer Full Name!'));
-            redirect(base_url().'index.php/customers/addCustomer');
+            redirect(base_url().'index.php/customers/addCustomer?error=Please enter Customer Full Name!');
         } else {
             if (!empty($email)) {
                 $ckEmailData = $this->Constant_model->getDataOneColumn('customers', 'email', $email);
 
                 if (count($ckEmailData) > 0) {
-                    $this->session->set_flashdata('alert_msg', array('failure', 'Add Customer', "Email Address : $email is already existing in the system! Please try another email address!"));
-                    redirect(base_url().'index.php/customers/addCustomer');
+                    redirect(base_url().'index.php/customers/addCustomer?error=Email sudah tersedia');
                     die();
                 }
             }
 
             $ins_cust_data = array(
-                      'fullname' => $fullname,
-                      'email' => $email,
-                      'mobile' => $mobile,
-                      'created_user_id' => $us_id,
-                      'created_datetime' => $tm,
+                  'fullname' => $fullname,
+                  'email' => $email,
+                  'mobile' => $mobile,
+                  'address' => $address,
+                  'created_user_id' => $us_id,
+                  'created_datetime' => $tm,
             );
             if ($this->Constant_model->insertData('customers', $ins_cust_data)) {
-                $this->session->set_flashdata('alert_msg', array('success', 'Add Customer', "Successfully Added Customer : $fullname"));
-                redirect(base_url().'index.php/customers/addCustomer');
+                redirect(base_url().'index.php/customers/view');
             }
         }
     }
@@ -485,7 +483,7 @@ class Customers extends CI_Controller
         $fn = $this->input->post('fullname');
         $email = $this->input->post('email');
         $mb = $this->input->post('mobile');
-
+        $address = $this->input->post('address');
         $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
@@ -493,6 +491,7 @@ class Customers extends CI_Controller
                 'fullname' => $fn,
                 'email' => $email,
                 'mobile' => $mb,
+                'address' => $address
         );
         $this->Constant_model->updateData('customers', $upd_data, $cust_id);
 

@@ -87,7 +87,7 @@
 
                                             $inv_qty = 0;
 
-                                            $ckInvResult = $this->db->query("SELECT qty, outlet_id FROM inventory WHERE product_code = '$code' ");
+                                            $ckInvResult = $this->db->query("SELECT qty, outlet_id FROM inventory WHERE product_code = '$id' ");
                                             $ckInvData = $ckInvResult->result();
                                             for ($k = 0; $k < count($ckInvData); ++$k) {
                                                 $ckInv_qty = $ckInvData[$k]->qty;
@@ -125,7 +125,7 @@
 	                                			<td><?php echo $inv_qty; ?></td>
 	                                			<!-- <td><?php echo number_format($each_row_cost, 2, '.', ''); ?></td> -->
 	                                			<td>
-		                                			<a href="<?=base_url()?>index.php/inventory/view_detail?pcode=<?php echo $code; ?>" style="text-decoration: none;">
+		                                			<a href="<?=base_url()?>index.php/inventory/view_detail?pcode=<?php echo $id; ?>" style="text-decoration: none;">
 			                                			<button class="btn btn-primary" style="padding: 5px 12px;">
 			                                				&nbsp;&nbsp;<?php echo $lang_view; ?>&nbsp;&nbsp;
 			                                			</button>

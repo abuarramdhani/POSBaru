@@ -44,38 +44,21 @@
 				<div class="card-body">
 					
 					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
+                        if (!empty($this->input->get('error'))) {
 
-                            if ($flash_status == 'failure') {
                                 ?>
 							<div class="row" id="notificationWrp">
 								<div class="col-md-12">
 									<div class="alert bg-warning" role="alert">
 										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+										<?php echo $this->input->get('error') ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
 									</div>
 								</div>
 							</div>
 					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
+                            
                         }
-                    ?>
+                            ?>
 					
 					
 					<div class="row">
@@ -112,21 +95,33 @@
 					</div>
 					
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label><?php echo $lang_purchase_price; ?> (<?php echo $lang_cost; ?>) <span style="color: #F00">*</span></label>
-								<input type="text" name="purchase" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+								<input type="number" name="purchase" class="form-control" maxlength="250" autofocus required autocomplete="off" />
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label><?php echo $lang_retail_price; ?> (<?php echo $lang_price; ?>) <span style="color: #F00">*</span></label>
-								<input type="text" name="retail" class="form-control" maxlength="250" required autocomplete="off" />
+								<input type="number" name="retail" class="form-control" maxlength="250" required autocomplete="off" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label>Spesial Price (Spesial Price ) <span style="color: #F00">*</span></label>
+								<input type="number" name="special_price" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label>Member Price (Member Price) <span style="color: #F00">*</span></label>
+								<input type="number" name="member_price" class="form-control" maxlength="250" required autocomplete="off" />
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label><?php echo $lang_product_image; ?> <span style="color: #F00">*</span></label>
+								<label><?php echo $lang_product_image; ?></label>
 								<br />
 								<input id="uploadFile" readonly style="height: 40px; width: 230px; border: 1px solid #ccc" />
 								<div class="fileUpload btn btn-primary" style="padding: 9px 12px;">

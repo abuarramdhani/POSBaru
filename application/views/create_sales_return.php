@@ -144,6 +144,9 @@
 <script type="text/javascript" src="<?=base_url()?>assets/js/search/jquery.searchabledropdown.js"></script>
 <script type="text/javascript">
 	get_kode();
+	$(document).ready(function(){
+		$('#sales_no').select2();
+	});
 	$(document).on('change','#sales_no',function() {
 		var sales_no = $('#sales_no').val();
 		$.ajax({
@@ -190,8 +193,7 @@
     		success:function(data){
     			var json = jQuery.parseJSON(data);
     			if (json.status == 200) {
-    				get_kode();
-    				$('#sales_no').val('');
+    				window.location='<?php echo base_url() ?>index.php/sales_return/data_return'
     			}else{
     				alert(json.message);
     			}
@@ -204,10 +206,12 @@
 
     function get_kode(){
     	$.ajax({
-    		url:'http://localhost/pos/v2/POSBaru/index.php/sales_return/get_kode',
+    		url:'<?php echo base_url() ?>index.php/sales_return/get_kode',
     		success:function(data){
     			$('#code').val(data);
     		}
     	});
     }
 </script>	
+
+<script src="<?=base_url()?>assets/js/select2.full.min.js"></script>

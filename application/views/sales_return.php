@@ -1,6 +1,7 @@
 <?php
 $this->load->view('includes/header4.php');
 ?>
+
 <section id="content">
 	<div class="row">
 		<div class="col-md-12">
@@ -32,7 +33,7 @@ $this->load->view('includes/header4.php');
 									<thead>
 										<tr>
 									    	<th style="border-left: 1px solid #ddd; border-bottom: 1px solid #ddd; border-top: 1px solid #ddd;" width="26%">
-										    	Kode
+										    	No Retur
 									    	</th>
 									    	<th style="border-left: 1px solid #ddd; border-bottom: 1px solid #ddd; border-top: 1px solid #ddd;" width="26%">
 										    	No Faktur

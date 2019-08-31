@@ -36,8 +36,8 @@ class TransferStock_Model extends CI_Model
     	$query = $this->db->get('inventory',$data);
     	return $query->result_array();	
     }
-    function get_barang(){
-        $query = $this->db->query('SELECT DISTINCT(products.name), inventory.product_code,inventory.id FROM products JOIN inventory ON products.code = inventory.product_code');
+    function get_barang($id){
+        $query = $this->db->query('SELECT products.name, inventory.product_code,inventory.qty,inventory.id FROM products JOIN inventory ON products.id = inventory.product_code WHERE inventory.qty > 0 AND inventory.outlet_id= '.$id.' GROUP BY products.name');
         return $query->result();  
     }
     function update_stock($id,$data){

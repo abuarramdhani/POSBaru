@@ -102,6 +102,7 @@ class Cashier extends CI_Controller
         $today_start = date('Y-m-d 00:00:00', time());
         $today_end = date('Y-m-d 23:59:59', time());
         $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.created_date BETWEEN '$today_start' AND '$today_end'");
+        $data['penjualan_hari_ini'] = $this->Constant_model->manualQerySelect("SELECT IFNULL(SUM(total_deal),0) as total FROM sales WHERE created_date BETWEEN '$today_start' AND '$today_end'");
         
         $this->load->view('cashier_data',$data);
     }
@@ -129,7 +130,7 @@ class Cashier extends CI_Controller
 
         foreach ($data as $data) {
             echo "<tr>";
-            echo "<td>".$data['sales_id']."</td>";
+            echo "<td><button class='btn btn-success' style='width:100%;'>".$data['sales_id']."</button></td>";
             echo "</tr>";
         }
     }
@@ -293,7 +294,48 @@ class Cashier extends CI_Controller
         foreach ($data as $data) {
             echo "<option value='".$data['code']."'>".$data['name']."</option>";
         }
-    }          
+    }
+    function getCustomer(){
+        $c = $this->Customers_model->getAllCustomers();
+        echo '<option value="">Pilih Pelanggan</option>';
+        foreach ($c as $data) {
+            echo "<option value='".$data['id']."'>".$data['fullname']."</option>";
+        }
+    }
+    public function insertCust()
+    {
+        $fullname = $this->input->post('fullname');
+        $email = $this->input->post('email');
+        $mobile = $this->input->post('mobile');
+        $address = $this->input->post('address');
+        $us_id = $this->input->cookie('user_id', TRUE);
+        $tm = date('Y-m-d H:i:s', time());
+
+        if (empty($fullname)) {
+            echo json_encode(array('status'=> 400,'message' => 'Nama tidak boleh kosong'));
+        } else {
+            if (!empty($email)) {
+                $ckEmailData = $this->Constant_model->getDataOneColumn('customers', 'email', $email);
+
+                if (count($ckEmailData) > 0) {
+                    echo json_encode(array('status'=> 400,'message' => 'Email sudah tersedia'));
+                }
+            }
+
+            $ins_cust_data = array(
+                      'fullname' => $fullname,
+                      'email' => $email,
+                      'mobile' => $mobile,
+                      'address' => $address,
+                      'created_user_id' => $us_id,
+                      'created_datetime' => $tm,
+            );
+            if ($this->Constant_model->insertData('customers', $ins_cust_data)) {
+                echo json_encode(array('status'=> 200,'message' => 'Berhasil'));
+            }
+        }
+    }
+          
     function insertSales(){
         $no_sales = strip_tags($this->input->post('sales_order_no'));
         $customer_id = strip_tags($this->input->post('customer_id'));
@@ -420,8 +462,8 @@ class Cashier extends CI_Controller
         $data = array(
             'status' => 200,
             'message' => 'Berhasil',
-            'price_print' => $a[0]['total_print'],
-            'price_deal' => $a[0]['total_deal'],
+            'price_print' => "Rp. ".number_format($a[0]['total_print'],0,'.',','),
+            'price_deal' => "Rp. ".number_format($a[0]['total_deal'],0,'.',',')
         );
         echo json_encode($data);
     }

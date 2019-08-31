@@ -32,40 +32,6 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
-					
 					<div class="row">
 						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/expenses/addNewExpenses" style="text-decoration: none">
@@ -151,13 +117,13 @@
 							<div class="col-md-2">
 								<div class="form-group">
 									<label><?php echo $lang_date_from; ?></label>
-									<input type="text" name="start_date" class="form-control" id="startDate" style="height: 35px" />
+									<input type="date" name="start_date" class="form-control" id="startDate" style="height: 35px" />
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
 									<label><?php echo $lang_date_to; ?></label>
-									<input type="text" name="end_date" class="form-control" id="endDate" style="height: 35px" />
+									<input type="date" name="end_date" class="form-control" id="endDate" style="height: 35px" />
 								</div>
 							</div>
 							<div class="col-md-2">
@@ -210,7 +176,7 @@
 													<td><?php echo $exp_cat_name; ?></td>
 													<td><?php echo $outlet_name; ?></td>
 													<td><?php echo $date; ?></td>
-													<td>$<?php echo number_format($amount, 2); ?></td>
+													<td>Rp. <?php echo number_format($amount, 0,'.','.'); ?></td>
 													<td>
 														<a href="<?=base_url()?>index.php/expenses/editExpenses?id=<?php echo $id; ?>" style="text-decoration: none">
 															<button class="btn btn-primary">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>

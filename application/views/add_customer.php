@@ -8,39 +8,6 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
 					
 					
 					<div class="row">
@@ -65,7 +32,10 @@
 								<input type="text" name="mobile" class="form-control" maxlength="499" autofocus autocomplete="off" />
 							</div>
 						</div>
-						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<label>Alamat</label>
+							<textarea class="form-control" name="address"></textarea>
+						</div>
 					</div>
 										
 					<div class="row">

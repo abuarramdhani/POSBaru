@@ -320,7 +320,9 @@ class Inventory extends CI_Controller
         $pcode = $this->input->post('pcode');
         $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
-
+        $cek_barang = $this->Constant_model->getDataOneColumn('products','code',$pcode);
+        // $pcode = $cek_barang[0]->id;
+        $code = $cek_barang[0]->code;
         $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
         for ($t = 0; $t < count($outletData); ++$t) {
             $outlet_id = $outletData[$t]->id;

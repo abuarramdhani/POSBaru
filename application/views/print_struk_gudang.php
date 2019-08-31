@@ -42,7 +42,7 @@ foreach ($sales as $data_total) {
 			<div class="col-md-12">
 				<center>
 					<h1><?php echo $site_name ?></h1>
-				<p>Alamat</p>
+				<p><?php echo $address ?></p>
 				</center>
 			</div>
 		</div>
@@ -50,7 +50,7 @@ foreach ($sales as $data_total) {
 			<div class="col-md-12">
 				<center>
 					<h2>BUKTI TANDA TERIMA</h2>
-					<b><?php echo $no_faktur ?></b>
+					<b>No Faktur : <?php echo $no_faktur ?></b>
 				</center>
 
 			</div>

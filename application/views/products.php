@@ -111,14 +111,17 @@
 							<table class="table">
 							    <thead>
 							    	<tr>
-								    	<th width="10%"><?php echo $lang_code; ?></th>
-								    	<th width="20%"><?php echo $lang_name; ?></th>
-								    	<th width="10%"><?php echo $lang_image; ?></th>
-								    	<th width="15%"><?php echo $lang_category; ?></th>
-								    	<th width="10%"><?php echo $lang_cost; ?></th>
-								    	<th width="10%"><?php echo $lang_price; ?></th>
-									    <th width="10%"><?php echo $lang_status; ?></th>
-									    <th width="15%"><?php echo $lang_action; ?></th>
+								    	<th ><?php echo $lang_code; ?></th>
+								    	<th ><?php echo $lang_name; ?></th>
+								    	<th ><?php echo $lang_image; ?></th>
+								    	<th ><?php echo $lang_category; ?></th>
+								    	<th ><?php echo $lang_cost; ?></th>
+								    	<th ><?php echo $lang_price; ?></th>
+								    	<th >Harga Spesial</th>
+								    	<th >Harga Member</th>
+								    	<th >Total Stock</th>
+									    <th ><?php echo $lang_status; ?></th>
+									    <th ><?php echo $lang_action; ?></th>
 									</tr>
 							    </thead>
 								<tbody>
@@ -129,8 +132,11 @@
                                             $code = $data->code;
                                             $name = $data->name;
                                             $cat_id = $data->category;
+                                            $qty = $data->qty;
                                             $cost = $data->purchase_price;
                                             $price = $data->retail_price;
+                                            $special_price = $data->special_price;
+                                            $member_price = $data->member_price;
                                             $thumbnail = $data->thumbnail;
                                             $status = $data->status;
 
@@ -161,6 +167,13 @@
 												<td><?php echo $category_name; ?></td>
 												<td><?php echo number_format($cost, 2); ?></td>
 												<td><?php echo number_format($price, 2); ?></td>
+												<td><?php echo number_format($special_price, 2); ?></td>
+												<td><?php echo number_format($member_price, 2); ?></td>
+												<td>
+													<a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>">
+														<?php echo $qty ?>
+													</a>
+												</td>
 												<td style="font-weight: bold;">
 													<?php
                                                         if ($status == '1') {

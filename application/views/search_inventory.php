@@ -84,12 +84,13 @@
     if ($prodRows > 0) {
         $prodData = $prodResult->result();
         for ($p = 0; $p < count($prodData); ++$p) {
+        	$id = $prodData[$p]->id;
             $code = $prodData[$p]->code;
             $name = $prodData[$p]->name;
 
             $inv_qty = 0;
 
-            $ckInvResult = $this->db->query("SELECT qty FROM inventory WHERE product_code = '$code' ");
+            $ckInvResult = $this->db->query("SELECT qty FROM inventory WHERE product_code = '$id' ");
             $ckInvData = $ckInvResult->result();
             for ($k = 0; $k < count($ckInvData); ++$k) {
                 $ckInv_qty = $ckInvData[$k]->qty;

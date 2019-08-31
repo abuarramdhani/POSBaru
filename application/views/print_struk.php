@@ -35,11 +35,11 @@ foreach ($sales as $data_total) {
     		/*width:210mm;*/
     	/*}*/
     </style>
-<body>
+<body onload="print()">
 	<div class="surat_jalan">
 		<div class="row">
 			<div class="col-md-12">
-				<h4><?php echo $site_name ?></h4>
+				<h4><b><?php echo $site_name ?></b></h4>
 				<h6><?php echo $address ?></h6>
 			</div>
 		</div>

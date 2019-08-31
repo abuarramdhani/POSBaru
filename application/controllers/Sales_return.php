@@ -210,7 +210,7 @@ class Sales_return extends CI_Controller
         $data['amount'] = $data_return[0]->amount;
         $data['type_return'] = $data_return[0]->type_return;
         $data['return_status'] = $data_return[0]->return_status;
-        $data['data_return_detail'] = $this->Constant_model->manualQerySelect("SELECT return_items.*,products.name FROM return_items JOIN products ON return_items.product_code = products.id");
+        $data['data_return_detail'] = $this->Constant_model->manualQerySelect("SELECT return_items.*,products.name FROM return_items JOIN products ON return_items.product_code = products.id WHERE return_items.order_id=$id");
         $this->load->view('print_sales_return',$data);
     }
     function data_return(){

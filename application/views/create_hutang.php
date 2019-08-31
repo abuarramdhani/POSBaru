@@ -43,6 +43,11 @@
 				</div>
 			</div>
 		</div>
+		<a href="<?=base_url()?>index.php/hutang/" style="text-decoration: none;">
+				<div class="btn btn-success" > 
+					<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
+				</div>
+			</a>
 	</div>
 </section>
 
@@ -76,7 +81,7 @@
 				success:function(data){
 					var json = jQuery.parseJSON(data);
 					if (json.status == 200) {
-						swal('Data berhasil dimasukan');
+						window.location='<?php echo base_url(); ?>index.php/hutang/'
 					}else{
 						swal(json.message);
 					}

@@ -86,16 +86,12 @@ $user_id = $this->input->cookie('user_id', TRUE);
                 <a href='#'>Sales Return</a>
                 <ul>
                     <li>
-                        <a <?php if (($link == '')) {
-                    ?> style='background-color: #e9ecf2;' <?php 
-                } ?> href='<?=base_url()?>index.php/sales_return/'>
+                        <a href='".base_url()."index.php/sales_return/'>
                             Buat Sales Return
                         </a>
                     </li>
                     <li>
-                        <a <?php if (($link == 'data_return')) {
-                    ?> style='background-color: #e9ecf2;' <?php 
-                } ?> href='<?=base_url()?>index.php/sales_return/data_return'>
+                        <a href='".base_url()."index.php/sales_return/data_return'>
                             Data Sales Return
                         </a>
                     </li>
@@ -106,10 +102,9 @@ $user_id = $this->input->cookie('user_id', TRUE);
 
             ?>
             <li><?php echo anchor('index.php/dashboard',$lang_dashboard,($link=="dashboard"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/piutang',"Piutang",($link=="piutang"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/hutang',"Hutang",($link=="hutang"?'class="active"':'')) ?></li>
+            
             <li><?php echo anchor('index.php/customers/view',$lang_customers,($link=="customers"?'class="active"':'')) ?></li>
-            <li><?php echo anchor('index.php/transfer_stock/view',"Transfer Stock",($link=="transfer_stock"?'class="active"':'')) ?></li>
+            
             <!-- <li><?php echo anchor('index.php/gift_card/view',$lang_gift_card,($link=="gift_card"?'class="active"':'')) ?></li> -->
             <li><?php echo anchor('index.php/cashier/',$lang_pos,($link=="cashier"?'class="active"':'')) ?></li>
             <li>
@@ -123,6 +118,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </li>
                 </ul>
             </li>
+            <li><?php echo anchor('index.php/transfer_stock/view',"Transfer Stock",($link=="transfer_stock"?'class="active"':'')) ?></li>
             <li>
                 <a href="#"><span><?php echo $lang_sales; ?></span> </a>
                 <ul>
@@ -155,6 +151,8 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </li>
                 </ul>
             </li>
+            <li><?php echo anchor('index.php/piutang',"Piutang",($link=="piutang"?'class="active"':'')) ?></li>
+            <li><?php echo anchor('index.php/hutang',"Hutang",($link=="hutang"?'class="active"':'')) ?></li>
             <li>
                 <a href="#"><?php echo $lang_expenses ?></a>
                 <ul>
@@ -258,6 +256,10 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     <?php
 
                         } ?>
+            <li>
+                <?php echo anchor('index.php/Auth/logout','Keluar') ?>
+            </li>
+
         </ul>
     </div>
 </div>
@@ -297,6 +299,14 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             </div>
                         </div>
                     </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                
+                <li class="nav-item d-lg-none d-sm-block">
+                    <a href="#" class="nav-link side-menu-open">
+                        <i class="fa fa-reorder"></i>
+                    </a>
                 </li>
             </ul>
         </div>

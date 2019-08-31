@@ -50,9 +50,14 @@ class Products_model extends CI_Model
 
     public function fetch_product_data($limit, $start)
     {
-        $this->db->order_by('id', 'DESC');
+        $this->db->select('products.*,SUM(inventory.qty) as qty');
+        $this->db->from('products');
+        $this->db->join('inventory','products.id = inventory.product_code');
+        $this->db->order_by('products.id', 'DESC');
+        $this->db->group_by('products.code');
         $this->db->limit($limit, $start);
-        $query = $this->db->get('products');
+
+        $query = $this->db->get();
 
         $result = $query->result();
 

@@ -1,7 +1,7 @@
 <?php
     require_once 'includes/header4.php';
-    $search_code = "";
-    $search_name = "";
+    $search_code = $this->input->get('code');
+    $search_name = $this->input->get('name');
 ?>
 <!-- Add jQuery library -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -46,7 +46,7 @@
 							    <thead>
 								    
 							    	<tr>
-								    	<th width="10%">No</th>
+								    	<th width="10%">Kode</th>
 								    	<th width="20%">Nama Konsumen</th>
 								    	<th width="20%">Total</th>
 									    <th width="15%">Aksi</th>

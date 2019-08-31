@@ -246,7 +246,7 @@
 							<div class="table-responsive">
 
 
-<table id="example" class="display" cellspacing="0" width="100%">
+<table id="example" class="display table table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
             <th width="12%"><?php echo $lang_date; ?></th>
@@ -254,7 +254,6 @@
             <th width="10%"><?php echo $lang_payment_methods; ?></th>
             <th width="10%"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</th>
             <th width="10%"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</th>
-            <th width="5%"><?php echo $lang_print; ?></th>
         </tr>
     </thead>
     
@@ -305,7 +304,6 @@
                 <td>
                     <?php echo number_format($grandTotal, 0, '.', ','); ?> <?php echo $site_currency; ?>
                 </td>
-            	<td>
 <?php	
             }
         } ?>

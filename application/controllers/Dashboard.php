@@ -42,11 +42,19 @@ class Dashboard extends CI_Controller
         $data['total_outlet'] = $this->Constant_model->count_data('outlets');
         $data['total_users'] = $this->Constant_model->count_data_condition('users',array('created_user_id' => $this->input->cookie('user_id')));
         $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
-        $data['jatuh_tempo_piutang'] = $this->Constant_model->manualQerySelect('SELECT * FROM piutang ORDER BY created_date DESC');
-        $data['jatuh_tempo_hutang'] = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" ORDER BY hutang.created_date DESC');
+        $data['jatuh_tempo_piutang'] = $this->Constant_model->manualQerySelect('SELECT piutang.*,customers.fullname as name FROM piutang JOIN customers ON piutang.customer_id = customers.id ORDER BY piutang.created_date DESC');
+        $data['jatuh_tempo_hutang'] = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name,suppliers.id as supplier_id FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" ORDER BY hutang.created_date DESC');
+        $paginationData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+        $pagination_limit = $paginationData[0]->pagination;
+        $siteSetting_dateformat = $paginationData[0]->datetime_format;
+        $siteSetting_currency = $paginationData[0]->currency;
+
+        $data['site_currency'] = $siteSetting_currency;
+        $data['dateformat'] = $siteSetting_dateformat;
         $dash_currency = $dashSiteSettingData[0]->currency;
         $data['currency'] = $dash_currency;
-
+        $data['lang_profit_amount'] = $this->lang->line('profit_amount');
+        $data['lang_monthly_pnl_by_outlets'] = $this->lang->line('monthly_pnl_by_outlets');
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');

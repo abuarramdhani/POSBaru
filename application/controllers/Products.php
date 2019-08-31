@@ -748,6 +748,8 @@ class Products extends CI_Controller
         $name = strip_tags($this->input->post('name'));
         $category = strip_tags($this->input->post('category'));
         $purchase = strip_tags($this->input->post('purchase'));
+        $special_price = strip_tags($this->input->post('special_price'));
+        $member_price = strip_tags($this->input->post('member_price'));
         $retail = strip_tags($this->input->post('retail'));
         $status = strip_tags($this->input->post('status'));
 
@@ -794,6 +796,8 @@ class Products extends CI_Controller
                     'category' => $category,
                     'purchase_price' => $purchase,
                     'retail_price' => $retail,
+                    'special_price' => $special_price,
+                    'member_price' => $member_price,
                     'updated_user_id' => $us_id,
                     'updated_datetime' => $tm,
                     'status' => $status,
@@ -864,27 +868,28 @@ class Products extends CI_Controller
         $category = strip_tags($this->input->post('category'));
         $purchase = strip_tags($this->input->post('purchase'));
         $retail = strip_tags($this->input->post('retail'));
+        $special_price = strip_tags($this->input->post('special_price'));
+        $member_price = strip_tags($this->input->post('member_price'));
         $us_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
 
         if (empty($code)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Please enter Product Code!'));
-            redirect(base_url().'index.php/products/addproduct');
+            
+            redirect(base_url().'index.php/products/addproduct?error=Masukan kode barang');
         } elseif (!preg_match('#^[a-zA-Z0-9]+$#', $code)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Product Code only Allow Letter and Character!'));
-            redirect(base_url().'index.php/products/addproduct');
+            redirect(base_url().'index.php/products/addproduct?error=Kode barang hanya karakter dan angka!');
         } elseif (empty($name)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Please enter Product Name!'));
-            redirect(base_url().'index.php/products/addproduct');
+            
+            redirect(base_url().'index.php/products/addproduct?error=Masukan nama barang!');
         } elseif (empty($category)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Please choose Product Category!'));
-            redirect(base_url().'index.php/products/addproduct');
+            
+            redirect(base_url().'index.php/products/addproduct?error=Pilih kategori barang terlebih dahulu!');
         } elseif (empty($purchase)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Please enter Purchase Price!'));
-            redirect(base_url().'index.php/products/addproduct');
+            
+            redirect(base_url().'index.php/products/addproduct?error=Masukan harga beli!');
         } elseif (empty($retail)) {
-            $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Please enter Retail Price!'));
-            redirect(base_url().'index.php/products/addproduct');
+            
+            redirect(base_url().'index.php/products/addproduct?error=Masukan Harga jual!');
         } else {
             $temp_fn = $_FILES['uploadFile']['name'];
             if (!empty($temp_fn)) {
@@ -892,14 +897,13 @@ class Products extends CI_Controller
 
                 if (($temp_fn_ext == 'jpg') || ($temp_fn_ext == 'png') || ($temp_fn_ext == 'jpeg')) {
                     if ($_FILES['uploadFile']['size'] > 2048000) {
-                        $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Upload file size must be less than 2MB!'));
-                        redirect(base_url().'index.php/products/addproduct');
+                        $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', ''));
+                        redirect(base_url().'index.php/products/addproduct?error=Upload file size must be less than 2MB!');
 
                         die();
                     }
                 } else {
-                    $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', 'Invalid File Format! Please upload JPG, PNG, JPEG File Format for Product Image!'));
-                    redirect(base_url().'index.php/products/addproduct');
+                    redirect(base_url().'index.php/products/list_products?error=Format gambar salah!');
 
                     die();
                 }
@@ -923,13 +927,20 @@ class Products extends CI_Controller
                         'category' => $category,
                         'purchase_price' => $purchase,
                         'retail_price' => $retail,
+                        'special_price' => $special_price,
+                        'member_price' => $member_price,
                         'thumbnail' => 'no_image.jpg',
                         'created_user_id' => $us_id,
                         'created_datetime' => $tm,
                         'status' => '1',
                 );
                 $pcode_id = $this->Constant_model->insertDataReturnLastId('products', $ins_data);
-
+                $data_inv = array(
+                    'product_code' => $pcode_id,
+                    'outlet_id' => 1,
+                    'qty'=> 0
+                );
+                $this->Constant_model->insertData('inventory', $data_inv);
                 $mainPhoto_fn = $_FILES['uploadFile']['name'];
                 if (!empty($mainPhoto_fn)) {
                     $main_ext = pathinfo($mainPhoto_fn, PATHINFO_EXTENSION);
@@ -985,12 +996,9 @@ class Products extends CI_Controller
                     }
                     // Main Photo -- END;
                 }// End of File;
-
-                $this->session->set_flashdata('alert_msg', array('success', 'Add New Product', "Successfully Added New Product : $code."));
-                redirect(base_url().'index.php/products/addproduct');
+                redirect(base_url().'index.php/products/list_products');
             } else {
-                $this->session->set_flashdata('alert_msg', array('failure', 'Add New Product', "Product Code : $code is already existing in the System! Please try another one!"));
-                redirect(base_url().'index.php/products/addproduct');
+                redirect(base_url().'index.php/products/addproduct?error=Kode barang sudah ada!');
             }
         }
     }
@@ -1042,7 +1050,7 @@ class Products extends CI_Controller
             );
             if ($this->Constant_model->insertData('category', $ins_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'New Product Category', "Successfully Added New Product Category : $category."));
-                redirect(base_url().'index.php/products/addproductcategory');
+                redirect(base_url().'index.php/products/product_category');
             }
         }
     }

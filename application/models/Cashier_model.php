@@ -10,6 +10,7 @@ class Cashier_model extends CI_Model
 		parent::__construct();
 	}
 	function getMethodPayment(){
+		$this->db->where('status',1);
 		return $this->db->get('payment_method')->result_array();
 
 	}

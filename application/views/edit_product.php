@@ -9,11 +9,14 @@
         redirect(base_url().'index.php');
     }
 
+    $id = $prodData[0]->id;
     $code = $prodData[0]->code;
     $name = $prodData[0]->name;
     $category = $prodData[0]->category;
     $cost = $prodData[0]->purchase_price;
     $price = $prodData[0]->retail_price;
+    $special_price = $prodData[0]->special_price;
+    $member_price = $prodData[0]->member_price;
     $thumbnail = $prodData[0]->thumbnail;
     $status = $prodData[0]->status;
 ?>
@@ -48,15 +51,6 @@
 </script>
 
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-		<section class="scrollable wrapper">
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -68,41 +62,7 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
 
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
-					
 					<?php
                         if ($user_role == 1) {
                             ?>
@@ -122,7 +82,7 @@
                         }
                     ?>
 					
-	<form action="<?=base_url()?>index.php/products/updateProduct" method="post" enctype="multipart/form-data">				
+				<form action="<?=base_url()?>index.php/products/updateProduct" method="post" enctype="multipart/form-data">				
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -159,16 +119,28 @@
 					</div>
 					
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label><?php echo $lang_purchase_price; ?> (<?php echo $lang_cost; ?>) <span style="color: #F00">*</span></label>
-								<input type="text" name="purchase" class="form-control" maxlength="250" autofocus required autocomplete="off" value="<?php echo $cost; ?>" />
+								<input type="number" name="purchase" class="form-control" maxlength="250" autofocus required autocomplete="off" value="<?php echo $cost; ?>" />
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label><?php echo $lang_retail_price; ?> (<?php echo $lang_price; ?>) <span style="color: #F00">*</span></label>
-								<input type="text" name="retail" class="form-control" maxlength="250" required autocomplete="off" value="<?php echo $price; ?>" />
+								<input type="number" name="retail" class="form-control" maxlength="250" required autocomplete="off" value="<?php echo $price; ?>" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label>Spesial Price (Spesial Price ) <span style="color: #F00">*</span></label>
+								<input type="number" name="special_price" class="form-control" maxlength="250" autofocus required autocomplete="off" value="<?php echo $special_price ?>" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label>Member Price (Member Price) <span style="color: #F00">*</span></label>
+								<input type="number" name="member_price" class="form-control" maxlength="250" required autocomplete="off" value="<?php echo $member_price ?>" />
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -260,7 +232,7 @@
 						<div class="col-md-9">
 							<?php
                                 $invQty = 0;
-                            $invQtyData = $this->Constant_model->getDataTwoColumn('inventory', 'product_code', $code, 'outlet_id', $outlet_id);
+                            $invQtyData = $this->Constant_model->getDataTwoColumn('inventory', 'product_code', $id, 'outlet_id', $outlet_id);
                             if (count($invQtyData) > 0) {
                                 $invQty = $invQtyData[0]->qty;
                             }
@@ -284,8 +256,7 @@
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
 	
-		
-
+	
 </section>
 
 	

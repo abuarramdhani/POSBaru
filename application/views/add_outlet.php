@@ -1,7 +1,7 @@
 <?php
     require_once 'includes/header4.php';
 ?>
-<script type="text/javascript" src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
+<!-- <script type="text/javascript" src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script> -->
 <!-- <script type="text/javascript" src="<?=base_url()?>assets/ckfinder/ckfinder.js"></script> -->
 <section id="content">
 
@@ -33,11 +33,12 @@
 							<div class="form-group">
 								<label><?php echo $lang_address; ?> <span style="color: #F00">*</span></label>
 								<textarea class="form-control" name="outlet_address" rows="5" required></textarea>
+								<input type="hidden" name="receipt_footer">
 							</div>
 						</div>
 					</div>
-										
-					<div class="row">
+						
+					<!-- <div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label><?php echo $lang_receipt_footer; ?> <span style="color: #F00">*</span></label>
@@ -49,7 +50,7 @@
 						<div class="col-md-6">
 							
 						</div>
-					</div>
+					</div> -->
 										
 					<div class="row">
 						<div class="col-md-4">

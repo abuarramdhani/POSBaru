@@ -117,6 +117,7 @@
 								    	<th width="15%"><?php echo $lang_category; ?></th>
 								    	<th width="10%"><?php echo $lang_cost; ?></th>
 								    	<th width="10%"><?php echo $lang_price; ?></th>
+								    	<th width="10%">Total Stock</th>
 									    <th width="10%"><?php echo $lang_status; ?></th>
 									    <th width="15%"><?php echo $lang_action; ?></th>
 									</tr>
@@ -126,11 +127,11 @@
     $sort = '';
 
     if (!empty($search_code)) {
-        $sort .= " AND code LIKE '$search_code%' ";
+        $sort .= " AND products.code LIKE '$search_code%' ";
     }
 
     if (!empty($search_name)) {
-        $sort .= " AND name LIKE '%$search_name%' ";
+        $sort .= " AND products.name LIKE '%$search_name%' ";
     }
 
     if (!empty($search_category)) {
@@ -141,7 +142,7 @@
         }
     }
 
-    $prodResult = $this->db->query("SELECT * FROM products WHERE created_datetime != '0000-00-00 00:00:00' $sort ");
+    $prodResult = $this->db->query("SELECT products.*,SUM(qty) as qty FROM products JOIN inventory ON products.id = inventory.product_code WHERE created_datetime != '0000-00-00 00:00:00' $sort GROUP BY products.name ");
     $prodRows = $prodResult->num_rows();
 
     $result_count = $prodRows;
@@ -152,6 +153,7 @@
             $id = $prodData[$p]->id;
             $code = $prodData[$p]->code;
             $name = $prodData[$p]->name;
+            $qty = $prodData[$p]->qty;
             $cat_id = $prodData[$p]->category;
             $cost = $prodData[$p]->purchase_price;
             $price = $prodData[$p]->retail_price;
@@ -185,6 +187,7 @@
 				<td><?php echo $category_name; ?></td>
 				<td><?php echo number_format($cost, 2); ?></td>
 				<td><?php echo number_format($price, 2); ?></td>
+				<td><a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>"><?php echo $qty ?></a></td>
 				<td style="font-weight: bold;">
 				<?php
                     if ($status == '1') {

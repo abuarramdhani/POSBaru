@@ -1455,7 +1455,7 @@ class Setting extends CI_Controller
             );
             if ($this->Constant_model->insertData('suppliers', $ins_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Add Supplier', "Successfully Added New Supplier : $name", '', '', '', '', '', ''));
-                redirect(base_url().'index.php/setting/addsupplier');
+                redirect(base_url().'index.php/setting/suppliers');
             }
         }
     }
@@ -1655,7 +1655,7 @@ class Setting extends CI_Controller
                 }
             } else {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "Email Address : $email is already registered at the system! Please try another Email Address!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
-                redirect(base_url().'index.php/setting/adduser');
+                redirect(base_url().'index.php/setting/users');
             }
         }
     }
@@ -1733,7 +1733,7 @@ class Setting extends CI_Controller
             );
             if ($this->Constant_model->insertData('outlets', $ins_outlet_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Add New Outlet', "Successfully added New Outlet : $outlet_name."));
-                redirect(base_url().'index.php/setting/addoutlet');
+                redirect(base_url().'index.php/setting/outlets');
             }
         }
     }

@@ -133,7 +133,7 @@ class Sales extends CI_Controller
  $today_start = date('Y-m-d 00:00:00', time());
         $today_end = date('Y-m-d 23:59:59', time());
         $data['data_transaksi'] = $this->Constant_model->manualQerySelect("SELECT sales.*,customers.fullname,payment_method.name FROM sales JOIN customers ON sales.customer_id = customers.id JOIN payment_method ON sales.method_id = payment_method.id WHERE sales.created_date BETWEEN '$today_start' AND '$today_end'");
-        
+        $data['penjualan_hari_ini'] = $this->Constant_model->manualQerySelect("SELECT IFNULL(SUM(total_deal),0) as total FROM sales WHERE created_Date BETWEEN '$today_start' AND '$today_end'");
         $this->load->view('cashier_data', $data);
     }
 

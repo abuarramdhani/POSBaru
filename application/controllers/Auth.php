@@ -60,12 +60,12 @@ class Auth extends CI_Controller
                 $user_email = $result[0]['email'];
                 $role_id = $result[0]['role_id'];
                 $out_id = $result[0]['outlet_id'];
-                $this->input->set_cookie('site_lang','indonesia','3600'); 
-                $this->input->set_cookie('user_id',$user_id,'3600'); 
-                $this->input->set_cookie('fullname',$fullname,'3600'); 
-                $this->input->set_cookie('user_email',$user_email,'3600'); 
-                $this->input->set_cookie('role_id',$role_id,'3600'); 
-                $this->input->set_cookie('out_id',$out_id,'3600'); 
+                $this->input->set_cookie('site_lang','indonesia','7200'); 
+                $this->input->set_cookie('user_id',$user_id,'7200'); 
+                $this->input->set_cookie('fullname',$fullname,'7200'); 
+                $this->input->set_cookie('user_email',$user_email,'7200'); 
+                $this->input->set_cookie('role_id',$role_id,'7200'); 
+                $this->input->set_cookie('out_id',$out_id,'7200'); 
                 $this->session->set_userdata($newdata);
                 if ($role_id == 3) {
                    redirect('index.php/cashier/');

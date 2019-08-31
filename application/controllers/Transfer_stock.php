@@ -128,7 +128,7 @@ class Transfer_stock extends CI_Controller
 	function add_transfer_stock(){
 		$data['first_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
 		$data['second_outlet'] = $this->Constant_model->getDataAll('outlets','id','ASC');
-        $data['product'] = $this->TransferStock_Model->get_barang();
+        
 		$data['lang_dashboard'] = $this->lang->line('dashboard');        
         $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
         $data['lang_customers'] = $this->lang->line('customers');
@@ -186,6 +186,12 @@ class Transfer_stock extends CI_Controller
         $data['lang_back'] = $this->lang->line('back');
 		$this->load->view('add_transfer_stock',$data);
 	}
+    function get_barang($id){
+        $data = $this->TransferStock_Model->get_barang($id);
+        foreach ($data as $data) {
+            echo "<option value='".$data->product_code."'>".$data->name."</option>";
+        }
+    }
 	function insertTransferStock(){
         $code = $this->input->post('code');
 		$product_code = $this->input->post('product_code');
@@ -194,6 +200,9 @@ class Transfer_stock extends CI_Controller
 		$date = date('Y-m-d H:i:s', time());
 		$idUser = $this->input->cookie('user_id',TRUE);
         $data_temp = $this->Constant_model->manualQerySelect("SELECT * FROM temp_transfer_stock_items WHERE transfer_stock_id='$code'");
+        if (count($data_temp) == 0) {
+            echo json_encode(array('status' => 400, 'message' => 'Data masih kosong'));
+        }else{
             foreach ($data_temp as $data_temp) {
                 $a = array(
                     'outlet_id' => $data_temp['second_location'],
@@ -206,12 +215,13 @@ class Transfer_stock extends CI_Controller
                         'outlet_id' =>$data_temp['second_location'],
                         'qty' => $data_temp['qty']
                     );
-                $this->Constant_model->insertData('inventory',$data_input_inv);
+                    $this->Constant_model->insertData('inventory',$data_input_inv);  
                 }else{
-                    $this->Constant_model->manualQery("UPDATE inventory SET qty=qty-".$data_temp['qty']." WHERE outlet_id=".$data_temp['first_location']." AND product_code='".$data_temp['product_code']."'");
                     $this->Constant_model->manualQery("UPDATE inventory SET qty=qty+".$data_temp['qty']." WHERE outlet_id=".$data_temp['second_location']." AND product_code='".$data_temp['product_code']."'");
-
                 }
+
+                $this->Constant_model->manualQery("UPDATE inventory SET qty=qty-".$data_temp['qty']." WHERE outlet_id=".$data_temp['first_location']." AND product_code='".$data_temp['product_code']."'");
+                
                 $array = array(
                     'transfer_stock_id' =>$code,
                     'product_code' => $data_temp['product_code'],
@@ -220,19 +230,22 @@ class Transfer_stock extends CI_Controller
                     'second_location' => $data_temp['second_location']
                 );
                 $this->Constant_model->insertData('transfer_stock_items',$array);
+                
             }
-        $data_input = array(
-            'code' => $code,
-            'created_id'=> $idUser,
-            'created_date' => $date,
-            'note' => 'Transfer_stock'
-        );
-        $delete = array(
-            'transfer_stock_id' => $code
-        );
-        $this->Constant_model->deleteWhere('temp_transfer_stock_items',$delete);
-        $this->Constant_model->insertData('transfer_stock',$data_input);
-        echo json_encode(array('status' => 200, 'message' => 'berhasil','code' =>$code));
+            $data_input = array(
+                'code' => $code,
+                'created_id'=> $idUser,
+                'created_date' => $date,
+                'note' => 'Transfer_stock'
+            );
+            $delete = array(
+                'transfer_stock_id' => $code
+            );
+            $this->Constant_model->deleteWhere('temp_transfer_stock_items',$delete);
+            $this->Constant_model->insertData('transfer_stock',$data_input);
+            echo json_encode(array('status' => 200, 'message' => 'berhasil','code' =>$code));
+        }
+        
 	}
     function insertDetailTransferStock(){
         $code = $this->input->post('code');
@@ -242,25 +255,38 @@ class Transfer_stock extends CI_Controller
         $second_outlet = $this->input->post('second_outlet');
         $array = array(
             'transfer_stock_id' =>$code,
-            'product_code' => $product_code
+            'product_code' => $product_code,
+            'second_location' => $second_outlet
         );
         $cek = $this->Constant_model->whereData('temp_transfer_stock_items',$array);
-        if (count($cek)) {
+        if (count($cek) > 0) {
             echo json_encode(array('status' => 400,'message'=> 'Data sudah tersedia'));
+        }else{
+            $data_check_stock = array(
+                'product_code' => $product_code,
+                'outlet_id' => $first_outlet
+            );
+            $check_stock = $this->Constant_model->whereData('inventory',$data_check_stock);
+            if ($check_stock[0]['qty'] < $qty) {
+                echo json_encode(array('status' => 400,'message'=> 'Masukan Qty lebih kecil'));
+            }else{
+                $array = array(
+                    'transfer_stock_id' =>$code,
+                    'product_code' => $product_code,
+                    'qty' => $qty,
+                    'first_location'=> $first_outlet,
+                    'second_location'=> $second_outlet
+                );
+                try {
+                    $this->Constant_model->insertData('temp_transfer_stock_items',$array);
+                    echo json_encode(array('status' => 200,'message'=> 'Berhasil'));
+                } catch (Exception $e) {
+                    echo json_encode(array('status' => 400,'message'=> 'Error karena :'. $e));
+                } 
+            }
+            
         }
-        $array = array(
-            'transfer_stock_id' =>$code,
-            'product_code' => $product_code,
-            'qty' => $qty,
-            'first_location'=> $first_outlet,
-            'second_location'=> $second_outlet
-        );
-        try {
-            $this->Constant_model->insertData('temp_transfer_stock_items',$array);
-            echo json_encode(array('status' => 200,'message'=> 'Berhasil'));
-        } catch (Exception $e) {
-            echo json_encode(array('status' => 400,'message'=> 'Error karena :'. $e));
-        }        
+               
     }
     function get_data_temp(){
         $id = $this->input->post('code');

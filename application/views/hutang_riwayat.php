@@ -47,15 +47,16 @@
 							    	<tr>
 								    	<th width="10%">Kode</th>
 								    	<th width="20%">Nama Supplier</th>
+								    	
+								    	<th width="20%">Tanggal Pembayaran</th>
 								    	<th width="20%">Total</th>
-									    <th width="15%">Aksi</th>
 									</tr>
 							    </thead>
 								<tbody id="data_hutang">
 								</tbody>
 								<tfoot>
 									<tr >
-										<th colspan="2">Total</th>
+										<th colspan="3">Total</th>
 										<th id="totalSisaHutang"></th>
 									</tr>
 								</tfoot>
@@ -69,6 +70,11 @@
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
+					<a href="<?=base_url()?>index.php/hutang/" style="text-decoration: none;">
+				<div class="btn btn-success" > 
+					<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
+				</div>
+			</a>
 	</div><!-- Row // END -->
 
 </section>
@@ -81,7 +87,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
-			url:'<?php echo base_url() ?>/index.php/hutang/getSelectionData',
+			url:'<?php echo base_url() ?>/index.php/hutang/getRiwayatData',
 			success:function(data){
 				$('#data_hutang').html(data);
 			}
@@ -90,7 +96,7 @@
 	});
 	$(document).ready(function(){
 		$.ajax({
-			url:'<?php echo base_url() ?>/index.php/hutang/getTotalSisaHutang',
+			url:'<?php echo base_url() ?>/index.php/hutang/getTotalRiwayatHutang',
 			success:function(data){
 				$('#totalSisaHutang').html(data);
 			}

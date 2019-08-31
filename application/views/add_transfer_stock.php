@@ -1,63 +1,81 @@
 <?php
     require 'includes/header4.php';
 ?>
+<link href="<?=base_url()?>assets/css/select2.min.css" rel="stylesheet">
 <section id="content">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-3">
-							<input type="hidden" id="code">
-								<div class="form-group">
-									<label><?php echo $lang_choose_first_outlet; ?> <span style="color: #F00">*</span></label>
-									<select class="form-control" id="first_outlet">
-										<?php foreach ($first_outlet as $first_outlet): ?>
-											<option value="<?php echo $first_outlet->id ?>"><?php echo $first_outlet->name ?></option>
-										<?php endforeach ?>
-									</select>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="hidden" id="code">
+									<div class="form-group">
+										<label><?php echo $lang_choose_first_outlet; ?> <span style="color: #F00">*</span></label>
+										<select class="form-control" id="first_outlet">
+											<option value="">Pilih Gudang</option>
+											<?php foreach ($first_outlet as $first_outlet): ?>
+												<option value="<?php echo $first_outlet->id ?>"><?php echo $first_outlet->name ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label><?php echo $lang_choose_second_outlet; ?> <span style="color: #F00">*</span></label>
+										<select class="form-control" id="second_outlet">
+											<option value="">Pilih Gudang</option>
+											<?php foreach ($second_outlet as $second_outlet): ?>
+												<option value="<?php echo $second_outlet->id ?>"><?php echo $second_outlet->name ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label><?php echo $lang_choose_second_outlet; ?> <span style="color: #F00">*</span></label>
-									<select class="form-control" id="second_outlet">
-										<?php foreach ($second_outlet as $second_outlet): ?>
-											<option value="<?php echo $second_outlet->id ?>"><?php echo $second_outlet->name ?></option>
-										<?php endforeach ?>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Kode</th>
-											<th>Nama Produk</th>
-											<th>Qty</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody id="data"></tbody>
-								</table>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label><?php echo $lang_choose_product; ?> <span style="color: #F00">*</span></label>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label><?php echo $lang_choose_product; ?> <span style="color: #F00">*</span></label>
 
-									<select class="form-control" name="product_code" id="product_code">
-										<?php foreach ($product as $product): ?>
-											<option value="<?php echo $product->id ?>"><?php echo $product->name ?></option>
-										<?php endforeach ?>
-									</select>
+										<select class="form-control" name="product_code" id="product_code">
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label><?php echo $lang_qty_transfer_stock; ?> </label>
+										<input type="number" name="qty_transfer_stock" id="qty" class="form-control" maxlength="254" />
+									</div>
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="row">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label><?php echo $lang_qty_transfer_stock; ?> </label>
-									<input type="number" name="qty_transfer_stock" id="qty" class="form-control" maxlength="254" />
+									<button class="btn btn-primary" id="btnAdd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tambahkan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-primary" id="btnSave">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_save; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</div>
 							</div>
+						</div>
+							
+						</div>
+						
+						<div class="col-md-6">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Kode</th>
+										<th>Nama Produk</th>
+										<th>Qty</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="data"></tbody>
+							</table>
+						</div>
+						
 						<!-- <div class="col-md-6">
 							<div class="form-group">
 								<label><?php echo $lang_note; ?> </label>
@@ -65,17 +83,7 @@
 							</div>
 						</div> -->
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<button class="btn btn-primary" id="btnAdd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tambahkan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-								<button class="btn btn-primary" id="btnSave">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_save; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-							</div>
-						</div>
-						<div class="col-md-4">
-						</div>
-						<div class="col-md-4"></div>
-					</div>
+					
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 			
@@ -97,6 +105,7 @@
 <?php
     require_once 'includes/footer4.php';
 ?>
+<script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 <script type="text/javascript">
 	function get_kode(){
 		$.ajax({
@@ -112,6 +121,16 @@
 		get_kode();
 		// get_data_temp();
 		
+	});
+	$(document).on('change','#first_outlet',function(){
+		var a = $(this).val();
+		$.ajax({
+			url:'<?php echo base_url() ?>index.php/transfer_stock/get_barang/'+a,
+			
+			success:function(data){
+				$('#product_code').html(data);
+			}
+		});
 	});
 	$(document).on('click','#btnSave',function(){
 		var code = $.trim($('#code').val());
@@ -175,7 +194,7 @@
 						swal('Berhasil!',json.message,'success');
 						get_kode();
 					}else{
-						swal(json.message);
+						swal('Gagal',json.message,'warning');
 					}
 				}
 			});
@@ -211,5 +230,11 @@
 				get_kode();
 			}
 		})
+	});
+	$(document).ready(function() {
+		$("#product_code").select2({
+			placeholder: "Cari Barang",
+			allowClear: true
+		});
 	});
 </script>

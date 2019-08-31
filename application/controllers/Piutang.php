@@ -51,6 +51,47 @@
         $data['lang_search'] = $this->lang->line('search');
 		$this->load->view('piutang_view',$data);
 	}
+    function search(){
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_add_customer'] = $this->lang->line('add_customer');
+        $data['lang_export'] = $this->lang->line('export');
+        $data['lang_search'] = $this->lang->line('search');
+        $this->load->view('search_piutang',$data);
+    }
     function create(){
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
@@ -134,15 +175,71 @@
         
         $this->load->view('pembayaran_piutang',$data);
     }
+    function detail($id){
+        $cari = array(
+            'customer_id' => $id
+        );
+
+        $data['detail'] = $this->Constant_model->whereData('piutang',$cari); 
+        $data['lang_dashboard'] = $this->lang->line('dashboard');
+        $data['lang_transfer_stock'] = $this->lang->line('transfer_stock');
+        $data['lang_customers'] = $this->lang->line('customers');
+        $data['lang_gift_card'] = $this->lang->line('gift_card');
+        $data['lang_add_gift_card'] = $this->lang->line('add_gift_card');
+        $data['lang_list_gift_card'] = $this->lang->line('list_gift_card');
+        $data['lang_debit'] = $this->lang->line('debit');
+        $data['lang_sales'] = $this->lang->line('sales');
+        $data['lang_today_sales'] = $this->lang->line('today_sales');
+        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
+        $data['lang_reports'] = $this->lang->line('reports');
+        $data['lang_sales_report'] = $this->lang->line('sales_report');
+        $data['lang_expenses'] = $this->lang->line('expenses');
+        $data['lang_expenses_category'] = $this->lang->line('expenses_category');
+        $data['lang_pnl'] = $this->lang->line('pnl');
+        $data['lang_pnl_report'] = $this->lang->line('pnl_report');
+        $data['lang_pos'] = $this->lang->line('pos');
+        $data['lang_return_order'] = $this->lang->line('return_order');
+        $data['lang_return_order_report'] = $this->lang->line('return_order_report');
+        $data['lang_inventory'] = $this->lang->line('inventory');
+        $data['lang_products'] = $this->lang->line('products');
+        $data['lang_list_products'] = $this->lang->line('list_products');
+        $data['lang_print_product_label'] = $this->lang->line('print_product_label');
+        $data['lang_product_category'] = $this->lang->line('product_category');
+        $data['lang_purchase_order'] = $this->lang->line('purchase_order');
+        $data['lang_setting'] = $this->lang->line('setting');
+        $data['lang_outlets'] = $this->lang->line('outlets');
+        $data['lang_users'] = $this->lang->line('users');
+        $data['lang_suppliers'] = $this->lang->line('suppliers');
+        $data['lang_system_setting'] = $this->lang->line('system_setting');
+        $data['lang_payment_methods'] = $this->lang->line('payment_methods');
+        $data['lang_logout'] = $this->lang->line('logout');
+        $data['lang_point_of_sales'] = $this->lang->line('point_of_sales');
+        $data['lang_amount'] = $this->lang->line('amount');
+        $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
+        $data['lang_add_customer'] = $this->lang->line('add_customer');
+        $data['lang_export'] = $this->lang->line('export');
+        $data['lang_search'] = $this->lang->line('search');
+        
+        $this->load->view('detail_piutang',$data);
+    }
     function get_data_cust($id){
-        $a = $this->Constant_model->manualQerySelect("SELECT 
+        $cari = array(
+            'customer_id' => $id
+        );
+        $cek = $this->Constant_model->manualQerySelect("SELECT * FROM piutang_payment WHERE customer_id=$id");
+        if (count($cek) > 0) {
+            $a = $this->Constant_model->manualQerySelect("SELECT 
             v_data_piutang.*,
             v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id WHERE v_data_piutang.customer_id=$id");
+        }else{
+            $a = $this->Constant_model->getAllData("v_data_piutang");
+        }
+        
         
         if (count($a) > 0) {
             $data = $a;
         }else{
-            $a = $this->Constant_model->getAllData("v_data_piutang");
+            
             $data = $a;
         }
         echo json_encode($data);
@@ -236,6 +333,47 @@
         $data = $this->Constant_model->manualQerySelect("SELECT 
             v_data_piutang.*,
             v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id GROUP BY v_data_piutang.fullname");
+        
+        if (count($data) > 0) {
+            $i=1;
+            foreach ($data as $data) {
+                
+                echo "<tr>";
+                echo "<td>".$i."</td>";
+                echo "<td>".$data['fullname']."</td>";
+                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
+                echo "<td>";
+                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-danger"');
+                echo anchor('index.php/piutang/detail/'.$data['customer_id'],'Detail','class="btn btn-primary"');
+                echo "</td>";
+                echo "</tr>";
+                $i++;
+            }
+        }else{
+            $data = $this->Constant_model->getAllData("v_data_piutang");
+            $i=1;
+            foreach ($data as $data) {
+                echo "<tr>";
+                echo "<td>".$i."</td>";
+                echo "<td>".$data['fullname']."</td>";
+                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
+                echo "<td>";
+                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-danger"');
+                echo anchor('index.php/piutang/detail/'.$data['customer_id'],'Detail','class="btn btn-primary"');
+                echo "</td>";
+                echo "</tr>";
+                $i++;
+            }
+            
+        }
+        
+    }
+    public function getSelectionDataCari(){
+        $code = $this->input->get('code');
+        $name = $this->input->get('name');
+        $data = $this->Constant_model->manualQerySelect("SELECT 
+            v_data_piutang.*,
+            v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id WHERE v_data_piutang.customer_id LIKE '%".$code."%' OR v_data_piutang.fullname LIKE '%".$name."%'  GROUP BY v_data_piutang.fullname");
         
         if (count($data) > 0) {
             foreach ($data as $data) {

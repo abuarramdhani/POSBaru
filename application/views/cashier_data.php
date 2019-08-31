@@ -8,15 +8,17 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/cashier/" style="text-decoration: none">
 								<button class="btn btn-primary"><i class="fa fa-plus"></i>Tambah Transaksi</button>
 							</a>
 						</div>
+						<div class="col-md-6">
+							<h3>Total Penjualan : <?php echo "Rp. ".number_format($penjualan_hari_ini[0]['total'],0,'.',',') ?></h3>
+						</div>
 					</div>
 					<div class="row" style="margin-top: 10px;">
 						<div class="col-md-12">
-							
 						<div class="table-responsive">
 							<table class="table">
 							    <thead>

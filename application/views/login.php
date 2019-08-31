@@ -48,7 +48,7 @@
                 <img src="../assets/media/image/dark-logo.png" class="m-r-15" width="40" alt="">
                 <h3 class="m-0"><?php echo $setting_site_name ?></h3>
             </div>
-            <p>Sign in to continue.</p>
+            <p>Masuk untuk melanjutkan</p>
             <form action="<?=base_url()?>index.php/auth/login" method="post">
                 <div class="form-group mb-4">
 					<input type="email" name="email" class="form-control" autofocus autocomplete="off" required placeholder="Email Address" />
@@ -56,29 +56,7 @@
 				<div class="form-group mb-4">
 					<input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" />
 				</div>
-                <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4" name="sp_login">Sign In</button>
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Keep me signed in</label>
-                    </div>
-                    <a href="#" class="auth-link text-black">Forgot password?</a>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <a href="#" class="btn btn-outline-facebook btn-block">
-                            <i class="fa fa-facebook-square m-r-5"></i> With Facebook
-                        </a>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <a href="#" class="btn btn-outline-google btn-block">
-                            <i class="fa fa-google m-r-5"></i> With Google
-                        </a>
-                    </div>
-                </div>
-                <div class="text-center">
-                    Don't have an account? <a href="#" class="text-primary">Create</a>
-                </div>
+                <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4" name="sp_login">Masuk</button>
             </form>
         </div>
     </div>
