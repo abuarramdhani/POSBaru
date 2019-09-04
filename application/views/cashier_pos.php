@@ -164,6 +164,43 @@
 	    </div>
 	  </div>
 	</div>
+	<div class="modal" id="modalBayar">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Bayar</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+
+	      <!-- Modal body -->
+	    <div class="modal-body">
+	    	<div class="form-group">
+				<label>Total Bayar </label>
+				<input type="text" readonly id="total_bayar" class="form-control" maxlength="254" autocomplete="off" />
+			</div>
+			<div class="form-group">
+				<label>Bayar <span style="color: #F00">*</span></label>
+				<input type="number" id="bayar" class="form-control"  maxlength="499" autofocus required autocomplete="off" />
+			</div>
+			
+			<div class="form-group">
+				<label>Kembalian </label>
+				<input type="text" id="kembalian" readonly class="form-control" maxlength="499" autofocus autocomplete="off" />
+			</div>
+			
+	    </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-success" data-dismiss="modal" id="simpanTransaksi">Simpan</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.js"></script>
@@ -172,6 +209,25 @@
 <script src="<?=base_url()?>assets/js/select2.full.min.js"></script>
 
 	<script>
+		var format = function(num){
+	      var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
+	      if(str.indexOf(".") > 0) {
+	        parts = str.split(".");
+	        str = parts[0];
+	      }
+	      str = str.split("").reverse();
+	      for(var j = 0, len = str.length; j < len; j++) {
+	        if(str[j] != ",") {
+	          output.push(str[j]);
+	          if(i%3 == 0 && j < (len - 1)) {
+	            output.push(",");
+	          }
+	          i++;
+	        }
+	      }
+	      formatted = output.reverse().join("");
+	      return("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+	    };
 	var sales_order_no = $.trim($('#sales_order_no').val());
 	get_total(sales_order_no);
 	get_customer();
@@ -203,7 +259,7 @@
 		get_total(kode);
 		$('#modalTransaksiDitahan').modal('hide');
 	});
-	$(document).on('click','#btnSimpanTransaksi',function(){
+	$(document).on('click','#simpanTransaksi',function(){
 		var sales_order_no =$.trim($('#sales_order_no').val());
 		var customer_id =$('#customer_id').val();
 		var payment_method =$('#payment_method').val();
@@ -238,7 +294,29 @@
 			}
 		});
 		}
+	});
+	$(document).on('click','#btnSimpanTransaksi',function(){
+		$('#modalBayar').modal('show');
+		$('#bayar').focus();
 
+	});
+	$(document).on('keyup','#bayar',function(){
+			
+			var bayar = $.trim($('#bayar').val());
+			var total_bayar = $('#total_bayar').val();
+			var kembalian = bayar-total_bayar;
+			$('#kembalian').val(format(kembalian));
+		
+		
+	});
+	$(document).on('keypress','#bayar',function(e){
+		if (e.which == 13) {
+			var bayar = $.trim($('#bayar').val());
+			var total_bayar = $('#total_bayar').val();
+			var kembalian = bayar-total_bayar;
+			$('#kembalian').val(format(kembalian));
+		}
+		
 	});
 	$(document).on('click','#simpanCust',function(){
 		var fullname =$.trim($('#fullname').val());
@@ -487,8 +565,10 @@
 				var json = jQuery.parseJSON(data);
 				var total_print = json.price_print;
 				var total_deal = json.price_deal;
+				var total_bayar = json.price_bayar;
 				$('#total_print').html(total_print);
 				$('#total_deal').html(total_deal);
+				$('#total_bayar').val(total_bayar);
 			}
 		});
 	}

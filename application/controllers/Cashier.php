@@ -463,7 +463,8 @@ class Cashier extends CI_Controller
             'status' => 200,
             'message' => 'Berhasil',
             'price_print' => "Rp. ".number_format($a[0]['total_print'],0,'.',','),
-            'price_deal' => "Rp. ".number_format($a[0]['total_deal'],0,'.',',')
+            'price_deal' => "Rp. ".number_format($a[0]['total_deal'],0,'.',','),
+            'price_bayar' => $a[0]['total_deal']
         );
         echo json_encode($data);
     }

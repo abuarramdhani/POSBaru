@@ -96,8 +96,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         </a>
                     </li>
                 </ul>
-            </li>
-                ";
+            </li>";
             }else{
 
             ?>
@@ -176,23 +175,25 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="#"><?php echo $lang_pnl ?></a>
-                <ul>
-                    <li>
-                        <a <?php if (($link == 'pnl_graph_view')) {
-                        ?> style="background-color: #e9ecf2;" <?php 
-                    } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
-                            <?php echo $lang_pnl; ?>
-                        </a>
-                        <a <?php if (($link == 'pnl_report')) {
-                        ?> style="background-color: #e9ecf2;" <?php 
-                    } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
-                            <?php echo $lang_pnl_report; ?>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            <?php if ($user_role == 1): ?>
+                <li>
+                    <a href="#"><?php echo $lang_pnl ?></a>
+                    <ul>
+                        <li>
+                            <a <?php if (($link == 'pnl_graph_view')) {
+                            ?> style="background-color: #e9ecf2;" <?php 
+                        } ?> href="<?=base_url()?>index.php/pnl/pnl_graph_view">
+                                <?php echo $lang_pnl; ?>
+                            </a>
+                            <a <?php if (($link == 'pnl_report')) {
+                            ?> style="background-color: #e9ecf2;" <?php 
+                        } ?> href="<?=base_url()?>index.php/pnl/pnl_report">
+                                <?php echo $lang_pnl_report; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif ?>
             <li>
                 <a href="#">Sales Return</a>
                 <ul>
@@ -220,11 +221,13 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             <?php echo $lang_outlets; ?>
                         </a>
                     </li>
-                    <li>
-                        <a <?php if (($link == 'users')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/users">
-                            <?php echo $lang_users; ?>
-                        </a>
-                    </li>
+                    <?php if ($user_role != 2): ?>
+                        <li>
+                            <a <?php if (($link == 'users')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/users">
+                                <?php echo $lang_users; ?>
+                            </a>
+                        </li>
+                    <?php endif ?>
                     <li>
                         <a <?php if (($link == 'suppliers')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/suppliers">
                             <?php echo $lang_suppliers; ?>
@@ -301,6 +304,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </div>
                 </li>
             </ul>
+            
             <ul class="navbar-nav">
                 
                 <li class="nav-item d-lg-none d-sm-block">
@@ -309,12 +313,58 @@ $user_id = $this->input->cookie('user_id', TRUE);
                     </a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <?php 
+                    $total = $this->Constant_model->manualQerySelect("SELECT * FROM `hutang` WHERE jatuh_tempo <= NOW() AND status='unpaid' ");
+                    if (count($total) >0) {
+                        $notif = "nav-link-notify";
+                    }else{
+                        $notif = "";
+                    } ?>
+                    
+                    <a href="#" class="nav-link <?php echo $notif ?>" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                        <div class="dropdown-menu-title d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-uppercase font-size-12 m-b-0">Hutang</h6>
+                                <small class="font-size-11 opacity-7"><?php echo count($total) ?> Jatuh tempo</small>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-body">
+                            <ul class="list-group list-group-flush">
+                                
+                                <?php 
+                                $jatuh_tempo = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name,suppliers.id as supplier_id FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" AND jatuh_tempo <= NOW() ORDER BY hutang.created_date DESC');
+                                foreach ($jatuh_tempo as $jatuh_tempo): ?>
+                                    <a href="<?php echo base_url() ?>index.php/hutang/pembayaran_hutang?code=<?php echo $jatuh_tempo['supplier_id'] ?>" class="list-group-item d-flex link-1 hide-show-toggler">
+                                   <div>
+                                    <figure class="avatar avatar-sm m-r-15">
+                                        <span class="avatar-title bg-warning rounded-circle"><?php echo substr($jatuh_tempo['name'], 0,1) ?></span>
+                                    </figure>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="m-b-0 d-flex justify-content-between">
+                                        <?php echo $jatuh_tempo['name'] ?>
+                                        <i title="Read Mark" data-toggle="tooltip"
+                                           class="hide-show-toggler-item fa fa-check font-size-11"></i>
+                                    </h6>
+                                    <span class="text-muted m-r-10 small"><?php echo $jatuh_tempo['jatuh_tempo'] ?></span>
+                                    <span class="text-muted small">Rp. <?php echo number_format($jatuh_tempo['amount'],0,',','.') ?></span>
+                                </div>  
+                                </a>
+                                 <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
 
     </div>
 </nav>
-<!-- end::navbar -->
-
 <!-- begin::main content -->
 <main class="main-content">
 
@@ -333,6 +383,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             } ?>
                             </li>
                     </ol>
+                    
                 </nav>
             </div>
             <!-- <div>

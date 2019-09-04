@@ -108,7 +108,8 @@
             
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <?php if ($user_role == 1): ?>
+                <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         
@@ -130,10 +131,11 @@
                     </div><!-- Panel Body // END -->
                 </div><!-- Panel Default // END -->
             </div><!-- Col md 12 // END -->
+            <?php endif ?>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        Jatuh Tempo Piutang
+                         Piutang
                     </div>
                     <div class="card-body">
                         <div class="custom-control">
@@ -153,7 +155,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        Jatuh Tempo Hutang
+                         Hutang
                     </div>
                     <div class="card-body">
                         <div class="custom-control">

@@ -42,8 +42,8 @@ class Dashboard extends CI_Controller
         $data['total_outlet'] = $this->Constant_model->count_data('outlets');
         $data['total_users'] = $this->Constant_model->count_data_condition('users',array('created_user_id' => $this->input->cookie('user_id')));
         $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
-        $data['jatuh_tempo_piutang'] = $this->Constant_model->manualQerySelect('SELECT piutang.*,customers.fullname as name FROM piutang JOIN customers ON piutang.customer_id = customers.id ORDER BY piutang.created_date DESC');
-        $data['jatuh_tempo_hutang'] = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name,suppliers.id as supplier_id FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" ORDER BY hutang.created_date DESC');
+        $data['jatuh_tempo_piutang'] = $this->Constant_model->manualQerySelect('SELECT piutang.*,customers.fullname as name FROM piutang JOIN customers ON piutang.customer_id = customers.id GROUP BY customers.fullname ORDER BY piutang.created_date DESC LIMIT 5');
+        $data['jatuh_tempo_hutang'] = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name,suppliers.id as supplier_id FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" GROUP BY suppliers.id ORDER BY hutang.created_date DESC  LIMIT 5 ');
         $paginationData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $pagination_limit = $paginationData[0]->pagination;
         $siteSetting_dateformat = $paginationData[0]->datetime_format;
