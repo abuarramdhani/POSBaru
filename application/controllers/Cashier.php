@@ -13,6 +13,12 @@ class Cashier extends CI_Controller
 		$this->load->model('Customers_model');
         $this->load->model('Outlets_model');
 		$this->load->model('Constant_model');
+        $settingResult = $this->db->get_where('site_setting');
+        $settingData = $settingResult->row();
+
+        $setting_timezone = $settingData->timezone;
+
+        date_default_timezone_set("$setting_timezone");
 	}
 	function index(){
 		$data['lang_dashboard'] = $this->lang->line('dashboard');
@@ -337,13 +343,14 @@ class Cashier extends CI_Controller
     }
           
     function insertSales(){
+        
         $no_sales = strip_tags($this->input->post('sales_order_no'));
         $customer_id = strip_tags($this->input->post('customer_id'));
         $method_id = strip_tags($this->input->post('method_id'));
         
         $user_id = $this->input->cookie('user_id', TRUE);
         $tm = date('Y-m-d H:i:s', time());
-        $sales_date = date('Y-m-d', time());
+        $sales_date = date('Y-m-d H:i:s', time());
         $qTotal = $this->Constant_model->manualQerySelect("SELECT SUM(qty*price_deal) as total_deal,SUM(qty*price_print) as total_print FROM temp_sales_items WHERE sales_id='$no_sales'");
 
         $total_deal = $qTotal[0]['total_deal'];

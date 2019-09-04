@@ -266,15 +266,13 @@
 		var lama_kredit = $('#lama_kredit').val();
 		var no_debet = $('#no_debet').val();
 		var nama_bank = $('#nama_bank').val();
-		var no_debet = $('#no_debet').val();
 		var data = {
 			sales_order_no:sales_order_no,
 			customer_id:customer_id,
 			method_id:payment_method,
 			lama_kredit:lama_kredit,
 			no_debet:no_debet,
-			nama_bank:nama_bank,
-			no_debet:no_debet
+			nama_bank:nama_bank
 		};
 		if (customer_id == "") {
 			swal('Peringatan!','Pelanggan tidak boleh kosong','warning');

@@ -192,14 +192,14 @@
 
             $url_end = $end_yea.'-'.$end_mon.'-'.$end_day;
         } ?>
-					<div class="row" style="margin-top: 10px;">
+					<!-- <div class="row" style="margin-top: 10px;">
 						<div class="col-md-12" style="text-align: right;">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									<?php echo $lang_export_to_excel; ?>
 								</button>
 							</a>
 						</div>
-					</div>
+					</div> -->
 					<div class="row" style="margin-top: 10px;">
 						<div class="col-md-12">
 							<div class="table-responsive">

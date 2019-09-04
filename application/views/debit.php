@@ -42,7 +42,7 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<?php
+					<!-- <?php
                         if ($user_role < 3) {
                             ?>
 					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
@@ -58,7 +58,7 @@
 					<?php
 
                         }
-                    ?>
+                    ?> -->
 					
 					<form action="<?=base_url()?>index.php/debit/searchDebit" method="get">
 						<div class="row" style="margin-top: 10px;">
@@ -100,8 +100,8 @@
 								    	<th width="16%"><?php echo $lang_sale_id; ?></th>
 								    	<th width="16%"><?php echo $lang_date; ?></th>
 								    	<th width="16%"><?php echo $lang_customer_name; ?></th>
+								    	<th width="16%">No Kartu / Rek</th>
 								    	<th width="16%"><?php echo $lang_grand_total; ?></th>
-									    <th width="16%"><?php echo $lang_action; ?></th>
 									</tr>
 							    </thead>
 								<tbody>
@@ -110,6 +110,7 @@
                                         foreach ($results as $data) {
                                             $id = $data->id;
                                             $cust_name = $data->no_rek;
+                                            $fullname = $data->fullname;
                                             $order_date = date("$display_dateformat", strtotime($data->created_date));
                                             $grandTotal = $data->total_deal;
 
@@ -118,13 +119,10 @@
                                 			<tr>
 	                                			<td><?php echo $id; ?></td>
 	                                			<td><?php echo $order_date; ?></td>
+	                                			<td><?php echo $fullname; ?></td>
 	                                			<td><?php echo $cust_name; ?></td>
+	                                			
 	                                			<td><?php echo number_format($grandTotal, 2); ?></td>
-	                                			<td>
-                    			<a href="<?=base_url()?>index.php/debit/make_payment?id=<?php echo $id; ?>" style="text-decoration: none;">
-									<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_make_payment; ?>&nbsp;&nbsp;</button>
-								</a>
-	                                			</td>
                                 			</tr>
                                 <?php 
                                         }

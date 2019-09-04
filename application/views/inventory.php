@@ -26,7 +26,7 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
+					<!-- <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
 						<div class="col-md-6">
 							
 						</div>
@@ -37,7 +37,7 @@
 								</button>
 							</a>
 						</div>
-					</div>
+					</div> -->
 					
 					<form action="<?=base_url()?>index.php/inventory/searchInventory" method="get">
 						<div class="row" style="margin-top: 10px;">
