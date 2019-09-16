@@ -108,7 +108,7 @@ class Sales_return extends CI_Controller
         $data['lang_choose_refund_by'] = $this->lang->line('choose_refund_by');
         $data['lang_choose_refund_method'] = $this->lang->line('choose_refund_method');
         $data['lang_are_you_confirm_return'] = $this->lang->line('are_you_confirm_return');
-        $data['penjualan'] = $this->Constant_model->manualQerySelect('SELECT sales.code FROM sales ');
+        $data['penjualan']  = $this->Constant_model->manualQerySelect('SELECT sales.code FROM sales WHERE created_date BETWEEN DATE_SUB(NOW(),INTERVAL 3 DAY) AND NOW()');
 		$this->load->view('create_sales_return',$data);
 	}
 	function get_data($id){

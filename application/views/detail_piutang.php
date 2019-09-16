@@ -52,7 +52,11 @@
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
-
+	<a href="<?=base_url()?>index.php/piutang/" style="text-decoration: none;">
+			<div class="btn btn-success" > 
+				<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
+			</div>
+		</a>
 </section>
 
 	

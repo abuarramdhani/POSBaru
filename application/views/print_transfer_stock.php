@@ -33,7 +33,7 @@ foreach ($sales as $data_total) {
     		/*width:210mm;*/
     	/*}*/
     </style>
-<body>
+<body onload="print()">
 	
 	<div class="surat_jalan">
 		<div class="row">
@@ -88,7 +88,6 @@ foreach ($sales as $data_total) {
 								<td><?php echo $data['qty'] ?></td>
 								<td><?php echo $data['first_location'] ?></td>
 								<td><?php echo $data['second_location'] ?></td>
-								<td>-</td>
 							</tr>
 						<?php $i++; endforeach ?>
 					</tbody>

@@ -286,7 +286,7 @@
 				if (json.status == 400) {
 					swal(json.message);
 				}else{
-					window.open("<?php echo base_url() ?>index.php/cashier/print/"+json.id);
+					openReceipt("<?php echo base_url() ?>index.php/cashier/print/"+json.id)
 					window.location.reload();
 				}
 			}
@@ -569,6 +569,9 @@
 				$('#total_bayar').val(total_bayar);
 			}
 		});
+	}
+	function openReceipt(ele){
+		var myWindow = window.open(ele, "", "width=380, height=550");
 	}
 /*
 	document.addEventListener('DOMContentLoaded', function() {

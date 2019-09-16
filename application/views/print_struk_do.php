@@ -35,7 +35,7 @@ foreach ($sales as $data_total) {
     		/*width:210mm;*/
     	/*}*/
     </style>
-<body>
+<body onload="print()">
 	<div class="surat_jalan">
 		<div class="row">
 			<div class="col-md-12">

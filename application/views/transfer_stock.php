@@ -42,7 +42,7 @@
 											<tr>
 												<td><?php echo $data->code ?></td>
 												<td><?php echo $data->created_date ?></td>
-												<td><a href="<?php echo base_url() ?>index.php/transfer_stock/print/<?php echo $data->code ?>" class="btn btn-primary" target="_blank">Print</a></td>
+												<td><a onclick="openReceipt('<?php echo base_url() ?>index.php/transfer_stock/print/<?php echo $data->code ?>')" class="btn btn-primary" target="_blank"><font color="WHITE">Print</font></a></td>
 											</tr>
 								<?php
                                         }
@@ -85,3 +85,8 @@
 <?php
     require_once 'includes/footer4.php';
 ?>
+<script type="text/javascript">
+	function openReceipt(ele){
+		var myWindow = window.open(ele, "", "width=970, height=740");
+	}
+</script>

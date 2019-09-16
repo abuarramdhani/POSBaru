@@ -29,6 +29,8 @@
                 $prod_name = $prodDtaData[0]->name;
                 $prod_price = $prodDtaData[0]->retail_price;
                 $prod_code = $prodDtaData[0]->code;
+                $member_price = $prodDtaData[0]->member_price;
+                $special_price = $prodDtaData[0]->special_price;
 
                 unset($prodDtaData);
             }
@@ -38,28 +40,32 @@
             // display new barcode
             $bc->draw('./assets/barcode/'.$pcode.'.gif');
         ?>
-        <table border="0" style="border-collapse: collapse; margin-bottom: 0px;" width="140px" height="auto">
-			<tr>
-				<td style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 12px;">
-					<?php echo $prod_name; ?>
+        <table border="1px">
+        	<tr>
+        		<td>
+        			<table border="0" style="border-collapse: collapse; margin-bottom: 0px;" width="320px" height="auto" border="1px">
+			<tr style="background-color: yellow;height: 30px">
+				<td colspan="2" style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 12px;">
+					<b><?php echo strtoupper($prod_name); ?></b>
 				</td>
 			</tr>
 			<tr>
-				<td style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 12px;">
+				<td valign="center" style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 12px;">
 					<img src="<?=base_url()?>assets/barcode/<?php echo $pcode; ?>.gif" />
 				</td>
-			</tr>
-			<tr>
-				<td style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 11px;">
-					<?php echo $prod_code; ?>
+				<td valign="center">
+					Harga Normal &nbsp;: Rp. <?php echo number_format($prod_price,0,',','.') ?>  <br>
+					Harga Spesial &nbsp;&nbsp;: Rp. <?php echo number_format($special_price,0,',','.') ?>  <br>
+					Harga Member : Rp. <?php echo number_format($member_price,0,',','.') ?>  <br>
+					
 				</td>
+				
 			</tr>
-			<tr>
-				<td style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 11px;">
-					<?php echo number_format($prod_price, 2, '.', ''); ?>
-				</td>
-			</tr>
+			
 		</table>
+        		</td>
+        	</tr>
+        </table>
 	</center>
 	
 <script type="text/javascript">

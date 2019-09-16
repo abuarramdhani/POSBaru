@@ -48,7 +48,6 @@
 							    	<tr>
 								    	<th width="10%">No</th>
 								    	<th width="20%">Nama Konsumen</th>
-								    	<th width="20%">Total</th>
 									    <th width="15%">Aksi</th>
 									</tr>
 							    </thead>

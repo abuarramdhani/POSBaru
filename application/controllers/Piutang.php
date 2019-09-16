@@ -291,7 +291,7 @@
                 echo "</tr>";
             }
         }else{
-            echo "<center>Data kosong</center>";
+            echo "<tr><td colspan='3'><center>Data kosong</center></td></tr>";
         }
         
     }
@@ -326,13 +326,11 @@
                 echo "</tr>";
             }
         }else{
-            echo "<center>Data kosong</center>";
+            echo "<tr><td colspan='3'><center>Data kosong</center></td></tr>";
         }
     }
     public function getSelectionData(){
-        $data = $this->Constant_model->manualQerySelect("SELECT 
-            v_data_piutang.*,
-            v_data_piutang.amount-SUM(piutang_payment.amount) as amount FROM v_data_piutang JOIN piutang_payment ON v_data_piutang.customer_id = piutang_payment.customer_id GROUP BY v_data_piutang.fullname");
+        $data = $this->Constant_model->manualQerySelect("SELECT * FROM `v_final_hutang`");
         
         if (count($data) > 0) {
             $i=1;
@@ -341,32 +339,32 @@
                 echo "<tr>";
                 echo "<td>".$i."</td>";
                 echo "<td>".$data['fullname']."</td>";
-                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
+                if ($data['sisa'] == 0) {
+                    echo "<td>Lunas</td>";
+                    
+                }else{
+                    echo "<td>Rp.".number_format($data['sisa'],0,'.',',')."</td>";
+                }
                 echo "<td>";
-                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-danger"');
+                if ($data['sisa'] != 0) {
+                    echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-danger"');
+                }
                 echo anchor('index.php/piutang/detail/'.$data['customer_id'],'Detail','class="btn btn-primary"');
                 echo "</td>";
                 echo "</tr>";
                 $i++;
             }
-        }else{
-            $data = $this->Constant_model->getAllData("v_data_piutang");
-            $i=1;
-            foreach ($data as $data) {
-                echo "<tr>";
-                echo "<td>".$i."</td>";
-                echo "<td>".$data['fullname']."</td>";
-                echo "<td>Rp.".number_format($data['amount'],0,'.',',')."</td>";
-                echo "<td>";
-                echo anchor('index.php/piutang/pembayaran_piutang?code='.$data['customer_id'].'&ncus='.$data['fullname'],'Bayar','class="btn btn-danger"');
-                echo anchor('index.php/piutang/detail/'.$data['customer_id'],'Detail','class="btn btn-primary"');
-                echo "</td>";
-                echo "</tr>";
-                $i++;
-            }
-            
-        }
+        }   
         
+    }
+    function get_total($id){
+        $a = $this->Constant_model->manualQerySelect("SELECT v_piutang.piutang-v_total_bayar.total_bayar as sisa,v_total_bayar.customer_id FROM `v_piutang` JOIN v_total_bayar ON v_piutang.customer_id = v_total_bayar.customer_id WHERE v_total_bayar.customer_id=$id");
+        if (count($a) > 0) {
+            echo json_encode($a);
+        }else{
+            $a = $this->Constant_model->manualQerySelect("SELECT amount as sisa FROM `v_data_piutang` WHERE v_data_piutang.customer_id=$id");
+            echo json_encode($a);
+        }
     }
     public function getSelectionDataCari(){
         $code = $this->input->get('code');

@@ -109,7 +109,7 @@
         </div>
         <div class="row">
             <?php if ($user_role == 1): ?>
-                <div class="col-md-6">
+                <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         
@@ -141,28 +141,10 @@
                         <div class="custom-control">
                             <?php foreach ($jatuh_tempo_piutang as $jatuh_tempo_piutang): ?>
                                 <label class="custom-control-label d-flex justify-content-between">
-                                    <?php echo anchor('index.php/piutang/pembayaran_piutang?code='.$jatuh_tempo_piutang["customer_id"],$jatuh_tempo_piutang['name']) ?>
+                                    <?php echo anchor('index.php/piutang/pembayaran_piutang?code='.$jatuh_tempo_piutang["customer_id"]."&ncus=".$jatuh_tempo_piutang['fullname'],$jatuh_tempo_piutang['fullname']) ?>
                                     <small class="text-muted font-size-11">
                                         <?php echo $jatuh_tempo_piutang['jatuh_tempo'] ?>
                                         </small>
-                                </label>
-                            <?php endforeach ?>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                         Hutang
-                    </div>
-                    <div class="card-body">
-                        <div class="custom-control">
-                            <?php foreach ($jatuh_tempo_hutang as $jatuh_tempo_hutang): ?>
-                                <label class="custom-control-label d-flex justify-content-between">
-                                    <?php echo anchor('index.php/hutang/pembayaran_hutang?code='.$jatuh_tempo_hutang['supplier_id'],$jatuh_tempo_hutang['name']) ?>
-                                    <small class="text-muted font-size-11"><?php echo $jatuh_tempo_hutang['jatuh_tempo'] ?></small>
                                 </label>
                             <?php endforeach ?>
                             

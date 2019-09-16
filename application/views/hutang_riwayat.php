@@ -16,7 +16,7 @@
 							<?php echo anchor('index.php/hutang/riwayat','<i class="fa fa-list"></i>&nbsp;Riwayat Pembayaran','class="btn btn-primary"') ?>
 						</div>
 					</div>
-					<div class="row" style="margin-top: 10px;">
+					<!-- <div class="row" style="margin-top: 10px;">
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Kode Supplier</label>
@@ -35,21 +35,19 @@
 								<button class="btn btn-primary" style="width: 100%;">&nbsp;&nbsp;Cari&nbsp;&nbsp;</button>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					
-					<div class="row" style="margin-top: 0px;">
+					<div class="row">
 						<div class="col-md-12">
 							
-						<div class="table-responsive">
-							<table class="table">
+							<table class="table table-stripped">
 							    <thead>
 								    
 							    	<tr>
-								    	<th width="10%">Kode</th>
-								    	<th width="20%">Nama Supplier</th>
-								    	
-								    	<th width="20%">Tanggal Pembayaran</th>
-								    	<th width="20%">Total</th>
+								    	<th>Kode</th>
+								    	<th>Nama Supplier</th>
+								    	<th>Tanggal Pembayaran</th>
+								    	<th>Total</th>
 									</tr>
 							    </thead>
 								<tbody id="data_hutang">
@@ -62,19 +60,17 @@
 								</tfoot>
 							</table>
 						</div>
-							
-						</div>
 					</div>
 					
 					
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->
-					<a href="<?=base_url()?>index.php/hutang/" style="text-decoration: none;">
-				<div class="btn btn-success" > 
-					<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
-				</div>
-			</a>
+		<a href="<?=base_url()?>index.php/hutang/" style="text-decoration: none;">
+			<div class="btn btn-success" > 
+				<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
+			</div>
+		</a>
 	</div><!-- Row // END -->
 
 </section>

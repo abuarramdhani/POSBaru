@@ -96,7 +96,14 @@ $user_id = $this->input->cookie('user_id', TRUE);
                         </a>
                     </li>
                 </ul>
-            </li>";
+            </li>
+            <li>
+                <a href='#'></i> <span>".$lang_products."</span> </a>
+                <ul>
+                    <li><a href='".base_url()."index.php/products/list_products'>".$lang_list_products."</a></li>
+                </ul>
+            </li>
+            ";
             }else{
 
             ?>
@@ -338,8 +345,14 @@ $user_id = $this->input->cookie('user_id', TRUE);
                                 
                                 <?php 
                                 $jatuh_tempo = $this->Constant_model->manualQerySelect('SELECT hutang.*,suppliers.name,suppliers.id as supplier_id FROM hutang JOIN suppliers ON hutang.supplier_id = suppliers.id WHERE hutang.status != "paid" AND jatuh_tempo <= NOW() ORDER BY hutang.created_date DESC');
-                                foreach ($jatuh_tempo as $jatuh_tempo): ?>
-                                    <a href="<?php echo base_url() ?>index.php/hutang/pembayaran_hutang?code=<?php echo $jatuh_tempo['supplier_id'] ?>" class="list-group-item d-flex link-1 hide-show-toggler">
+                                foreach ($jatuh_tempo as $jatuh_tempo):
+                                    if ($user_role ==1) {
+                                        $url = base_url()."index.php/hutang/pembayaran_hutang?code=".$jatuh_tempo['supplier_id']."";
+                                    }else{
+                                        $url = "";
+                                    }
+                                 ?>
+                                    <a href="<?php echo $url ?>" class="list-group-item d-flex link-1 hide-show-toggler">
                                    <div>
                                     <figure class="avatar avatar-sm m-r-15">
                                         <span class="avatar-title bg-warning rounded-circle"><?php echo substr($jatuh_tempo['name'], 0,1) ?></span>
@@ -359,6 +372,63 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             </ul>
                         </div>
                     </div>
+
+                </li>
+
+                <li class="nav-item dropdown">
+                    <?php 
+                    $total = $this->Constant_model->manualQerySelect("SELECT * FROM `v_final_hutang` WHERE jatuh_tempo <= NOW() AND  sisa > 0 GROUP BY customer_id ");
+                    if (count($total) >0) {
+                        $notif = "nav-link-notify";
+                        $judul = count($total)." Jatuh tempo";
+                    }else{
+                        $notif = "";
+                        $judul = "Data Kosong";
+                    } ?>
+                    
+                    <a href="#" class="nav-link <?php echo $notif ?>" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                        <div class="dropdown-menu-title d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-uppercase font-size-12 m-b-0">Piutang</h6>
+                                <small class="font-size-11 opacity-7"><?php echo $judul ?> </small>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-body">
+                            <ul class="list-group list-group-flush">
+                                
+                                <?php 
+                                $a = $this->Constant_model->manualQerySelect('SELECT * FROM `v_final_hutang` WHERE jatuh_tempo <= NOW() AND  sisa > 0 GROUP BY customer_id ');
+                                foreach ($a as $a):
+                                    if ($user_role ==1) {
+                                        $url = base_url()."index.php/piutang/pembayaran_piutang?code=".$a['customer_id']."&ncus=".$a['fullname'];
+                                    }else{
+                                        $url = "";
+                                    }
+                                 ?>
+                                    <a href="<?php echo $url ?>" class="list-group-item d-flex link-1 hide-show-toggler">
+                                   <div>
+                                    <figure class="avatar avatar-sm m-r-15">
+                                        <span class="avatar-title bg-warning rounded-circle"><?php echo substr($a['fullname'], 0,1) ?></span>
+                                    </figure>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="m-b-0 d-flex justify-content-between">
+                                        <?php echo $a['fullname'] ?>
+                                        <i title="Read Mark" data-toggle="tooltip"
+                                           class="hide-show-toggler-item fa fa-check font-size-11"></i>
+                                    </h6>
+                                    <span class="text-muted m-r-10 small"><?php echo $a['jatuh_tempo'] ?></span>
+                                    <span class="text-muted small">Rp. <?php echo number_format($a['sisa'],0,',','.') ?></span>
+                                </div>  
+                                </a>
+                                 <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+                    
                 </li>
             </ul>
         </div>

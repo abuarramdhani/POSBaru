@@ -51,21 +51,27 @@
 </script>
 
 <section id="content">
-
+	<?php
+                        if ($user_role == 1) {
+                            ?>
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"><?php echo $lang_edit_product; ?> : <?php echo $code; ?></h1>
 		</div>
 	</div><!--/.row-->
-	
+	<?php
+
+                        }
+                    ?>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
-				<div class="card-body">
-
-					<?php
+				<?php
                         if ($user_role == 1) {
                             ?>
+				<div class="card-body">
+
+					
 					<div class="row">
 						<div class="col-md-12" style="text-align: right;">
 							<form action="<?=base_url()?>index.php/products/deleteProduct" method="post" onsubmit="return confirm('Do you want to delete this Product?')">
@@ -77,12 +83,7 @@
 							</form>
 						</div>
 					</div>
-					<?php
-
-                        }
-                    ?>
-					
-				<form action="<?=base_url()?>index.php/products/updateProduct" method="post" enctype="multipart/form-data">				
+					<form action="<?=base_url()?>index.php/products/updateProduct" method="post" enctype="multipart/form-data">				
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -200,9 +201,16 @@
 
                         }
                     ?>
-	</form>				
+				</form>		
+					
+					
+						
 					
 				</div><!-- Panel Body // END -->
+				<?php
+
+                        }
+                    ?>
 			</div><!-- Panel Default // END -->
 			
 			
@@ -217,11 +225,7 @@
 						<div class="col-md-9"><b style="color: #0079c0"><?php echo $lang_inventory_count; ?></b></div>
 					</div>
 					<?php
-                        if ($user_role == 1) {
-                            $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
-                        } else {
-                            $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
-                        }
+                        $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
                         for ($t = 0; $t < count($outletData); ++$t) {
                             $outlet_id = $outletData[$t]->id;
                             $outlet_name = $outletData[$t]->name; ?>

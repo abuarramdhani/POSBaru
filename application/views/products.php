@@ -24,7 +24,7 @@
 		$(".fancybox").fancybox();
 	});
 	function openReceipt(ele){
-		var myWindow = window.open(ele, "", "width=380, height=550");
+		var myWindow = window.open(ele, "", "width=550, height=550");
 	}	
 </script>
 
@@ -165,7 +165,11 @@
                                                         } ?>
 												</td>
 												<td><?php echo $category_name; ?></td>
-												<td><?php echo number_format($cost, 2); ?></td>
+												<td><?php if ($user_role == 1){ ?>
+													<?php echo number_format($cost, 2); ?>
+												<?php }else{
+													echo "-";
+												} ?></td>
 												<td><?php echo number_format($price, 2); ?></td>
 												<td><?php echo number_format($special_price, 2); ?></td>
 												<td><?php echo number_format($member_price, 2); ?></td>
@@ -184,17 +188,17 @@
                                             } ?>
 												</td>
 												<td>
-										<a class="fancybox" rel="group" href="<?php echo $large_file_path; ?>" style="text-decoration: none;" title="<?php echo $code; ?>">
-											<i class="icono-image" style="color: #005b8a; height: 30px;"></i>
-										</a>
+												<a class="fancybox" rel="group" href="<?php echo $large_file_path; ?>" style="text-decoration: none;" title="<?php echo $code; ?>">
+													<i class="icono-image" style="color: #005b8a; height: 30px;"></i>
+												</a>
+															
+												<a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Edit">
+													<img src="<?=base_url()?>assets/img/edit_icon.png" height="30px" />
+												</a>
 													
-										<a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Edit">
-											<img src="<?=base_url()?>assets/img/edit_icon.png" height="30px" />
-										</a>
-													
-	<a onclick="openReceipt('<?=base_url()?>index.php/products/printBarcode?pcode=<?php echo $code; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Barcode">
-		<img src="<?=base_url()?>assets/img/barcode_icon.png" height="20px" />
-	</a>
+												<a onclick="openReceipt('<?=base_url()?>index.php/products/printBarcode?pcode=<?php echo $code; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Barcode">
+													<img src="<?=base_url()?>assets/img/barcode_icon.png" height="20px" />
+												</a>
 												</td>
 											</tr>
 								<?php

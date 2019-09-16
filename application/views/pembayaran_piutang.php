@@ -1,6 +1,7 @@
 <?php
     require_once 'includes/header4.php';
     $id = $this->input->get('code');
+    $nama = $this->input->get('ncus');
 ?>
 <section id="content">
 	<div class="row">
@@ -12,7 +13,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Nama Konsumen</label>
-								<input type="text" class="form-control" disabled id="nama" />
+								<input type="text" class="form-control" disabled id="nama" value="<?php echo $nama ?>" />
 								<input type="hidden" id="customer_id" value="<?php echo $id ?>"/>
 							</div>
 						</div>
@@ -43,7 +44,7 @@
 								<thead>
 									<tr>
 										<th>Tanggal Pembayaran</th>
-										<th>User</th>
+										<th>Kode Pembayaran</th>
 										<th>Total</th>
 									</tr>
 
@@ -59,6 +60,11 @@
 			
 		</div><!-- Col md 12 // END -->
 	</div><!-- Row // END -->
+	<a href="<?=base_url()?>index.php/piutang/" style="text-decoration: none;">
+			<div class="btn btn-success" > 
+				<i class="icono-caretLeft" style="color: #FFF;"></i>Kembali
+			</div>
+		</a>
 </section>
 
 	
@@ -75,9 +81,11 @@
 		var amount = $('#amount').val();
 		var customer_id = $('#customer_id').val();
 		if(amount == 0 || amount == null){
-			swal('Jumlah bayar tidak boleh kosong');
+			swal('Peringatan','Jumlah bayar tidak boleh kosong','warning');
 		}else if (customer_id == null) {
-			swal('customer tidak boleh kosong');
+			swal('Peringatan!','customer tidak boleh kosong','warning');
+		}else if(amount > total ){
+			swal('Peringatan!','Total Bayar tidak boleh lebih dari total piutang','warning');
 		}else{
 			var data = {
 				customer_id:customer_id,
@@ -113,11 +121,10 @@
 	function get_data_cust(){
 		var customer_id = $('#customer_id').val();
 		$.ajax({
-			url:'<?php echo base_url() ?>index.php/piutang/get_data_cust/'+customer_id,
+			url:'<?php echo base_url() ?>index.php/piutang/get_total/'+customer_id,
 			success:function(data){
 				var json = jQuery.parseJSON(data);
-				$('#total').val(json[0].amount);
-				$('#nama').val(json[0].fullname);
+				$('#total').val(json[0].sisa);
 			}	
 		});
 	}

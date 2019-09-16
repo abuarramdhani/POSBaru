@@ -34,7 +34,7 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>Tanggal Hutang</th>
+										<th>Kode</th>
 										<th>Jatuh Tempo</th>
 										<th>Total</th>
 										<th>Aksi</th>

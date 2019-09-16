@@ -38,9 +38,11 @@
 											<td><?php echo $data['name'] ?></td>
 											<td>Rp. <?php echo number_format($data['total_deal'],0,',','.') ?></td>
 											<td>
-												<a href="<?php echo base_url() ?>index.php/cashier/print_do/<?php echo $data['id'] ?>" target="_blank" class="btn btn-success">Print Surat Jalan</a>
-												<a href="<?php echo base_url() ?>index.php/cashier/print_gudang/<?php echo $data['id'] ?>" target="_blank" class="btn btn-primary">Print Gudang</a>
-												<a href="<?php echo base_url() ?>index.php/cashier/print/<?php echo $data['id'] ?>" target="_blank" class="btn btn-danger">Print Struk</a>
+												<a onclick='openReceipt("<?php echo base_url() ?>index.php/cashier/print_do/<?php echo $data['id'] ?>")' target="_blank" class="btn btn-success"><font color="white">Print Surat Jalan</font></a>
+
+
+												<a onclick='openReceipt("<?php echo base_url() ?>index.php/cashier/print_gudang/<?php echo $data['id'] ?>")' target="_blank" class="btn btn-primary"><font color="white">Print Gudang</font></a>
+												<a onclick='openReceipt("<?php echo base_url() ?>index.php/cashier/print/<?php echo $data['id'] ?>")' target="_blank" class="btn btn-danger"><font color="white">Print Struk</font></a>
 							
 
 											</td>
@@ -69,3 +71,8 @@
 <?php
     require_once 'includes/footer4.php';
 ?>
+<script type="text/javascript">
+	function openReceipt(ele){
+		var myWindow = window.open(ele, "", "width=380, height=550");
+	}
+</script>

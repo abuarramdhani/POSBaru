@@ -147,7 +147,7 @@ require_once 'includes/header4.php';
                                 unset($orderResult);
                                 unset($orderData);
 
-                                /*
+                                
                                 $expResult = $this->db->query("SELECT * FROM expenses WHERE date >= '$exp_date_start' AND date <= '$exp_date_end' AND outlet_id = '$outlet_id' AND status = '1' ");
                                 $expData = $expResult->result();
                                 for ($ep = 0; $ep < count($expData); ++$ep) {
@@ -155,7 +155,7 @@ require_once 'includes/header4.php';
                                 }
                                 unset($expResult);
                                 unset($expData);
-                                */
+                                
                             }    // End of Number of Day Loop;
 
                             echo($total_monthly_amt - ($total_expenses_amt + $total_items_cost)).',';

@@ -18,13 +18,13 @@ $this->load->view('includes/header4.php');
 								</button>
 							</a>
 						</div>
-						<div class="col-md-6" style="text-align: right;">
+						<!-- <div class="col-md-6" style="text-align: right;">
 							<a href="<?=base_url()?>index.php/customers/exportCustomer" style="text-decoration: none;">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									<?php echo $lang_export; ?>
 								</button>
 							</a>
-						</div>
+						</div> -->
 					</div>
 					<?php
 
