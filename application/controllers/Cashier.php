@@ -283,9 +283,9 @@ class Cashier extends CI_Controller
             echo "<tr>";
             echo "<td>".$data['code']."</td>";
             echo "<td>".$data['name']."</td>";
-            echo "<td><input type='text' class='form-control' typeKolom='qty' id='qty' name='qty' value='".$data['qty']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' /></td>";
-            echo "<td><input type='text' class='form-control' typeKolom='price_print' id='price_print' name='price_print' value='".$data['price_print']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
-            echo "<td><input type='text' class='form-control' typeKolom='price_deal' id='price_deal' name='price_deal' value='".$data['price_deal']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
+            echo "<td><input type='number' class='form-control' typeKolom='qty' id='qty' name='qty' value='".$data['qty']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' /></td>";
+            echo "<td><input type='number' class='form-control' typeKolom='price_print' id='price_print' name='price_print' value='".$data['price_print']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
+            echo "<td><input type='number' class='form-control' typeKolom='price_deal' id='price_deal' name='price_deal' value='".$data['price_deal']."' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."'/></td>";
             echo "<td><select class='form-control' typeKolom='outlets' id='listgudang' name='listgudang' sales_id='".$data['sales_id']."' pcode='".$data['kode_barang']."' style='width: 50%;'>";
             foreach ($a as $a) {
                 echo "<option value='".$a['id']."'>".$a['name']."</option>";

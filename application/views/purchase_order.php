@@ -99,7 +99,7 @@
 
             $status_name = '';
             $statusData = $this->Constant_model->getDataOneColumn('purchase_order_status', 'id', "$status_id");
-            $status_name = $statusData[0]->name; ?>
+            //$status_name = $statusData[0]->name; ?>
 			<tr>
 				<td><?php echo $po_numb; ?></td>
 				<td><?php echo number_format($total,0,'.',','); ?> </td>

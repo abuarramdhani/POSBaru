@@ -11,21 +11,21 @@
 					<?php
                         if ($user_role < 3) {
                             ?>
-					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px; margin-top: -5px;">
+					<div class="row">
 						<div class="col-md-6">
 							<a href="<?=base_url()?>index.php/customers/addCustomer" style="text-decoration: none;">
-								<button type="button" class="btn btn-primary" style="padding-top: 2px; padding-bottom: 2px; border: 0px;">
+								<button type="button" class="btn btn-primary">
 									<i class="fa fa-plus"></i> <?php echo $lang_add_customer; ?>
 								</button>
 							</a>
 						</div>
-						<div class="col-md-6" style="text-align: right;">
+						<!-- <div class="col-md-6" style="text-align: right;">
 							<a href="<?=base_url()?>index.php/customers/exportSearchCustomer?search_name=<?php echo $search_name; ?>&search_email=<?php echo $search_email; ?>&search_mobile=<?php echo $search_mobile; ?>" style="text-decoration: none;">
 								<button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
 									<?php echo $lang_export; ?>
 								</button>
 							</a>
-						</div>
+						</div> -->
 					</div>
 					<?php
 
@@ -133,11 +133,11 @@
 				</td>
 				<td>
 					<a href="<?=base_url()?>index.php/customers/edit_customer?cust_id=<?php echo $cust_id; ?>" style="text-decoration: none;">
-						<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
+						<button class="btn btn-success" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
 					</a>
 					
 					<a href="<?=base_url()?>index.php/customers/customer_history?cust_id=<?php echo $cust_id; ?>" style="text-decoration: none; margin-left: 10px;">
-						<button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_sales_history; ?>&nbsp;&nbsp;</button>
+						<button class="btn btn-danger" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_sales_history; ?>&nbsp;&nbsp;</button>
 					</a>
 				</td>
 			</tr>

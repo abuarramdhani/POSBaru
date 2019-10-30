@@ -1,7 +1,8 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Products extends CI_Controller
 {
     /**
@@ -39,7 +40,45 @@ class Products extends CI_Controller
     {
         redirect('index.php/dashboard');
     }
+    public function export(){
+        $data_barang = $this->Products_model->export_product_data();
+        $spreadsheet = new Spreadsheet();
 
+          $spreadsheet->setActiveSheetIndex(0)
+                      ->setCellValue('A1', 'No')
+                      ->setCellValue('B1', 'Kode')
+                      ->setCellValue('C1', 'Nama Barang')
+                      ->setCellValue('D1', 'Harga Beli')
+                      ->setCellValue('E1', 'Harga Jual')
+                      ->setCellValue('F1', 'Harga Spesial')
+                      ->setCellValue('G1', 'Harga Member')
+                      ->setCellValue('H1', 'Stok');
+
+          $kolom = 2;
+          $nomor = 1;
+          foreach($data_barang as $barang) {
+            $spreadsheet->setActiveSheetIndex(0)
+                       ->setCellValue('A' . $kolom, $nomor)
+                       ->setCellValue('B' . $kolom, $barang['code'])
+                       ->setCellValue('C' . $kolom, $barang['name'])
+                       ->setCellValue('D' . $kolom, $barang['purchase_price'])
+                       ->setCellValue('E' . $kolom, $barang['retail_price'])
+                       ->setCellValue('F' . $kolom, $barang['special_price'])
+                       ->setCellValue('G' . $kolom, $barang['member_price'])
+                       ->setCellValue('H' . $kolom, $barang['qty'])
+                       ;
+            $nomor++;
+            $kolom++;
+          }
+        
+        $filename = 'simple';
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xls"'); 
+        header('Cache-Control: max-age=0');
+        ob_end_clean();
+        $writer->save('php://output');
+    }
     // ****************************** View Page -- START ****************************** //
 
     // View Product Category;

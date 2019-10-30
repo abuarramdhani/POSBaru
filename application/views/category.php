@@ -9,40 +9,6 @@
 			<div class="card">
 				<div class="card-body">
 					
-					<?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-warning" role="alert">
-										<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php	
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-							<div class="row" id="notificationWrp">
-								<div class="col-md-12">
-									<div class="alert bg-success" role="alert">
-										<i class="icono-check" style="color: #FFF;"></i> 
-										<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-									</div>
-								</div>
-							</div>
-					<?php
-
-                            }
-                        }
-                    ?>
-					
 					<div class="row">
 						<div class="col-md-12">
 							<?php
@@ -91,7 +57,7 @@
 												</td>
 												<td>
 													<a href="<?=base_url()?>index.php/products/editproductcategory?id=<?php echo $id; ?>" style="text-decoration: none;">
-														<button class="btn btn-primary">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
+														<button class="btn btn-danger">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
 													</a>
 												</td>
 											</tr>

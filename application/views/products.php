@@ -31,13 +31,6 @@
 
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_list_products; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -49,14 +42,20 @@
                         if ($user_role < 2) {
                             ?>
 					<div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 8px;">
-						<div class="col-md-12">
+						<div class="col-md-10">
 							<a href="<?=base_url()?>index.php/products/addproduct" style="text-decoration: none">
 								<button class="btn btn-primary"  ><i class="fa fa-plus"></i>
 									<?php echo $lang_add_product; ?>
 								</button>
 							</a>
 						</div>
+						<div class="col-md-2">
+							<form action="<?php echo base_url() ?>index.php/products/export">
+								<input type="submit" class="btn btn-danger" value="Export ke excel">
+								</form>	
+						</div>
 					</div>
+
 					<?php
 
                         }
@@ -98,7 +97,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>&nbsp;</label><br />
-									<button class="btn btn-primary" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_search_product; ?>&nbsp;&nbsp;</button>
+									<button class="btn btn-success" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_search_product; ?>&nbsp;&nbsp;</button>
 								</div>
 							</div>
 						</div>
@@ -192,12 +191,12 @@
 													<i class="icono-image" style="color: #005b8a; height: 30px;"></i>
 												</a>
 															
-												<a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Edit">
-													<img src="<?=base_url()?>assets/img/edit_icon.png" height="30px" />
+												<a href="<?=base_url()?>index.php/products/editproduct?id=<?php echo $id; ?>" class="btn btn-warning" title="Edit">
+													<i class="fa fa-edit"></i>
 												</a>
 													
-												<a onclick="openReceipt('<?=base_url()?>index.php/products/printBarcode?pcode=<?php echo $code; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Barcode">
-													<img src="<?=base_url()?>assets/img/barcode_icon.png" height="20px" />
+												<a onclick="openReceipt('<?=base_url()?>index.php/products/printBarcode?pcode=<?php echo $code; ?>')" class="btn btn-danger" title="Print Barcode">
+													<i class="fa fa-barcode"></i>
 												</a>
 												</td>
 											</tr>

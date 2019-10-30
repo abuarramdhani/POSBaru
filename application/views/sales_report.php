@@ -98,8 +98,20 @@
 								<input type="submit" class="btn btn-primary" value="<?php echo $lang_get_report; ?>" />
 							</div>
 						</div>
+
 					</div>
 					</form>
+                    <form action="<?=base_url()?>index.php/reports/export" method="get">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label><br />
+                                <input type="hidden" name="report" value="1" />
+                                <input type="hidden" name="awal" value="<?php echo $this->input->get('start_date') ?>" />
+                                <input type="hidden" name="akhir" value="<?php echo $this->input->get('end_date') ?>" />
+                                <input type="submit" class="btn btn-primary" value="<?php echo $lang_export_to_excel; ?>" />
+                            </div>
+                        </div>
+                    </form>
 
 <?php
     if (isset($_GET['report'])) {

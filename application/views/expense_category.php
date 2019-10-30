@@ -6,22 +6,6 @@
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 <section id="content">
-	<section class="vbox">
-		<header class="header bg-white b-b">
-			<p>Welcome to <?php echo $lang_dashboard; ?></p>
-			<a href="<?=base_url()?>index.php/pos" class="btn btn-success pull-right btn-sm" id="new-note">
-				<i class="fa fa-adjust"></i> <?php echo $lang_pos; ?>
-			</a>
-		</header>
-
-		<section class="scrollable wrapper">
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_expenses_category; ?></h1>
-		</div>
-	</div><!--/.row-->
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -103,7 +87,7 @@
 												</td>
 												<td>
 													<a href="<?=base_url()?>index.php/expenses/expense_category_edit?id=<?php echo $exp_id; ?>" style="text-decoration: none;">
-														<button class="btn btn-primary">
+														<button class="btn btn-danger">
 															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</button>
 													</a>
@@ -129,9 +113,6 @@
 							
 						</div>
 					</div>
-					
-					
-					
 				</div><!-- Panel Body // END -->
 			</div><!-- Panel Default // END -->
 		</div><!-- Col md 12 // END -->

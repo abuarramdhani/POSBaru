@@ -67,7 +67,7 @@
 												</td>
 												<td>
 													<a href="<?=base_url()?>index.php/setting/editoutlet?id=<?php echo $id; ?>" style="text-decoration: none;">
-														<button class="btn btn-primary">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
+														<button class="btn btn-danger">&nbsp;&nbsp;<?php echo $lang_edit; ?>&nbsp;&nbsp;</button>
 													</a>
 												</td>
 											</tr>

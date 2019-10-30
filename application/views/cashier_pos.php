@@ -365,6 +365,27 @@
 			}
 		});
 	});
+	$(document).on('keypress','#qty',function(e){
+		if (e.which == 13) {
+			var a = $(this).attr('typeKolom');
+			var sales_order_no = $(this).attr('sales_id');
+			var pcode = $(this).attr('pcode');
+			var val = $(this).val();
+			$.ajax({
+				url	: '<?=base_url()?>index.php/cashier/editKolom',
+				data:{
+					qty:val,
+					type:a,
+					sales_order_no:sales_order_no,
+					pcode:pcode
+				},
+				type:'POST',
+				success:function(data){
+					get_total(sales_order_no);
+				}
+			});
+		}
+	})
 	$(document).on('blur','#price_print',function(){
 		var a = $(this).attr('typeKolom');
 		var sales_order_no = $(this).attr('sales_id');
@@ -383,6 +404,27 @@
 				get_total(sales_order_no);
 			}
 		});
+	});
+	$(document).on('keypress','#price_print',function(e){
+		if (e.which == 13) {
+			var a = $(this).attr('typeKolom');
+		var sales_order_no = $(this).attr('sales_id');
+		var pcode = $(this).attr('pcode');
+		var val = $(this).val();
+		$.ajax({
+			url	: '<?=base_url()?>index.php/cashier/editKolom',
+			data:{
+				price_print:val,
+				type:a,
+				sales_order_no:sales_order_no,
+				pcode:pcode
+			},
+			type:'POST',
+			success:function(data){
+				get_total(sales_order_no);
+			}
+		});
+		}
 	});
 	$(document).on('blur','#price_deal',function(){
 		var a = $(this).attr('typeKolom');
@@ -403,6 +445,28 @@
 
 			}
 		});
+	});
+	$(document).on('keypress','#price_deal',function(e){
+		if (e.which == 13) {
+			var a = $(this).attr('typeKolom');
+			var sales_order_no = $(this).attr('sales_id');
+			var pcode = $(this).attr('pcode');
+			var val = $(this).val();
+			$.ajax({
+				url	: '<?=base_url()?>index.php/cashier/editKolom',
+				data:{
+					price_deal:val,
+					type:a,
+					sales_order_no:sales_order_no,
+					pcode:pcode
+				},
+				type:'POST',
+				success:function(data){
+					get_total(sales_order_no);
+
+				}
+			});
+		}
 	});
 	$(document).on('click','#btnHapusBarang',function(){
 		var sales_order_no = $(this).attr('sales_id');

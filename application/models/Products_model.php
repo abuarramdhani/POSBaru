@@ -65,6 +65,22 @@ class Products_model extends CI_Model
 
         return $result;
     }
+    public function export_product_data()
+    {
+        $this->db->select('products.*,SUM(inventory.qty) as qty');
+        $this->db->from('products');
+        $this->db->join('inventory','products.id = inventory.product_code');
+        $this->db->order_by('products.id', 'DESC');
+        $this->db->group_by('products.code');
+
+        $query = $this->db->get();
+
+        $result = $query->result_array();
+
+        $this->db->save_queries = false;
+
+        return $result;
+    }
 
     public function record_label_count()
     {

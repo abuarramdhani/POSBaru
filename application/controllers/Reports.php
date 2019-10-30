@@ -1,7 +1,8 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Reports extends CI_Controller
 {
     /**
@@ -444,6 +445,44 @@ class Reports extends CI_Controller
         header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
+    }
+    function export(){
+        $awal = $this->input->get('awal');
+        $akhir = $this->input->get('akhir');
+        $data = $this->Reports_model->export_sales_data($awal,$akhir);
+        $spreadsheet = new Spreadsheet();
+
+          $spreadsheet->setActiveSheetIndex(0)
+                      ->setCellValue('A1', 'No')
+                      ->setCellValue('B1', 'Kode')
+                      ->setCellValue('C1', 'Tanggal')
+                      ->setCellValue('D1', 'Total Deal')
+                      ->setCellValue('E1', 'Total Print')
+                      ->setCellValue('F1', 'Metode');
+
+          $kolom = 2;
+          $nomor = 1;
+          foreach($data as $barang) {
+            $spreadsheet->setActiveSheetIndex(0)
+                       ->setCellValue('A' . $kolom, $nomor)
+                       ->setCellValue('B' . $kolom, $barang['code'])
+                       ->setCellValue('C' . $kolom, $barang['created_date'])
+                       ->setCellValue('D' . $kolom, $barang['total_deal'])
+                       ->setCellValue('E' . $kolom, $barang['total_print'])
+                       ->setCellValue('F' . $kolom, $barang['metode'])
+                       ;
+            $nomor++;
+            $kolom++;
+          }
+        
+        $filename = 'Laporan Penjualan';
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xls"'); 
+        header('Cache-Control: max-age=0');
+        ob_end_clean();
+        $writer->save('php://output');
+
     }
     // ****************************** Export Excel -- END ****************************** //
 }

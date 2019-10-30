@@ -162,7 +162,7 @@
     
         $('#pnlcontainer').highcharts({
             title: {
-                text: '<?php echo $lang_monthly_pnl_by_outlets; ?>',
+                text: '<?php echo $lang_sales_report; ?>',
                 x: -20 //center
             },
             subtitle: {
@@ -198,18 +198,8 @@
                 borderWidth: 0
             },
             series: [
-            <?php
-                if ($user_role == '1') {
-                    $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'id', 'DESC');
-                } else {
-                    $outletData = $this->Constant_model->getDataTwoColumnSortColumn('outlets', 'id', "$user_outlet", 'status', '1', 'id', 'DESC');
-                }
-
-                  for ($o = 0; $o < count($outletData); ++$o) {
-                      $outlet_id = $outletData[$o]->id;
-                      $outlet_name = $outletData[$o]->name; ?>
             {
-                name: '<?php echo $outlet_name; ?>',
+                name: 'Total Penjualan',
                 data: [
                     <?php
                         for ($m = 0; $m < count($months); ++$m) {
@@ -272,11 +262,7 @@
                         } ?>
                 ]
     
-            }, 
-            <?php
-
-                  }
-            ?>
+            },
             ]
         });
 </script>

@@ -19,13 +19,6 @@
 </script>
 
 <section id="content">
-
-
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header"><?php echo $lang_expenses; ?></h1>
-		</div>
-	</div><!--/.row-->
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -40,7 +33,7 @@
 								</button>
 							</a>
 						</div>
-						<div class="col-md-6" style="text-align: right;">
+						<!-- <div class="col-md-6" style="text-align: right;">
 							<?php
                                 if ($user_role < 3) {
                                     ?>
@@ -53,7 +46,7 @@
 
                                 }
                             ?>
-						</div>
+						</div> -->
 					</div>
 					
 					<form action="<?=base_url()?>index.php/expenses/searchExpenses" method="get" style="margin-top: 7px;">

@@ -118,7 +118,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                 <ul>
                     <li><a href="<?=base_url()?>index.php/products/list_products"><?php echo $lang_list_products; ?></a></li>
                     <li><a href="<?=base_url()?>index.php/inventory/view"><?php echo $lang_inventory; ?></a></li>
-                    <li><a href="<?=base_url()?>index.php/products/print_label"><?php echo $lang_print_product_label; ?></a></li>
+                    <!-- <li><a href="<?=base_url()?>index.php/products/print_label"><?php echo $lang_print_product_label; ?></a></li> -->
                     <li>
                         <a href="<?=base_url()?>index.php/products/product_category"><?php echo $lang_product_category; ?></a>
                     </li>
@@ -159,7 +159,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
             </li>
             <li><?php echo anchor('index.php/piutang',"Piutang",($link=="piutang"?'class="active"':'')) ?></li>
             <li><?php echo anchor('index.php/hutang',"Hutang",($link=="hutang"?'class="active"':'')) ?></li>
-            <li>
+            <!-- <li>
                 <a href="#"><?php echo $lang_expenses ?></a>
                 <ul>
                    <li>
@@ -181,7 +181,7 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             } ?>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <?php if ($user_role == 1): ?>
                 <li>
                     <a href="#"><?php echo $lang_pnl ?></a>
@@ -240,11 +240,11 @@ $user_id = $this->input->cookie('user_id', TRUE);
                             <?php echo $lang_suppliers; ?>
                         </a>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a <?php if (($link == 'payment_methods')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/payment_methods">
                             <?php echo $lang_payment_methods; ?>
                         </a>
-                    </li> -->
+                    </li>
                     <li>
                         <a <?php if (($link == 'system_setting')) { ?> style="background-color: #e9ecf2;" <?php } ?> href="<?=base_url()?>index.php/setting/system_setting">
                             <?php echo $lang_system_setting; ?>

@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/header4.php';
     for ($i = 0; $i < 12; ++$i) {
-        $months[] = date('Y-m', strtotime(date('Y-m-01')." -$i months"));
+        $months[] = date('Y-m', strtotime(date('Y-m-01')." +$i months"));
     }
 
     $month_name_array = array();
@@ -34,7 +34,7 @@ require_once 'includes/header4.php';
 							
 							<div class="row" style="margin-top: 10px;">
 								<div class="col-md-12" style="font-size:15px;">
-								<b>Profit &amp; Loss</b> = Selling Price - Cost - tax
+								<b>Profit &amp; Loss</b> = Total Penjualan - Total Modal
 								</div>
 							</div>
 							
@@ -88,86 +88,46 @@ require_once 'includes/header4.php';
 	            borderWidth: 0
 	        },
 	        series: [
-	        <?php
-                if ($user_role == '1') {
-                    $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'id', 'DESC');
-                } else {
-                    $outletData = $this->Constant_model->getDataTwoColumnSortColumn('outlets', 'id', "$user_outlet", 'status', '1', 'id', 'DESC');
-                }
-
-                  for ($o = 0; $o < count($outletData); ++$o) {
-                      $outlet_id = $outletData[$o]->id;
-                      $outlet_name = $outletData[$o]->name; ?>
-			{
-	            name: '<?php echo $outlet_name; ?>',
+	        {
+	            name: 'Total Penjualan',
 	            data: [
-	            	<?php
-                        for ($m = 0; $m < count($months); ++$m) {
-                            $year = date('Y', strtotime($months[$m]));
-                            $mon = date('m', strtotime($months[$m]));
-
-                            $total_expenses_amt = 0;
-                            $total_monthly_amt = 0;
-                            $total_items_cost = 0;
-                            $total_tax_amt = 0;
-
-                            $number_of_day = cal_days_in_month(CAL_GREGORIAN, $mon, $year);
-
-                            for ($d = 1; $d <= $number_of_day; ++$d) {
-                                if (strlen($d) == 1) {
-                                    $d = '0'.$d;
-                                }
-
-                                $full_date_start = $year.'-'.$mon.'-'.$d.' 00:00:00';
-                                $full_date_end = $year.'-'.$mon.'-'.$d.' 23:59:59';
-
-                                $exp_date_start = $year.'-'.$mon.'-'.$d;
-                                $exp_date_end = $year.'-'.$mon.'-'.$d;
-
-                                $orderResult = $this->db->query("SELECT id,total_deal FROM sales WHERE created_date >= '$full_date_start' AND created_date <= '$full_date_end'");
-                                $orderData = $orderResult->result();
-                                for ($od = 0; $od < count($orderData); ++$od) {
-                                    $order_id = $orderData[$od]->id;
-                                    $total_monthly_amt += number_format($orderData[$od]->total_deal, 2, '.', '');
-
-                                    $itemResult = $this->db->query("SELECT * FROM order_items WHERE order_id = '$order_id' ");
-                                    $itemData = $itemResult->result();
-                                    for ($it = 0; $it < count($itemData); ++$it) {
-                                        $each_item_cost = $itemData[$it]->cost;
-                                        $each_item_qty = $itemData[$it]->qty;
-
-                                        $each_rows = 0;
-                                        $each_rows = ($each_item_cost * $each_item_qty);
-
-                                        $total_items_cost += $each_rows;
-                                    }
-                                    unset($itemResult);
-                                    unset($itemData);
-                                }
-                                unset($orderResult);
-                                unset($orderData);
-
-                                
-                                $expResult = $this->db->query("SELECT * FROM expenses WHERE date >= '$exp_date_start' AND date <= '$exp_date_end' AND outlet_id = '$outlet_id' AND status = '1' ");
-                                $expData = $expResult->result();
-                                for ($ep = 0; $ep < count($expData); ++$ep) {
-                                    $total_expenses_amt += $expData[$ep]->amount;
-                                }
-                                unset($expResult);
-                                unset($expData);
-                                
-                            }    // End of Number of Day Loop;
-
-                            echo($total_monthly_amt - ($total_expenses_amt + $total_items_cost)).',';
-                        } ?>
-	            ]
+	            <?php 
+	            $q = $this->db->query("SELECT SUM(sales_items.price_print) as total_print,SUM(sales_items.price_deal) as total_deal,SUM(sales_items.price_cost) total_modal, MONTH(sales.created_date) as bulan FROM `sales_items` JOIN sales ON sales.code = sales_items.sales_id WHERE YEAR(NOW()) GROUP BY MONTH(sales.created_date)");
+	            $data = $q->result_array();
+	            foreach ($data as $data) {
+	            	echo $data['total_deal'].",";
+	            }
+	             ?>
+				]
 	
 	        }, 
-			<?php
-
-                  }
-            ?>
-	        ]
+			{
+	            name: 'Total Modal',
+	            data: [
+	            <?php 
+	            $q = $this->db->query("SELECT SUM(sales_items.price_print) as total_print,SUM(sales_items.price_deal) as total_deal,SUM(sales_items.price_cost) total_modal, MONTH(sales.created_date) as bulan FROM `sales_items` JOIN sales ON sales.code = sales_items.sales_id WHERE YEAR(NOW()) GROUP BY MONTH(sales.created_date)");
+	            $data = $q->result_array();
+	            foreach ($data as $data) {
+	            	echo $data['total_modal'].",";
+	            }
+	             ?>
+				]
+	
+	        }, 
+	        {
+	            name: 'Total Profit',
+	            data: [
+	            <?php 
+	            $q = $this->db->query("SELECT SUM(sales_items.price_print) as total_print,SUM(sales_items.price_deal) as total_deal,SUM(sales_items.price_cost) total_modal, MONTH(sales.created_date) as bulan FROM `sales_items` JOIN sales ON sales.code = sales_items.sales_id WHERE YEAR(NOW()) GROUP BY MONTH(sales.created_date)");
+	            $data = $q->result_array();
+	            foreach ($data as $data) {
+	            	echo $data['total_deal']-$data['total_modal'].",";
+	            }
+	             ?>
+				]
+	
+	        }, 
+			]
 	    });
 </script>
 

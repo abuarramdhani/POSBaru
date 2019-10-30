@@ -57,7 +57,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>&nbsp;</label><br />
-									<button class="btn btn-primary" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_search; ?>&nbsp;&nbsp;</button>
+									<button class="btn btn-success" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_search; ?>&nbsp;&nbsp;</button>
 								</div>
 							</div>
 						</div>
@@ -126,7 +126,7 @@
 	                                			<!-- <td><?php echo number_format($each_row_cost, 2, '.', ''); ?></td> -->
 	                                			<td>
 		                                			<a href="<?=base_url()?>index.php/inventory/view_detail?pcode=<?php echo $id; ?>" style="text-decoration: none;">
-			                                			<button class="btn btn-primary" style="padding: 5px 12px;">
+			                                			<button class="btn btn-danger" style="padding: 5px 12px;">
 			                                				&nbsp;&nbsp;<?php echo $lang_view; ?>&nbsp;&nbsp;
 			                                			</button>
 		                                			</a>

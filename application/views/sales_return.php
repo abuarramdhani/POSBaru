@@ -6,6 +6,7 @@ $this->load->view('includes/header4.php');
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
+				<div class="card-body">
 					<?php
                         if ($this->input->cookie('user_role',TRUE) < 3) {
                             ?>
@@ -61,10 +62,11 @@ $this->load->view('includes/header4.php');
 							
 						</div>
 					</div>
+				</div>
 					
-				</div><!-- Panel Body // END -->
-			</div><!-- Panel Default // END -->
-		</div><!-- Col md 12 // END -->
+			</div><!-- Panel Body // END -->
+		</div><!-- Panel Default // END -->
+	</div><!-- Col md 12 // END -->
 		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
 </section>
 
